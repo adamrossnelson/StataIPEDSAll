@@ -10,7 +10,7 @@ cls
 // GitHub rebuild:			September 2017
 // Original Author:			Adam Ross Nelson
 
-/*######################################################################
+/*#############################################################################
 
       This do file will place in c:\statadata "Directory Info 02 to 16.dta"
 
@@ -21,9 +21,11 @@ cls
 	  
 	  Questions or comments via GitHub or Twitter @adamrossnelson
 	  
-########################################################################*/
+##############################################################################*/
 
-sleep 5000												// [ 5 second pause ]
+window stopbox rusure "Have you created c:\statadata ?`=char(13)'" ///
+"Do you want to continue?`=char(13)'`=char(13)'Yes=continue; No=stop here."
+window stopbox note "Okay, will now proceed."
 
 // Utilize existing directory structure
 cd c:/statadata
