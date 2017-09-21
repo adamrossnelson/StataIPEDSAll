@@ -2,7 +2,7 @@
 
 These files will download, build, and save to the local computer data from the Directory Information survey at the US DOE's Integrated Postsecondary Education Data Stystem.
 
-All files are intended to be reverse compatible to Version 13. Use ove version control. Also uses `saveold`. Intended, but not tested.
+All files are intended to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended, but not tested.
 
 ## IPEDSDirInfo02to16.do
 
