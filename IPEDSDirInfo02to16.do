@@ -40,7 +40,7 @@ cd workspace								// Move into working directory.
 // Loop is designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
 forvalues fname = 2002 / 2016 {
-		// Copy, unzip, and importa data.
+		// Copy, unzip, and import data.
 	copy https://nces.ed.gov/ipeds/datacenter/data/HD`fname'_Data_Stata.zip .
 	unzipfile HD`fname'_Data_Stata.zip, replace
 	import delimited hd`fname'_data_stata.csv
