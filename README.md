@@ -2,6 +2,8 @@
 
 These files will download, build, and save to the local computer data from the Directory Information survey at the US DOE's Integrated Postsecondary Education Data Stystem.
 
+All files are intended to be reverse compatible to Version 13. Use ove version control. Also uses `saveold`. Intended, but not tested.
+
 ## IPEDSDirInfo02to16.do
 
 Produces a file `c:\statadata\Directory Info 02 to 16.dta` which is a panel data that includes IPEDS directory information files.

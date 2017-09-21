@@ -1,10 +1,14 @@
+set more off
+clear all
+cls 
+
 // Use this code to download, build, and save to the local computer
 // data from the Directory Information survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Initial build: 		Spring 2017
-// Rebuild for GitHub: 	September 2017
-// Original Author:		Adam Ross Nelson
+// Initial build: 			Spring 2017
+// GitHub rebuild:			September 2017
+// Original Author:			Adam Ross Nelson
 
 /*######################################################################
 
@@ -16,8 +20,10 @@
 	  Note: Requires pre-established directory c:\statadata
 	  
 	  Questions or comments via GitHub or Twitter @adamrossnelson
-
+	  
 ########################################################################*/
+
+sleep 5000												// [ 5 second pause ]
 
 // Utilize existing directory structure
 cd c:/statadata
@@ -120,7 +126,7 @@ order locale*, after(tribal)
 // Move up file directory level.
 // Save resulting panel data set.
 cd ..
-saveold "Directory Info 02 to 16.dta"
+saveold "Directory Info 02 to 16.dta", replace version(13)
 
 /*######################################################################
 
