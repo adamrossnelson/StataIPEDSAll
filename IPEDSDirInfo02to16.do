@@ -127,13 +127,15 @@ notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tre
 notes _dta: "Panel built on `c(current_date)'"
 saveold "$dtagbl", replace version(13)
 
-/*######################################################################
-
-      Now saved is "$dtagbl"
-
-	  This do file is maintained by Adam Ross Nelson JD PhD at
-	  https://github.com/adamrossnelson/StataIPEDSAll
-	  
-	  Questions or comments via GitHub or Twitter @adamrossnelson
-
-########################################################################*/
+qui { 
+noi di "#####################################################################"
+noi di ""
+noi di "      Saved $dtagbl"
+noi di ""
+noi di "	  This do file is maintained by Adam Ross Nelson JD PhD at"
+noi di "	  https://github.com/adamrossnelson/StataIPEDSAll"
+noi di ""
+noi di "	  Questions or comments via GitHub or Twitter @adamrossnelson"
+noi di ""
+noi di "######################################################################"
+}

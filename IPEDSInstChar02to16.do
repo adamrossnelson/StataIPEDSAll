@@ -10,32 +10,25 @@ cls
 // GitHub rebuild:			September 2017
 // Original Author:			Adam Ross Nelson
 
-/*#########################################################################
+/*#############################################################################
 
-      This do file will place in c:\statadata "InstChar 02 to 16.dta"
-
-	  This do file is maintained by Adam Ross Nelson JD PhD at
+      This do file is maintained by Adam Ross Nelson JD PhD at
 	  https://github.com/adamrossnelson/StataIPEDSAll
-	  
-	  Note: Requires pre-established directory c:\statadata
 	  
 	  Questions or comments via GitHub or Twitter @adamrossnelson
 	  
-##########################################################################*/
+	  Sep 24 2017 update uses a file picker routine found at:
+	  https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
+	  
+##############################################################################*/
 
-window stopbox rusure "Have you created c:\statadata ?`=char(13)'" ///
-"Do you want to continue?`=char(13)'`=char(13)'Yes=continue; No=stop here."
-window stopbox note "Okay, will now proceed."
+do https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
 
-// Utilize existing directory structure
-cd c:/statadata
-
-capture log close											// Close stray logs.
-log using "IPEDSInstChar `c(current_date)'.txt", replace	// Open new log.
+capture log close							// Close stray log files.
+log using "$loggbl", append					// Open new log.
 local sp char(13) char(10) char(13) char(10)				// Define spacer.
 version 13									// Enforce version compatibility.
-capture mkdir workspace						// Make a directory to store zip files.
-cd workspace								// Move into working directory.
+di c(pwd)									// Confrim working directory.
 
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
@@ -137,24 +130,32 @@ nogenerate update force
 merge 1:1 unitid isYr using "adm2015_data_stata.dta", ///
 nogenerate update force
 
-// Move up file directory level.
-// Compress, save resulting panel data set.
+// Move up file directory level, compress, add notes.
+// Save resulting panel data set.
 cd ..
 compress
-saveold "InstChar 02 to 16.dta", replace version(13)
+label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "Panel built on `c(current_date)'"
+notes _dta: "Note regarding history of IC and ADM survey files. ADM . . ."
+notes _dta: "series introduced in 2014 Some variables formerly found . . ."
+notes _dta: "in the IC series moved to ADM series."
+saveold "$dtagbl", replace version(13)
 
-/*######################################################################
-
-      Now located in c:\statadata is "InstChar 02 to 16.dta"
-
-	  This do file is maintained by Adam Ross Nelson JD PhD at
-	  https://github.com/adamrossnelson/StataIPEDSAll
-	  
-	  Questions or comments via GitHub or Twitter @adamrossnelson
-	  
-	  Note regarding history of IC and ADM survey files. ADM series
-	  introduced in 2014. Some variables formerly found in the IC
-	  series moved to ADM series. This routine builds ADM and IC 
-	  sets apart. Then merges the 2014 and 2015 ADM surveys.
-
-########################################################################*/
+qui { 
+noi di "#####################################################################"
+noi di ""
+noi di "      Saved $dtagbl"
+noi di ""
+noi di "	  This do file is maintained by Adam Ross Nelson JD PhD at"
+noi di "	  https://github.com/adamrossnelson/StataIPEDSAll"
+noi di ""
+noi di "	  Questions or comments via GitHub or Twitter @adamrossnelson"
+noi di ""
+noi di "	  Note regarding history of IC and ADM survey files. ADM series"
+noi di "	  introduced in 2014. Some variables formerly found in the IC"
+noi di "	  series moved to ADM series. This routine builds ADM and IC"
+noi di "	  sets apart. Then merges the 2014 and 2015 ADM surveys."
+noi di ""
+noi di "######################################################################"
+}
