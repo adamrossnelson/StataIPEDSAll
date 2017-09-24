@@ -8,6 +8,10 @@ Notes about assumptions or limitations maintained in the do files.
 
 Requires user to establish a local direcotry called `c:\statadata`
 
+## IPEDS Update Cylces (Revised releases)
+
+Occassionaly IPEDS provides preliminary release datat which is later replaced with revised data. IPEDS conventions place "rv" in csv filenames to denote revised data. As I am able I update these do files to reference revised data. If I'm behind on that send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how.
+
 ## IPEDSDirInfo02to16.do
 
 Produces a file `c:\statadata\Directory Info 02 to 16.dta` which is a panel data set that includes IPEDS directory information survey files.

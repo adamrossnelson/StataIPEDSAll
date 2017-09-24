@@ -12,30 +12,26 @@ cls
 
 /*#############################################################################
 
-      This do file will place in c:\statadata "Directory Info 02 to 16.dta"
-
-	  This do file is maintained by Adam Ross Nelson JD PhD at
+      This do file is maintained by Adam Ross Nelson JD PhD at
 	  https://github.com/adamrossnelson/StataIPEDSAll
-	  
-	  Note: Requires pre-established directory c:\statadata
 	  
 	  Questions or comments via GitHub or Twitter @adamrossnelson
 	  
+	  Sep 24 2017 update uses a file picker routine found at:
+	  https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
+	  
 ##############################################################################*/
 
-window stopbox rusure "Have you created c:\statadata ?`=char(13)'" ///
-"Do you want to continue?`=char(13)'`=char(13)'Yes=continue; No=stop here."
-window stopbox note "Okay, will now proceed."
+// Utilizes preckage version of sshnd (interactive file picker)/
+// Stable 1.0 version of sshnd documentation available at:
+// https://github.com/adamrossnelson/sshnd/tree/1.0
+do https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
 
-// Utilize existing directory structure
-cd c:/statadata
-
-capture log close										// Close stray log files.
-log using "IPEDSDirInfo `c(current_date)'.txt", replace	// Open new log file.
-local sp char(13) char(10) char(13) char(10) char(13) char(10) // Define spacer.
+capture log close							// Close stray log files.
+log using "$loggbl", append					// Append sshnd established log file.
+local sp char(13) char(10) char(13) char(10)// Define spacer.
 version 13									// Enforce version compatibility.
-capture mkdir workspace						// Make a directory to store zip files.
-cd workspace								// Move into working directory.
+di c(pwd)									// Confrim working directory.
 
 // Loop is designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
@@ -125,18 +121,24 @@ foreach icount of numlist 1/`r(r)' {
 label values locale3 label_locale		
 order locale*, after(tribal)
 
-// Move up file directory level.
+// Move up file directory level, compress, add notes.
 // Save resulting panel data set.
 cd ..
-saveold "Directory Info 02 to 16.dta", replace version(13)
+compress
+label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "Panel built on `c(current_date)'"
+saveold "$dtagbl", replace version(13)
 
-/*######################################################################
-
-      Now located in c:\statadata is "Directory Info 02 to 16.dta"
-
-	  This do file is maintained by Adam Ross Nelson JD PhD at
-	  https://github.com/adamrossnelson/StataIPEDSAll
-	  
-	  Questions or comments via GitHub or Twitter @adamrossnelson
-
-########################################################################*/
+qui { 
+noi di "#####################################################################"
+noi di ""
+noi di "      Saved $dtagbl"
+noi di ""
+noi di "	  This do file is maintained by Adam Ross Nelson JD PhD at"
+noi di "	  https://github.com/adamrossnelson/StataIPEDSAll"
+noi di ""
+noi di "	  Questions or comments via GitHub or Twitter @adamrossnelson"
+noi di ""
+noi di "######################################################################"
+}
