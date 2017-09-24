@@ -22,11 +22,14 @@ cls
 	  
 ##############################################################################*/
 
+// Utilizes preckage version of sshnd (interactive file picker)/
+// Stable 1.0 version of sshnd documentation available at:
+// https://github.com/adamrossnelson/sshnd/tree/1.0
 do https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
 
 capture log close							// Close stray log files.
-log using "$loggbl", append					// Open new log.
-local sp char(13) char(10) char(13) char(10)				// Define spacer.
+log using "$loggbl", append					// Append sshnd established log file.
+local sp char(13) char(10) char(13) char(10)// Define spacer.
 version 13									// Enforce version compatibility.
 di c(pwd)									// Confrim working directory.
 
