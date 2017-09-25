@@ -16,11 +16,16 @@ Occassionaly IPEDS provides preliminary release datat which is later replaced wi
 
 Produces a file `c:\statadata\Directory Info 02 to 16.dta` which is a panel data set that includes IPEDS directory information survey files.
 
+### Usage
+
 May be run with the following at the stata command line.
 
 ```
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to16.do
 ```
+### Suggested Naming Convention
+
+When prompted for a log file name suggested name is `IPEDS DirInfo 02 to 16.log` which will produce `IPEDS DirInfo 02 to 16.dta` at the location you specify. (Update year reference as needed).
 
 ## IPEDSInstChar02to16.do
 
@@ -28,8 +33,14 @@ Produces a file `c:\statadata\InstChar 02 to 16.dta` which is a panel data set t
 
 Important note is that IPEDS introduced the "Admissions and Test Scores" in 2014. This series contains test score, admission, and other similar data points that were previously found in the institutional chracteristics survey files.
 
+### Usage
+
 May be run with the following at the stata command line.
 
 ```
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to16.do
 ```
+
+### Suggested Naming Convention
+
+When prompted for a log file name suggested name is `IPEDS InstChar 02 to 16.log` which will produce `IPEDS DirInfo 02 to 16.dta` at the location you specify. (Update year reference as needed).
