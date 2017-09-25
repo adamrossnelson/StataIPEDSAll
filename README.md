@@ -43,4 +43,4 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSIn
 
 ### Suggested Naming Convention
 
-When prompted for a log file name suggested name is `IPEDS InstChar 02 to 16.log` which will produce `IPEDS DirInfo 02 to 16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDS InstChar 02 to 16.log` which will produce `IPEDS InstChar 02 to 16.dta` at the location you specify. (Update year reference as needed).
