@@ -1,12 +1,6 @@
 # Project StataIPEDSAll Introduction
 
-These files will download, build, and save to the local computer data from the Directory Information survey at the US DOE's Integrated Postsecondary Education Data Stystem.
-
-All files are intended to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended, but not tested.
-
-Notes about assumptions or limitations maintained in the do files.
-
-Requires user to establish a local direcotry called `c:\statadata`
+These files will download, build, and save to the local computer data from the Directory Information survey at the US DOE's Integrated Postsecondary Education Data Stystem. All files are intended to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended, but not tested. Notes about assumptions or limitations maintained in the do files.
 
 ## IPEDS Update Cylces (Revised releases)
 
