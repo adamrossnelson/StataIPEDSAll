@@ -18,10 +18,10 @@ Produces a file `c:\statadata\Directory Info 02 to 16.dta` which is a panel data
 
 ### Usage
 
-May be run with the following at the stata command line.
+May be run with the following at the stata command line (referencing stable 1.0 branch).
 
 ```
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to16.do
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSDirInfo02to16.do
 ```
 ### Suggested Naming Convention
 
@@ -35,10 +35,10 @@ Important note is that IPEDS introduced the "Admissions and Test Scores" in 2014
 
 ### Usage
 
-May be run with the following at the stata command line.
+May be run with the following at the stata command line (referencing stable 1.0 branch).
 
 ```
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to16.do
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSInstChar02to16.do
 ```
 
 ### Suggested Naming Convention
