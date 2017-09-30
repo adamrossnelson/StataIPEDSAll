@@ -6,6 +6,22 @@ These files will download, build, and save to the local computer data from the D
 
 Occassionaly IPEDS provides preliminary release datat which is later replaced with revised data. IPEDS conventions place "rv" in csv filenames to denote revised data. As I am able I update these do files to reference revised data. If I'm behind on that send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how.
 
+## Table of Contents
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Usage](#usage)
+  - [IPEDSDirInfo02to16.do](#ipedsdirinfo02to16do)
+    - [Run from online](#run-from-online)
+    - [Suggested Naming Convention](#suggested-naming-convention)
+  - [IPEDSInstChar02to16.do](#ipedsinstchar02to16do)
+    - [Run from online](#run-from-online-1)
+    - [Suggested Naming Convention](#suggested-naming-convention-1)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+
 ## Usage
 
 ### IPEDSDirInfo02to16.do
