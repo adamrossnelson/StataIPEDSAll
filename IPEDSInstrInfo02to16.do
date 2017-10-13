@@ -12,7 +12,7 @@ cls
 
 /*#############################################################################
 
-      This do file is maintained by Adam Ross Nelson JD PhD at
+      This do file is maintained by Naiya Patel and Adam Ross Nelson at
 	  https://github.com/Bucky1192/StataIPEDSAll
 	  
 	  Questions or comments via GitHub 
@@ -42,23 +42,31 @@ forvalues fname = 2014/2015 {
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip . 
 	unzipfile EFIA`fname'_Data_Stata.zip, replace
 	import delimited EFIA`fname'_data_stata.csv, clear
-	/*
 	//Add isYr index and order the new variable. 
 	gen int isYr = `fname'
 	order isYr, after (unitid) 
 	
-	 // Need do file from NCES
+	 // Need to download do file from IPEDS data 
+	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Stata.zip .
+	unzipfile EFIA`fname'_Stata.zip, replace 
+	// Using scalar command
+	// Remove "insheet" command designed to import data. 
+	// Remove "save" command designed to save data. 
 	
-	// Ask Adam to go over scalar	
-	scalar fcontents = fileread("adm`fname'.do")
+	scalar fcontents = fileread("efia`fname'.do")
 	scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
 	scalar fcontents = subinstr(fcontents, "save", "// save", .)
 	
 		// Save edited do file.
-	scalar byteswritten = filewrite("adm`fname'.do", fcontents, 1)
-	di `sp'								// Spacing to assist reading output. */
+	scalar byteswritten = filewrite("efia`fname'.do", fcontents, 1)
+	di "QUIET RUN OF efia`fname'.do"    //Provides the user information for log file. 
+	qui do efia`fname'			//Quietly run do files
+	//di `sp'		
+	
+	compress
+	saveold efia`fname'_data_stata.dta, replace version (13)
+	//di `sp'
+	clear
 }
 
-****/ Ask Adam Will be preparing Institutional Char. from 2002-2016
-****/ thus will need to do the following 15 times 
-// Prepare the Admissions and Test Scores 2014 file.
+****/ 
