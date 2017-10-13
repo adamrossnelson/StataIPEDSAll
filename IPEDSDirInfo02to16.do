@@ -6,8 +6,10 @@ cls
 // data from the Directory Information survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Initial build: 			Spring 2017
-// GitHub rebuild:			September 2017
+// Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
+// Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
+// Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
+// Apr/2017:	Adam Ross Nelson - Initial Build.
 // Original Author:			Adam Ross Nelson
 
 /*#############################################################################
@@ -142,3 +144,4 @@ noi di "	  Questions or comments via GitHub or Twitter @adamrossnelson"
 noi di ""
 noi di "######################################################################"
 }
+log close

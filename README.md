@@ -1,6 +1,6 @@
 # 1. Project StataIPEDSAll Introduction
 
-These files will download, build, and save to the local computer data from the Directory Information survey at the US DOE's Integrated Postsecondary Education Data Stystem. All files are intended to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended, but not tested. Notes about assumptions or limitations maintained in the do files.
+These files will download, build, and save to the local computer data from the Directory Information survey at the US DOE's Integrated Postsecondary Education Data Stystem. All files are intended to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended as reverse compatible, but not tested. **Notes about assumptions or limitations maintained in the do files.**
 
 ## 1.1. IPEDS Update Cylces (Revised releases)
 
@@ -15,10 +15,15 @@ Occassionaly IPEDS provides preliminary release datat which is later replaced wi
 - [2. Usage](#2-usage)
     - [2.1. IPEDSDirInfo02to16.do](#21-ipedsdirinfo02to16do)
         - [2.1.1. Run from online](#211-run-from-online)
-        - [2.1.2. Suggested Naming Convention](#212-suggested-naming-convention)
+        - [2.1.2. Suggested naming convention](#212-suggested-naming-convention)
     - [2.2. IPEDSInstChar02to16.do](#22-ipedsinstchar02to16do)
         - [2.2.1. Run from online](#221-run-from-online)
-        - [2.2.2. Suggested Naming Convention](#222-suggested-naming-convention)
+        - [2.2.2. Suggested naming convention](#222-suggested-naming-convention)
+    - [2.3. IPEDS12MoEnrl02to16.do](#23-ipeds12moenrl02to16do)
+        - [2.3.1. Run from online](#231-run-from-online)
+        - [2.3.2. Suggesting naming convention](#232-suggesting-naming-convention)
+    - [2.4. IPEDSGradRt02to16.do](#24-ipedsgradrt02to16do)
+    - [2.5. IPEDSInstrInfo02to16.do](#25-ipedsinstrinfo02to16do)
 
 <!-- /TOC -->
 
@@ -30,12 +35,12 @@ Produces a panel data set that includes IPEDS directory information survey files
 
 ### 2.1.1. Run from online
 
-May be run with the following at the stata command line (referencing stable 1.0 branch).[^1]
+May be run with the following at the Stata command line (referencing stable 1.0 branch).[^1]
 
 ```
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSDirInfo02to16.do
 ```
-### 2.1.2. Suggested Naming Convention
+### 2.1.2. Suggested naming convention
 
 When prompted for a log file name suggested name is `IPEDS DirInfo 02 to 16.log` which will produce `IPEDS DirInfo 02 to 16.dta` at the location you specify. (Update year reference as needed).
 
@@ -45,12 +50,36 @@ Produces a panel data set that includes IPEDS institutional characteristics surv
 
 ### 2.2.1. Run from online
 
-May be run with the following at the stata command line (referencing stable 1.0 branch).
+May be run with the following at the Stata command line (referencing stable 1.0 branch).
 
 ```
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSInstChar02to16.do
 ```
 
-### 2.2.2. Suggested Naming Convention
+### 2.2.2. Suggested naming convention
 
 When prompted for a log file name suggested name is `IPEDS InstChar 02 to 16.log` which will produce `IPEDS InstChar 02 to 16.dta` at the location you specify. (Update year reference as needed).
+
+## 2.3. IPEDS12MoEnrl02to16.do
+
+Produces a panel data set that includes IPEDS 12 month enrollment survey files. This series of surveys contains 12-month unduplicated headcount. Important note is that IPEDS modified variable naming conventions. Details of the variable naming conventions identified in do file.
+
+### 2.3.1. Run from online
+
+May be run with the following at the Stata command line (referencing stable 1.0 branch).
+
+```
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDS12MoEnrl02to16.do
+```
+
+### 2.3.2. Suggesting naming convention
+
+When prompted for a log file name suggested name is `IPEDS12MoEnrl 02 to 16.log` which will produce `IPEDS12MoEnrl 02 to 16.dta` at the location you specify. (Update year reference as needed).
+
+## 2.4. IPEDSGradRt02to16.do
+
+To be implemented. Graduation rate survey files.
+
+## 2.5. IPEDSInstrInfo02to16.do
+
+To be implemented. 12 month instructional activity survey files.

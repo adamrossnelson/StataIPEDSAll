@@ -6,8 +6,10 @@ cls
 // data from the Institutional Characteristics survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Initial build: 			Spring 2017
-// GitHub rebuild:			September 2017
+// Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
+// Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
+// Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
+// Apr/2017:	Adam Ross Nelson - Initial Build.
 // Original Author:			Adam Ross Nelson
 
 /*#############################################################################
@@ -36,7 +38,7 @@ di c(pwd)                                       // Confrim working directory.
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
 // ADM series (Admissions and Test Scores) Introduced in 2014
-forvalues fname = 2014/2015 {
+forvalues fname = 2014/2016 {
 		// Copy and unzip data and do files.
 	copy https://nces.ed.gov/ipeds/datacenter/data/ADM`fname'_Data_Stata.zip .
 	unzipfile ADM`fname'_Data_Stata.zip, replace
@@ -71,6 +73,16 @@ gen isYr = 2015 				// Add the isYr index for later merge.
 order isYr, after(unitid)		// Order isYr after unitid, easier browsing.
 saveold adm2015_data_stata.dta, version(13) replace
 di `sp'							// Spacer for the output.
+
+// Prepare the Admissions and Test Scores 2016 file.
+import delimited adm2016_data_stata.csv, clear
+di "QUIET RUN OF adm2016.do"	// Provide uers with information for log file.
+qui do adm2016					// Quietly run NCES provided do file.
+gen isYr = 2016 				// Add the isYr index for later merge.
+order isYr, after(unitid)		// Order isYr after unitid, easier browsing.
+saveold adm2016_data_stata.dta, version(13) replace
+di `sp'							// Spacer for the output.
+
 
 // Loop designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
@@ -132,6 +144,8 @@ merge 1:1 unitid isYr using "adm2014_rv_data_stata.dta", ///
 nogenerate update force
 merge 1:1 unitid isYr using "adm2015_data_stata.dta", ///
 nogenerate update force
+merge 1:1 unitid isYr using "adm2016_data_stata.dta", ///
+nogenerate update force
 
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
@@ -162,3 +176,4 @@ noi di "	  sets apart. Then merges the 2014 and 2015 ADM surveys."
 noi di ""
 noi di "######################################################################"
 }
+log close
