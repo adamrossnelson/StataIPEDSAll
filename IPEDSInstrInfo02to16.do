@@ -33,6 +33,10 @@ local sp char(13) char(10) char(13) char(10)// Define spacer.
 version 13									// Enforce version compatibility.
 di c(pwd)									// Confrim working directory.
 
+// This is a proposed edit.
+gen yyy = _n
+drop yyy
+
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
 
