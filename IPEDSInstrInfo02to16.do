@@ -33,24 +33,22 @@ local sp char(13) char(10) char(13) char(10)// Define spacer.
 version 13									// Enforce version compatibility.
 di c(pwd)									// Confrim working directory.
 
-// This is a proposed edit.
-gen yyy = _n
-drop yyy
-
 // Loop designed to download zip files and NCES provided Stata do files.
-// Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
+// Stata do files need cleaning (remove stray char (13) + char(10) + char(34)).
 
-forvalues fname = 2014/2015 {
+forvalues fname= 2002/2016 {
 		// Copy and unzip data and do files.
-		
-	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip . 
+	
+	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
+	if `fname' > 2006
+	else copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_rv_Data_Stata.zip . 
+	
 	unzipfile EFIA`fname'_Data_Stata.zip, replace
 	import delimited EFIA`fname'_data_stata.csv, clear
 	//Add isYr index and order the new variable. 
 	gen int isYr = `fname'
 	order isYr, after (unitid) 
-	
-	 // Need to download do file from IPEDS data 
+	// Need to download do file from IPEDS data 
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Stata.zip .
 	unzipfile EFIA`fname'_Stata.zip, replace 
 	// Using scalar command
@@ -61,16 +59,16 @@ forvalues fname = 2014/2015 {
 	scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
 	scalar fcontents = subinstr(fcontents, "save", "// save", .)
 	
-		// Save edited do file.
+	// Save edited do file.
 	scalar byteswritten = filewrite("efia`fname'.do", fcontents, 1)
 	di "QUIET RUN OF efia`fname'.do"    //Provides the user information for log file. 
-	qui do efia`fname'			//Quietly run do files
-	//di `sp'		
+	qui do efia`fname'					//Quietly run do files
+	di `sp'		
 	
 	compress
 	saveold efia`fname'_data_stata.dta, replace version (13)
-	//di `sp'
+	di `sp'
 	clear
 }
 
-****/ 
+
