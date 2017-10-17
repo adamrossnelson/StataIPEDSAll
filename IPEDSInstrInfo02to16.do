@@ -40,7 +40,7 @@ forvalues fname= 2002/2016 {
 		// Copy and unzip data and do files.
 	
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
-	if `fname' > 2006 
+	if {`fname' > 2006} 
 	else copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_rv_Data_Stata.zip . 
 	
 	unzipfile EFIA`fname'_Data_Stata.zip, replace
