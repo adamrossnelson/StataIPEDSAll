@@ -27,11 +27,11 @@ cls
 // https://github.com/adamrossnelson/sshnd/tree/1.0
 do https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
 
-capture log close							// Close stray log files.
-log using "$loggbl", append					// Append sshnd established log file.
-local sp char(13) char(10) char(13) char(10)// Define spacer.
-version 13									// Enforce version compatibility.
-di c(pwd)									// Confrim working directory.
+capture log close                             // Close stray log files.
+log using "$loggbl", append                   // Append sshnd established log file.
+local sp char(13) char(10) char(13) char(10)  // Define spacer.
+version 13                                    // Enforce version compatibility.
+di c(pwd)                                     // Confrim working directory.
 
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char (13) + char(10) + char(34)).
@@ -41,11 +41,11 @@ forvalues fname= 2002/2016 {
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
 	unzipfile EFIA`fname'_Data_Stata.zip, replace
 	if `fname' > 2006 & `fname' < 2015 {
-		import delimited EFIA`fname'_rv_data_stata.csv, clear
-		}
-	else {
-		import delimited EFIA`fname'_data_stata.csv, clear
-	}	
+		import delimited EFIA`fname'_rv_data_stata.csv, clear 
+	}
+	else { 
+		import delimited EFIA`fname'_data_stata.csv, clear 
+	}
 	//Add isYr index and order the new variable. 
 	gen int isYr = `fname'
 	order isYr, after (unitid) 
@@ -71,5 +71,3 @@ forvalues fname= 2002/2016 {
 	di `sp'
 	clear
 }
-
-
