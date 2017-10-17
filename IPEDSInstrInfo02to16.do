@@ -37,14 +37,15 @@ di c(pwd)									// Confrim working directory.
 // Stata do files need cleaning (remove stray char (13) + char(10) + char(34)).
 
 forvalues fname= 2002/2016 {
-		// Copy and unzip data and do files.
-	
+	// Copy and unzip data and do files.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
-	if {`fname' > 2006} 
-	else copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_rv_Data_Stata.zip . 
-	
 	unzipfile EFIA`fname'_Data_Stata.zip, replace
-	import delimited EFIA`fname'_data_stata.csv, clear
+	if `fname' > 2006 & `fname' < 2015 {
+		import delimited EFIA`fname'_rv_data_stata.csv, clear
+		}
+	else {
+		import delimited EFIA`fname'_data_stata.csv, clear
+	}	
 	//Add isYr index and order the new variable. 
 	gen int isYr = `fname'
 	order isYr, after (unitid) 
