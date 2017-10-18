@@ -114,14 +114,28 @@ forvalues icount = 2004(-1)2002 {
 label values locale2 label_locale
 
 // Third, utilize latest non-missing value for all years.
+// Also, utilize this loop to copy f1systyp f1sysnam f1syscod which were
+// not available before 2013.
+gen f1systyp2 = f1systyp 
+gen f1sysnam2 = f1sysnam 
+gen f1syscod2 = f1syscod
+order f1systyp2 f1sysnam2 f1syscod2, after(f1syscod)
 qui tab isYr
 sort unitid isYr
 gen locale3 = locale
 foreach icount of numlist 1/`r(r)' {
 	replace locale3 = locale3[_n+1] if unitid == unitid[_n+1]
+	replace f1systyp2 = f1systyp2[_n+1] if unitid == unitid[_n+1]
+	replace f1sysnam2 = f1sysnam2[_n+1] if unitid == unitid[_n+1]
+	replace f1syscod2 = f1syscod2[_n+1] if unitid == unitid[_n+1]
 }
 label values locale3 label_locale		
 order locale*, after(tribal)
+label variable f1systyp2 "Multi-institution or multi-campus organization"
+label variable f1sysnam2 "Name of multi-institution or multi-campus organization"
+label variable f1syscod2 "Identification number of multi-institution or multi-campus organization"
+label values f1systyp2 label_f1systyp
+label values f1syscod2 label_f1syscod
 
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
