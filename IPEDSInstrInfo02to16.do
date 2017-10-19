@@ -71,3 +71,37 @@ forvalues fname= 2002/2016 {
 	di `sp'
 	clear
 }
+
+	//Loop dta files to assemble panel data set. 
+	
+	use efia2016_data_stata.dta, clear 
+	forvalues yindex = 2015(-1)2002 {
+		display "`yindex'"
+		append using "efia`yindex'_data_stata.dta", force 
+		di `sp'
+}
+
+//Save panel data 
+	
+cd ..
+compress
+label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "Panel built on `c(current_date)'"
+saveold "$dtagbl", replace version(13)
+
+//add notes
+
+qui { 
+noi di "#####################################################################"
+noi di ""
+noi di "      Saved $dtagbl"
+noi di ""
+noi di "	  This do file is maintained by Naiya Patel and Adam Ross Nelson JD PhD at"
+noi di "	  https://github.com/Bucky1192/StataIPEDSAll"
+noi di ""
+noi di "	 
+noi di ""
+noi di "######################################################################"
+}
+
