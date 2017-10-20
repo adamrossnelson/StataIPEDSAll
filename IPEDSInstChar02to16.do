@@ -150,6 +150,7 @@ nogenerate update force
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
 cd ..
+drop x*
 compress
 label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
 notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
