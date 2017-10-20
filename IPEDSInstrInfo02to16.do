@@ -84,6 +84,7 @@ forvalues fname= 2002/2016 {
 //Save panel data 
 	
 cd ..
+drop x*
 compress
 label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
 notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
