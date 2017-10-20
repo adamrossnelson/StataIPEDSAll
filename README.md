@@ -42,7 +42,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSDirIn
 ```
 ### 2.1.2. Suggested naming convention
 
-When prompted for a log file name suggested name is `IPEDS DirInfo 02 to 16.log` which will produce `IPEDS DirInfo 02 to 16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDSDirInfo02to16.log` which will produce `IPEDSDirInfo02to16.dta` at the location you specify. (Update year reference as needed).
 
 ## 2.2. IPEDSInstChar02to16.do
 
@@ -58,7 +58,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSInstC
 
 ### 2.2.2. Suggested naming convention
 
-When prompted for a log file name suggested name is `IPEDS InstChar 02 to 16.log` which will produce `IPEDS InstChar 02 to 16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDSInstChar02to16.log` which will produce `IPEDSInstChar02to16.dta` at the location you specify. (Update year reference as needed).
 
 ## 2.3. IPEDS12MoEnrl02to16.do
 
@@ -74,7 +74,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDS12MoE
 
 ### 2.3.2. Suggesting naming convention
 
-When prompted for a log file name suggested name is `IPEDS12MoEnrl 02 to 16.log` which will produce `IPEDS12MoEnrl 02 to 16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDS12MoEnrl02to16.log` which will produce `IPEDS12MoEnrl02to16.dta` at the location you specify. (Update year reference as needed).
 
 ## 2.4. IPEDSGradRt02to16.do
 
