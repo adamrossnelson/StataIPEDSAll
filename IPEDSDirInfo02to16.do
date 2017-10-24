@@ -6,8 +6,10 @@ cls
 // data from the Directory Information survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Initial build: 			Spring 2017
-// GitHub rebuild:			September 2017
+// Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
+// Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
+// Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
+// Apr/2017:	Adam Ross Nelson - Initial Build.
 // Original Author:			Adam Ross Nelson
 
 /*#############################################################################
@@ -27,11 +29,11 @@ cls
 // https://github.com/adamrossnelson/sshnd/tree/1.0
 do https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
 
-capture log close							// Close stray log files.
-log using "$loggbl", append					// Append sshnd established log file.
-local sp char(13) char(10) char(13) char(10)// Define spacer.
-version 13									// Enforce version compatibility.
-di c(pwd)									// Confrim working directory.
+capture log close                             // Close stray log files.
+log using "$loggbl", append                   // Append sshnd established log file.
+local sp char(13) char(10) char(13) char(10)  // Define spacer.
+version 13                                    // Enforce version compatibility.
+di c(pwd)                                     // Confrim working directory.
 
 // Loop is designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
@@ -112,14 +114,28 @@ forvalues icount = 2004(-1)2002 {
 label values locale2 label_locale
 
 // Third, utilize latest non-missing value for all years.
+// Also, utilize this loop to copy f1systyp f1sysnam f1syscod which were
+// not available before 2013.
+gen f1systyp2 = f1systyp 
+gen f1sysnam2 = f1sysnam 
+gen f1syscod2 = f1syscod
+order f1systyp2 f1sysnam2 f1syscod2, after(f1syscod)
 qui tab isYr
 sort unitid isYr
 gen locale3 = locale
 foreach icount of numlist 1/`r(r)' {
 	replace locale3 = locale3[_n+1] if unitid == unitid[_n+1]
+	replace f1systyp2 = f1systyp2[_n+1] if unitid == unitid[_n+1]
+	replace f1sysnam2 = f1sysnam2[_n+1] if unitid == unitid[_n+1]
+	replace f1syscod2 = f1syscod2[_n+1] if unitid == unitid[_n+1]
 }
 label values locale3 label_locale		
 order locale*, after(tribal)
+label variable f1systyp2 "Multi-institution or multi-campus organization"
+label variable f1sysnam2 "Name of multi-institution or multi-campus organization"
+label variable f1syscod2 "Identification number of multi-institution or multi-campus organization"
+label values f1systyp2 label_f1systyp
+label values f1syscod2 label_f1syscod
 
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
@@ -142,3 +158,4 @@ noi di "	  Questions or comments via GitHub or Twitter @adamrossnelson"
 noi di ""
 noi di "######################################################################"
 }
+log close
