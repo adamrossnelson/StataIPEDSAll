@@ -3,7 +3,7 @@ clear all
 cls 
 
 // Use this code to download, build, and save to the local computer
-// data from the Institutional Characteristics survey at the US DOE's
+// data from the 12-month instructional activity survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
 // Initial build: 			Fall 2017
