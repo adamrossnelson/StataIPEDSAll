@@ -13,7 +13,6 @@ cls
 // Original Author:			Adam Ross Nelson
 
 /*#############################################################################
-
       This do file is maintained by Adam Ross Nelson JD PhD at
 	  https://github.com/adamrossnelson/StataIPEDSAll
 	  
