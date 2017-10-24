@@ -3,25 +3,19 @@ clear all
 cls 
 
 // Use this code to download, build, and save to the local computer
-// data from the Directory Information survey at the US DOE's
+// data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Oct/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Oct/2017:	Adam Ross Nelson - GitHub ReBuild.
-// Apr/2017:	Adam Ross Nelson - Initial Build.
-// Original Author:			Adam Ross Nelson
+// Apr/2017:	Adam Ross Nelson - Initial build.
 
 /*#############################################################################
 
-      This do file is maintained by Adam Ross Nelson JD PhD at
+      Maintained/more information at:
 	  https://github.com/adamrossnelson/StataIPEDSAll
-	  
-	  Questions or comments via GitHub or Twitter @adamrossnelson
-	  
-	  Sep 24 2017 update uses a file picker routine found at:
-	  https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
-	  
+  
 ##############################################################################*/
 
 // Utilizes preckage version of sshnd (interactive file picker)/
@@ -95,13 +89,10 @@ forvalues yindex = 2002 / 2016 {
 	di `sp'							  // Spacer for the output.
 	
 /*######################################################################
-				Note: this block of code could be further
-				refined with a simplified iterative loop.
-				
-				Also, reshape might be a better approach.
-				Advantage of not using reshape is the opportunity
-				to modify data lables for better identification
-				of variables with -desc- and -codebook- later.
+				This block of code reshapes the data. reshape might 
+				be a better approach. Advantage of not using reshape
+				is opportunity to modify data lables for better i
+				dentification of variables with -desc-, -codebook-.
 #######################################################################*/
 
 		// Proceed to prepare the ALL Students Level set of effy variables.	
@@ -111,9 +102,8 @@ forvalues yindex = 2002 / 2016 {
 	rename unitidall unitid
 	drop effylev*
 	
-		// This foreach loop adds "ALL" previx to all of the variable
-		// lables. Which will make identifying the level in wide format
-		// more intuitive.
+		// Foreach loop adds "ALL" previx to all of the variable lables.
+		// Which will make identifying the level in wide format more intuitive.
 	foreach varname of varlist _all {
 		local templab : var label `varname'
 		label variable `varname' "ALL `templab'" 
@@ -130,9 +120,8 @@ forvalues yindex = 2002 / 2016 {
 	rename unitidugr unitid
 	drop effylev*
 	
-		// This foreach loop adds "UGR" previx to all of the variable
-		// lables. Which will make identifying the level in wide format
-		// more intuitive.
+		// Foreach loop adds "UGR" previx to all of the variable lables.
+		// Which will make identifying the level in wide format more intuitive.
 	foreach varname of varlist _all {
 		local templab : var label `varname'
 		label variable `varname' "UGR `templab'" 
@@ -149,9 +138,8 @@ forvalues yindex = 2002 / 2016 {
 	rename unitidgra unitid
 	drop effylev*
 	
-		// This foreach loop adds "GRA" previx to all of the variable
-		// lables. Which will make identifying the level in wide format
-		// more intuitive.
+		// Foreach loop adds "GRA" previx to all of the variable lables.
+		// Which will make identifying the level in wide format more intuitive.
 	foreach varname of varlist _all {
 		local templab : var label `varname'
 		label variable `varname' "GRA `templab'" 
@@ -161,7 +149,7 @@ forvalues yindex = 2002 / 2016 {
 	saveold "effy`yindex'_data_stata.gra.dta", version(13) replace
 	
 	di `sp'							  // Spacer for the output.
-	
+
 /*######################################################################
 				Note: End of code block used to reshape.
 #######################################################################*/	
@@ -185,7 +173,6 @@ forvalues fname = 2015(-1)2002 {						// as the base. Then,
 	append using effy`fname'_wide_data_stata.dta, force // assemble the panel set.
 }
 
-
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
 cd ..
@@ -199,11 +186,6 @@ qui {
 noi di "#####################################################################"
 noi di ""
 noi di "      Saved $dtagbl"
-noi di ""
-noi di "	  This do file is maintained by Adam Ross Nelson JD PhD at"
-noi di "	  https://github.com/adamrossnelson/StataIPEDSAll"
-noi di ""
-noi di "	  Questions or comments via GitHub or Twitter @adamrossnelson"
 noi di ""
 noi di "######################################################################"
 }

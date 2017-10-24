@@ -3,25 +3,19 @@ clear all
 cls 
 
 // Use this code to download, build, and save to the local computer
-// data from the Directory Information survey at the US DOE's
+// data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
 // Apr/2017:	Adam Ross Nelson - Initial Build.
-// Original Author:			Adam Ross Nelson
 
 /*#############################################################################
 
-      This do file is maintained by Adam Ross Nelson JD PhD at
+      Maintained/more information at:
 	  https://github.com/adamrossnelson/StataIPEDSAll
-	  
-	  Questions or comments via GitHub or Twitter @adamrossnelson
-	  
-	  Sep 24 2017 update uses a file picker routine found at:
-	  https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
-	  
+  
 ##############################################################################*/
 
 // Utilizes preckage version of sshnd (interactive file picker)/
@@ -150,11 +144,6 @@ qui {
 noi di "#####################################################################"
 noi di ""
 noi di "      Saved $dtagbl"
-noi di ""
-noi di "	  This do file is maintained by Adam Ross Nelson JD PhD at"
-noi di "	  https://github.com/adamrossnelson/StataIPEDSAll"
-noi di ""
-noi di "	  Questions or comments via GitHub or Twitter @adamrossnelson"
 noi di ""
 noi di "######################################################################"
 }

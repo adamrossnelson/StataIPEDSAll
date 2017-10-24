@@ -22,8 +22,10 @@ Occassionaly IPEDS provides preliminary release datat which is later replaced wi
     - [2.3. IPEDS12MoEnrl02to16.do](#23-ipeds12moenrl02to16do)
         - [2.3.1. Run from online](#231-run-from-online)
         - [2.3.2. Suggesting naming convention](#232-suggesting-naming-convention)
-    - [2.4. IPEDSGradRt02to16.do](#24-ipedsgradrt02to16do)
-    - [2.5. IPEDSInstrInfo02to16.do](#25-ipedsinstrinfo02to16do)
+    - [2.4. IPEDS12MoInstrAct02to16.do](#24-ipeds12moinstract02to16do)
+        - [2.4.1. Run from online](#241-run-from-online)
+        - [2.4.2. Suggesting naming convention](#242-suggesting-naming-convention)
+    - [2.5. IPEDSGradRt02to16.do](#25-ipedsgradrt02to16do)
 
 <!-- /TOC -->
 
@@ -35,10 +37,10 @@ Produces a panel data set that includes IPEDS directory information survey files
 
 ### 2.1.1. Run from online
 
-May be run with the following at the Stata command line (referencing stable 1.0 branch).[^1]
+May be run with the following at the Stata command line.
 
-```
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSDirInfo02to16.do
+```Stata
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to16.do
 ```
 ### 2.1.2. Suggested naming convention
 
@@ -50,10 +52,10 @@ Produces a panel data set that includes IPEDS institutional characteristics surv
 
 ### 2.2.1. Run from online
 
-May be run with the following at the Stata command line (referencing stable 1.0 branch).
+May be run with the following at the Stata command line.
 
-```
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDSInstChar02to16.do
+```Stata
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to16.do
 ```
 
 ### 2.2.2. Suggested naming convention
@@ -66,20 +68,32 @@ Produces a panel data set that includes IPEDS 12 month enrollment survey files. 
 
 ### 2.3.1. Run from online
 
-May be run with the following at the Stata command line (referencing stable 1.0 branch).
+May be run with the following at the Stata command line.
 
-```
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/1.0/IPEDS12MoEnrl02to16.do
+```Stata
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoEnrl02to16.do
 ```
 
 ### 2.3.2. Suggesting naming convention
 
 When prompted for a log file name suggested name is `IPEDS12MoEnrl02to16.log` which will produce `IPEDS12MoEnrl02to16.dta` at the location you specify. (Update year reference as needed).
 
-## 2.4. IPEDSGradRt02to16.do
+## 2.4. IPEDS12MoInstrAct02to16.do
+
+Produces a panel data set that includes IPEDS 12 month instructional activity survey files. This series contains data on instructional activity measured in total credit and/or contact hours delivered by institutions during a 12-month period.  The credit hour and contact hour activity data are used to derive 12-month full-time equivalent enrollments for both undergraduate and graduate levels.
+
+### 2.4.1. Run from online
+
+May be run with the following at the Stata command line.
+
+```Stata
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoInstrAct02to16.do
+```
+
+### 2.4.2. Suggesting naming convention
+
+When prompted for a log file name suggested name is `IPEDS12MoInstAct02to16.log` which will produce `IPEDS12MoInstAct02to16.dta` at the location you specify. (Update year reference as needed).
+
+## 2.5. IPEDSGradRt02to16.do
 
 To be implemented. Graduation rate survey files.
-
-## 2.5. IPEDSInstrInfo02to16.do
-
-To be implemented. 12 month instructional activity survey files.
