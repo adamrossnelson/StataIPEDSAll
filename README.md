@@ -44,7 +44,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDi
 ```
 ### 2.1.2. Suggested naming convention
 
-When prompted for a log file name suggested name is `IPEDSDirInfo02to16.log` which will produce `IPEDSDirInfo02to16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDSDirInfo02to16.log` which will also produce `IPEDSDirInfo02to16.dta` at the location you specify. (Update year reference as needed).
 
 ## 2.2. IPEDSInstChar02to16.do
 
@@ -60,7 +60,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSIn
 
 ### 2.2.2. Suggested naming convention
 
-When prompted for a log file name suggested name is `IPEDSInstChar02to16.log` which will produce `IPEDSInstChar02to16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDSInstChar02to16.log` which will also produce `IPEDSInstChar02to16.dta` at the location you specify. (Update year reference as needed).
 
 ## 2.3. IPEDS12MoEnrl02to16.do
 
@@ -76,7 +76,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12
 
 ### 2.3.2. Suggesting naming convention
 
-When prompted for a log file name suggested name is `IPEDS12MoEnrl02to16.log` which will produce `IPEDS12MoEnrl02to16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDS12MoEnrl02to16.log` which will also produce `IPEDS12MoEnrl02to16.dta` at the location you specify. (Update year reference as needed).
 
 ## 2.4. IPEDS12MoInstrAct02to16.do
 
@@ -92,7 +92,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12
 
 ### 2.4.2. Suggesting naming convention
 
-When prompted for a log file name suggested name is `IPEDS12MoInstAct02to16.log` which will produce `IPEDS12MoInstAct02to16.dta` at the location you specify. (Update year reference as needed).
+When prompted for a log file name suggested name is `IPEDS12MoInstAct02to16.log` which will also produce `IPEDS12MoInstAct02to16.dta` at the location you specify. (Update year reference as needed).
 
 ## 2.5. IPEDSGradRt02to16.do
 
