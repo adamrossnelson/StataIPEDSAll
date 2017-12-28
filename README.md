@@ -4,7 +4,7 @@ These files will download, build, and save to the local computer data from the D
 
 ## 1.1. IPEDS Update Cylces (Revised releases)
 
-Occassionaly IPEDS provides preliminary release datat which is later replaced with revised data. IPEDS conventions place "rv" in csv filenames to denote revised data. As I am able I update these do files to reference revised data. If I'm behind on that send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how.
+Occassionaly IPEDS provides preliminary release data which is later replaced with revised data. [They publish information about their schedule](https://surveys.nces.ed.gov/ipeds/ViewContent.aspx?contentId=15). IPEDS conventions place "rv" in csv filenames to denote revised data. As I am able I update these do files to reference revised data. If I'm behind on that send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how.
 
 ## 1.2. Table of Contents
 <!-- TOC -->
@@ -12,6 +12,7 @@ Occassionaly IPEDS provides preliminary release datat which is later replaced wi
 - [1. Project StataIPEDSAll Introduction](#1-project-stataipedsall-introduction)
     - [1.1. IPEDS Update Cylces (Revised releases)](#11-ipeds-update-cylces-revised-releases)
     - [1.2. Table of Contents](#12-table-of-contents)
+    - [1.3. Additional Background](#13-additional-background)
 - [2. Usage](#2-usage)
     - [2.1. IPEDSDirInfo02to16.do](#21-ipedsdirinfo02to16do)
         - [2.1.1. Run from online](#211-run-from-online)
@@ -26,9 +27,13 @@ Occassionaly IPEDS provides preliminary release datat which is later replaced wi
         - [2.4.1. Run from online](#241-run-from-online)
         - [2.4.2. Suggesting naming convention](#242-suggesting-naming-convention)
     - [2.5. IPEDSGradRt02to16.do](#25-ipedsgradrt02to16do)
-- [3. Contextual Note](#3-contextual-note)    
+- [3. Contextual Note](#3-contextual-note)
 
 <!-- /TOC -->
+
+## 1.3. Additional Background
+
+IPEDS provides an [origins report](https://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=NPEC2012833) which documents the history of survey survey items.
 
 # 2. Usage
 
@@ -103,5 +108,5 @@ To be implemented. Graduation rate survey files.
 
 Contextual note: The universe of higher education data is vast and complicated. This illustration from http://www.studentclearninghouse.org is a helpful illustration of the range and compexity.
 
-![Higher Education Data Illustration](HEDataChart.jpg)
+![Higher Education Data Illustration](images/HEDataChart.jpg)
 
