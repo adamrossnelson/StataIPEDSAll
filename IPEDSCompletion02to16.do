@@ -30,4 +30,9 @@ do https://raw.githubusercontent.com/adamrossnelson/sshnd/1.0/sshnd.do
 capture log close 							// Close stray log files. 
 log using "$loggbl", append					// Append sshnd established log file. 
 local sp char(13) char(10) char(13) char(10)// Define spacer. 
-version 13									// Enforce 
+version 13									// Enforce version compatibility. 
+di c(pwd)									// Confirm working directory. 
+
+// Loop is designed to download zip files and NCES provided Stata do files. 
+// Stata do files need cleaning (removal stray char(13) + char(10) + char(34)). 
+forvalues fname= 2002 / 2016 {
