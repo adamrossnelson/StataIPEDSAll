@@ -10,6 +10,10 @@ cls
 // Oct/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Oct/2017:	Adam Ross Nelson - GitHub ReBuild.
 // Apr/2017:	Adam Ross Nelson - Initial build.
+
+/*#############################################################################
+
+      Maintained/more information at:
 	  https://github.com/adamrossnelson/StataIPEDSAll
   
 ##############################################################################*/
