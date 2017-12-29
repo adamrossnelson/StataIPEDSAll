@@ -6,6 +6,7 @@ cls
 // data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Dec/2017:	Naiya Patel 	 - Updated edits, renamed variables.
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Oct/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Oct/2017:	Adam Ross Nelson - GitHub ReBuild.
