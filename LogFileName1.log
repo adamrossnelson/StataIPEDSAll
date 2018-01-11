@@ -1,0 +1,1257 @@
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  SvSpcHndlr
+       log:  C:\GITS\StataIPEDSAll\LogFileName1.log
+  log type:  text
+ opened on:  10 Jan 2018, 20:10:48
+
+#############################################################################
+
+     Will create (or overwrite):
+          Datafile:  C:\GITS\StataIPEDSAll\LogFileName1.dta
+          Logfile:   C:\GITS\StataIPEDSAll\LogFileName1.log
+
+     Will create (use):
+          Workspace: C:\GITS\StataIPEDSAll\LogFileName1wksp
+
+     Dialogue window asks, Are you sure you wish to proceed?
+
+#############################################################################
+
+
+Changed working directory; current working directory:
+C:\GITS\StataIPEDSAll\LogFileName1wksp
+
+Global dtagbl = C:\GITS\StataIPEDSAll\LogFileName1.dta
+Global loggbl = C:\GITS\StataIPEDSAll\LogFileName1.log
+Global wkdgbl = C:\GITS\StataIPEDSAll\LogFileName1wksp
+
+To append log file...
+    Use:  log using filename [, append]
+     OR:  log using C:\GITS\StataIPEDSAll\LogFileName1.log [, append]
+     OR:  log using loggbl (see above) [, append]
+
+      name:  SvSpcHndlr
+       log:  C:\GITS\StataIPEDSAll\LogFileName1.log
+  log type:  text
+ closed on:  10 Jan 2018, 20:10:49
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\GITS\StataIPEDSAll\LogFileName1.log
+  log type:  text
+ opened on:  10 Jan 2018, 20:10:49
+
+. local sp char(13) char(10) char(13) char(10)  // Define spacer.
+
+. version 13                                    // Enforce version compatibility.
+
+. di c(pwd)                                     // Confrim working directory.
+C:\GITS\StataIPEDSAll\LogFileName1wksp
+
+. 
+. forvalues yindex = 2002 / 2016 {
+  2.         copy https://nces.ed.gov/ipeds/datacenter/data/EFFY`yindex'_Data_Stata.zip .
+  3.         unzipfile EFFY`yindex'_Data_Stata.zip, replace
+  4.         
+.         copy https://nces.ed.gov/ipeds/datacenter/data/EFFY`yindex'_Stata.zip .
+  5.         unzipfile EFFY`yindex'_Stata.zip, replace
+  6. 
+.                 // The NCES provided -do- files hae some lines that need to be removed
+.                 // before we can call them from the master -do- file.
+.         scalar fcontents = fileread("effy`yindex'.do")
+  7.         scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
+  8.         scalar fcontents = subinstr(fcontents, "save", "// save", .)
+  9. 
+.         scalar byteswritten = filewrite("effy`yindex'.do", fcontents, 1)
+ 10.         
+.                 // Naming conventions changed. Manage evolving name conventions.
+.                 // 2002 to 2006 & 2015 no revised survey data file.
+.         if `yindex' < 2007 | `yindex' > 2014 {
+ 11.                 import delimited effy`yindex'_data_stata.csv, clear
+ 12.         }
+ 13.         else {
+ 14.                 import delimited effy`yindex'_rv_data_stata.csv, clear
+ 15.         }
+ 16.         
+.                 // Run the NCES provided do files.
+.         di "QUIET RUN OF effy`yindex'.do" // Provide ser information for log file.
+ 17.         qui do effy`yindex'.do                    // Quiety run NCES provided do files.
+ 18.         
+.                 // Drop the imputation fields and lstudy which is effylev redundant.
+.         drop x*                                                 // Remove imputation flags, reduce filesize.
+ 19.         drop lstudy                                             // lstudy not consistent. Remove to simplify.
+ 20. 
+.                 // Make adjustments for changes in variable names.
+.         if `yindex' < 2008 {
+ 21.                 rename fyrace01 efynralm        // Nonresident alien men 
+ 22.                 rename fyrace02 efynralw        // Nonresident alien women
+ 23.                 rename fyrace13 efyunknm        // Race/ethnicity unknown men
+ 24.                 rename fyrace14 efyunknw        // Race/ethnicity unknown women
+ 25.                 rename fyrace15 efytotlm        // Grand total men
+ 26.                 rename fyrace16 efytotlw        // Grand total women 
+ 27.                 rename fyrace17 efynralt        // Nonresident alien total
+ 28.                 rename fyrace23 efyunknt        // Race/ethnicity unknown total
+ 29.                 rename fyrace24 efytotlt        // Grand total
+ 30.                 
+.                 /*gen efynralm = fyrace01     // Nonresident alien men
+>                 gen efynralw = fyrace02     // Nonresident alien women
+>                 gen efyunknm = fyrace13     // Race/ethnicity unknown men
+>                 gen efyunknw = fyrace14     // Race/ethnicity unknown women
+>                 gen efytotlm = fyrace15     // Grand total men
+>                 gen efytotlw = fyrace16     // Grand total women
+>                 gen efynralt = fyrace17     // Nonresident alien total
+>                 gen efyunknt = fyrace23     // Race/ethnicity unknown total
+>                 gen efytotlt = fyrace24     // Grand total
+>         
+>                 drop fyrace01
+>                 drop fyrace02
+>                 drop fyrace13
+>                 drop fyrace14
+>                 drop fyrace15
+>                 drop fyrace16
+>                 drop fyrace17
+>                 drop fyrace23
+>                 drop fyrace24*/
+.         }       
+ 31. 
+.         // Save a copy of the effy file with all three levels for later reference.
+.         saveold "effy`yindex'_data_stata.dta", version(13) replace
+ 32.         di `sp'                                                   // Spacer for the output.
+ 33.         
+. /*######################################################################
+>                                 This block of code reshapes the data. reshape might 
+>                                 be a better approach. Advantage of not using reshape
+>                                 is opportunity to modify data lables for better 
+>                                 identification of variables with -desc-, -codebook-.
+> #######################################################################*/
+. 
+.                 // Proceed to prepare the ALL Students Level set of effy variables.     
+.         di "          Keeping only effylev == 1 to prepare the ALL version of this file"
+ 34.         keep if effylev == 1
+ 35.         rename * *all
+ 36.         rename unitidall unitid
+ 37.         drop effylev*
+ 38.         
+.                 // Foreach loop adds "ALL" previx to all of the variable lables.
+.                 // Which will make identifying the level in wide format more intuitive.
+.         foreach varname of varlist _all {
+ 39.                 local templab : var label `varname'
+ 40.                 label variable `varname' "ALL `templab'" 
+ 41.         }
+ 42.                 // Restores the unitid variable lable to default.
+.         label variable unitid "Unique identification number of the institution"
+ 43.         saveold "effy`yindex'_data_stata.all.dta", version(13) replace
+ 44.         
+.                 // Proceed to prepare the Undergraduate Level set of effy variables.    
+.         di "          Keeping only effylev == 2 to prepare the UGR version of this file"
+ 45.         use effy`yindex'_data_stata.dta, clear
+ 46.         keep if effylev == 2
+ 47.         rename * *ugr
+ 48.         rename unitidugr unitid
+ 49.         drop effylev*
+ 50.         
+.                 // Foreach loop adds "UGR" previx to all of the variable lables.
+.                 // Which will make identifying the level in wide format more intuitive.
+.         foreach varname of varlist _all {
+ 51.                 local templab : var label `varname'
+ 52.                 label variable `varname' "UGR `templab'" 
+ 53.         }
+ 54.                 // Restores the unitid variable lable to default.
+.         label variable unitid "Unique identification number of the institution" 
+ 55.         saveold "effy`yindex'_data_stata.ugr.dta", version(13) replace
+ 56.         
+.                 // Proceed to prepare the Graduate Level set of effy variables.
+.         di "          Keeping only effylev == 3 to prepare the GRA version of this file"
+ 57.         use effy`yindex'_data_stata.dta, clear
+ 58.         keep if effylev == 4
+ 59.         rename * *gra
+ 60.         rename unitidgra unitid
+ 61.         drop effylev*
+ 62.         
+.                 // Foreach loop adds "GRA" previx to all of the variable lables.
+.                 // Which will make identifying the level in wide format more intuitive.
+.         foreach varname of varlist _all {
+ 63.                 local templab : var label `varname'
+ 64.                 label variable `varname' "GRA `templab'" 
+ 65.         }
+ 66.                 // Restores the unitid variable lable to default.
+.         label variable unitid "Unique identification number of the institution" 
+ 67.         saveold "effy`yindex'_data_stata.gra.dta", version(13) replace
+ 68.         
+.         di `sp'                                                   // Spacer for the output.
+ 69. 
+. /*######################################################################
+>                                 Note: End of code block used to reshape.
+> #######################################################################*/       
+.         
+.                 // Rebuild the effy data in wide format.
+.         di "          Rebuilding the WIDE version of this file" 
+ 70. 
+.         use effy`yindex'_data_stata.all.dta, clear
+ 71.         merge 1:1 unitid using "effy`yindex'_data_stata.ugr.dta", nogenerate
+ 72.         merge 1:1 unitid using "effy`yindex'_data_stata.gra.dta", nogenerate
+ 73.         
+.         gen int isYr = `yindex'                 // Add the isYr index for later merge.
+ 74.         order isYr, after(unitid)               // Order isYr after unitid, easier browsing.
+ 75.         saveold "effy`yindex'_wide_data_stata.dta", version(13) replace
+ 76.         di `sp'
+ 77. }
+    inflating: effy2002_data_stata.csv
+successfully unzipped EFFY2002_Data_Stata.zip to current directory
+    inflating: effy2002.do
+successfully unzipped EFFY2002_Stata.zip to current directory
+(51 vars, 14,994 obs)
+QUIET RUN OF effy2002.do
+(saving in Stata 13 format)
+(note: file effy2002_data_stata.dta not found)
+file effy2002_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,493 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2002_data_stata.all.dta not found)
+file effy2002_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2002)
+(8,809 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2002_data_stata.ugr.dta not found)
+file effy2002_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2002)
+(13,240 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2002_data_stata.gra.dta not found)
+file effy2002_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2002)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           316
+        from master                       316  
+        from using                          0  
+
+    matched                             6,185  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,747
+        from master                     4,747  
+        from using                          0  
+
+    matched                             1,754  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2002_wide_data_stata.dta not found)
+file effy2002_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2003_data_stata.csv
+successfully unzipped EFFY2003_Data_Stata.zip to current directory
+    inflating: effy2003.do
+successfully unzipped EFFY2003_Stata.zip to current directory
+(51 vars, 15,167 obs)
+QUIET RUN OF effy2003.do
+(saving in Stata 13 format)
+(note: file effy2003_data_stata.dta not found)
+file effy2003_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,605 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2003_data_stata.all.dta not found)
+file effy2003_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2003)
+(8,923 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2003_data_stata.ugr.dta not found)
+file effy2003_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2003)
+(13,369 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2003_data_stata.gra.dta not found)
+file effy2003_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2003)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           318
+        from master                       318  
+        from using                          0  
+
+    matched                             6,244  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,764
+        from master                     4,764  
+        from using                          0  
+
+    matched                             1,798  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2003_wide_data_stata.dta not found)
+file effy2003_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2004_data_stata.csv
+successfully unzipped EFFY2004_Data_Stata.zip to current directory
+    inflating: effy2004.do
+successfully unzipped EFFY2004_Stata.zip to current directory
+(51 vars, 15,357 obs)
+QUIET RUN OF effy2004.do
+(saving in Stata 13 format)
+(note: file effy2004_data_stata.dta not found)
+file effy2004_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,726 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2004_data_stata.all.dta not found)
+file effy2004_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2004)
+(9,026 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2004_data_stata.ugr.dta not found)
+file effy2004_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2004)
+(13,528 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2004_data_stata.gra.dta not found)
+file effy2004_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2004)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           300
+        from master                       300  
+        from using                          0  
+
+    matched                             6,331  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,802
+        from master                     4,802  
+        from using                          0  
+
+    matched                             1,829  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2004_wide_data_stata.dta not found)
+file effy2004_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2005_data_stata.csv
+successfully unzipped EFFY2005_Data_Stata.zip to current directory
+    inflating: effy2005.do
+successfully unzipped EFFY2005_Stata.zip to current directory
+(51 vars, 15,536 obs)
+QUIET RUN OF effy2005.do
+(saving in Stata 13 format)
+(note: file effy2005_data_stata.dta not found)
+file effy2005_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,838 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2005_data_stata.all.dta not found)
+file effy2005_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2005)
+(9,142 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2005_data_stata.ugr.dta not found)
+file effy2005_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2005)
+(13,659 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2005_data_stata.gra.dta not found)
+file effy2005_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2005)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           304
+        from master                       304  
+        from using                          0  
+
+    matched                             6,394  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,821
+        from master                     4,821  
+        from using                          0  
+
+    matched                             1,877  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2005_wide_data_stata.dta not found)
+file effy2005_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2006_data_stata.csv
+successfully unzipped EFFY2006_Data_Stata.zip to current directory
+    inflating: effy2006.do
+successfully unzipped EFFY2006_Stata.zip to current directory
+(51 vars, 15,653 obs)
+QUIET RUN OF effy2006.do
+(saving in Stata 13 format)
+(note: file effy2006_data_stata.dta not found)
+file effy2006_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,911 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2006_data_stata.all.dta not found)
+file effy2006_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2006)
+(9,213 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2006_data_stata.ugr.dta not found)
+file effy2006_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2006)
+(13,749 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2006_data_stata.gra.dta not found)
+file effy2006_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2006)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           302
+        from master                       302  
+        from using                          0  
+
+    matched                             6,440  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,838
+        from master                     4,838  
+        from using                          0  
+
+    matched                             1,904  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2006_wide_data_stata.dta not found)
+file effy2006_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2007_data_stata.csv
+    inflating: effy2007_rv_data_stata.csv
+successfully unzipped EFFY2007_Data_Stata.zip to current directory
+    inflating: effy2007.do
+successfully unzipped EFFY2007_Stata.zip to current directory
+(51 vars, 15,713 obs)
+QUIET RUN OF effy2007.do
+(saving in Stata 13 format)
+(note: file effy2007_data_stata.dta not found)
+file effy2007_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,954 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2007_data_stata.all.dta not found)
+file effy2007_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2007)
+(9,250 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2007_data_stata.ugr.dta not found)
+file effy2007_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2007)
+(13,793 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2007_data_stata.gra.dta not found)
+file effy2007_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2007)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           296
+        from master                       296  
+        from using                          0  
+
+    matched                             6,463  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,839
+        from master                     4,839  
+        from using                          0  
+
+    matched                             1,920  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2007_wide_data_stata.dta not found)
+file effy2007_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2008_data_stata.csv
+    inflating: effy2008_rv_data_stata.csv
+successfully unzipped EFFY2008_Data_Stata.zip to current directory
+    inflating: effy2008.do
+successfully unzipped EFFY2008_Stata.zip to current directory
+(123 vars, 15,861 obs)
+QUIET RUN OF effy2008.do
+(saving in Stata 13 format)
+(note: file effy2008_data_stata.dta not found)
+file effy2008_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,954 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2008_data_stata.all.dta not found)
+file effy2008_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2008)
+(9,255 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2008_data_stata.ugr.dta not found)
+file effy2008_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2008)
+(13,904 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2008_data_stata.gra.dta not found)
+file effy2008_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2008)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           301
+        from master                       301  
+        from using                          0  
+
+    matched                             6,606  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,950
+        from master                     4,950  
+        from using                          0  
+
+    matched                             1,957  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2008_wide_data_stata.dta not found)
+file effy2008_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2009_data_stata.csv
+    inflating: effy2009_rv_data_stata.csv
+successfully unzipped EFFY2009_Data_Stata.zip to current directory
+    inflating: effy2009.do
+successfully unzipped EFFY2009_Stata.zip to current directory
+(123 vars, 16,004 obs)
+QUIET RUN OF effy2009.do
+(saving in Stata 13 format)
+(note: file effy2009_data_stata.dta not found)
+file effy2009_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,980 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2009_data_stata.all.dta not found)
+file effy2009_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2009_rv)
+(9,291 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2009_data_stata.ugr.dta not found)
+file effy2009_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2009_rv)
+(13,998 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2009_data_stata.gra.dta not found)
+file effy2009_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2009_rv)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           311
+        from master                       311  
+        from using                          0  
+
+    matched                             6,713  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         5,018
+        from master                     5,018  
+        from using                          0  
+
+    matched                             2,006  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2009_wide_data_stata.dta not found)
+file effy2009_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2010_data_stata.csv
+    inflating: effy2010_rv_data_stata.csv
+successfully unzipped EFFY2010_Data_Stata.zip to current directory
+    inflating: effy2010.do
+successfully unzipped EFFY2010_Stata.zip to current directory
+(123 vars, 16,245 obs)
+QUIET RUN OF effy2010.do
+(saving in Stata 13 format)
+(note: file effy2010_data_stata.dta not found)
+file effy2010_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,999 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2010_data_stata.all.dta not found)
+file effy2010_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2010_rv)
+(9,317 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2010_data_stata.ugr.dta not found)
+file effy2010_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2010_rv)
+(14,174 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2010_data_stata.gra.dta not found)
+file effy2010_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2010_rv)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           318
+        from master                       318  
+        from using                          0  
+
+    matched                             6,928  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         5,175
+        from master                     5,175  
+        from using                          0  
+
+    matched                             2,071  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2010_wide_data_stata.dta not found)
+file effy2010_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2011_data_stata.csv
+    inflating: effy2011_rv_data_stata.csv
+successfully unzipped EFFY2011_Data_Stata.zip to current directory
+    inflating: effy2011.do
+successfully unzipped EFFY2011_Stata.zip to current directory
+(63 vars, 16,729 obs)
+QUIET RUN OF effy2011.do
+(saving in Stata 13 format)
+(note: file effy2011_data_stata.dta not found)
+file effy2011_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(9,250 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2011_data_stata.all.dta not found)
+file effy2011_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2011_f1a)
+(9,591 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2011_data_stata.ugr.dta not found)
+file effy2011_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2011_f1a)
+(14,617 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2011_data_stata.gra.dta not found)
+file effy2011_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2011_f1a)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           341
+        from master                       341  
+        from using                          0  
+
+    matched                             7,138  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         5,367
+        from master                     5,367  
+        from using                          0  
+
+    matched                             2,112  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2011_wide_data_stata.dta not found)
+file effy2011_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2012_data_stata.csv
+    inflating: effy2012_rv_data_stata.csv
+successfully unzipped EFFY2012_Data_Stata.zip to current directory
+    inflating: effy2012.do
+successfully unzipped EFFY2012_Stata.zip to current directory
+(63 vars, 16,898 obs)
+QUIET RUN OF effy2012.do
+(saving in Stata 13 format)
+(note: file effy2012_data_stata.dta not found)
+file effy2012_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(9,354 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2012_data_stata.all.dta not found)
+file effy2012_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2012)
+(9,695 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2012_data_stata.ugr.dta not found)
+file effy2012_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2012)
+(14,747 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2012_data_stata.gra.dta not found)
+file effy2012_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2012)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           341
+        from master                       341  
+        from using                          0  
+
+    matched                             7,203  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         5,393
+        from master                     5,393  
+        from using                          0  
+
+    matched                             2,151  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2012_wide_data_stata.dta not found)
+file effy2012_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2013_data_stata.csv
+    inflating: effy2013_rv_data_stata.csv
+successfully unzipped EFFY2013_Data_Stata.zip to current directory
+    inflating: effy2013.do
+successfully unzipped EFFY2013_Stata.zip to current directory
+(63 vars, 16,881 obs)
+QUIET RUN OF effy2013.do
+(saving in Stata 13 format)
+(note: file effy2013_data_stata.dta not found)
+file effy2013_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(9,367 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2013_data_stata.all.dta not found)
+file effy2013_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2013)
+(9,684 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2013_data_stata.ugr.dta not found)
+file effy2013_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2013)
+(14,711 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2013_data_stata.gra.dta not found)
+file effy2013_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2013)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           317
+        from master                       317  
+        from using                          0  
+
+    matched                             7,197  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         5,344
+        from master                     5,344  
+        from using                          0  
+
+    matched                             2,170  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2013_wide_data_stata.dta not found)
+file effy2013_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2014_data_stata.csv
+    inflating: effy2014_rv_data_stata.csv
+successfully unzipped EFFY2014_Data_Stata.zip to current directory
+    inflating: effy2014.do
+successfully unzipped EFFY2014_Stata.zip to current directory
+(63 vars, 16,687 obs)
+QUIET RUN OF effy2014.do
+(saving in Stata 13 format)
+(note: file effy2014_data_stata.dta not found)
+file effy2014_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(9,258 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2014_data_stata.all.dta not found)
+file effy2014_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2014)
+(9,569 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2014_data_stata.ugr.dta not found)
+file effy2014_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2014)
+(14,547 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2014_data_stata.gra.dta not found)
+file effy2014_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2014)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           311
+        from master                       311  
+        from using                          0  
+
+    matched                             7,118  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         5,289
+        from master                     5,289  
+        from using                          0  
+
+    matched                             2,140  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2014_wide_data_stata.dta not found)
+file effy2014_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2015_data_stata.csv
+    inflating: effy2015_rv_data_stata.csv
+successfully unzipped EFFY2015_Data_Stata.zip to current directory
+    inflating: effy2015.do
+successfully unzipped EFFY2015_Stata.zip to current directory
+(63 vars, 16,476 obs)
+QUIET RUN OF effy2015.do
+(saving in Stata 13 format)
+(note: file effy2015_data_stata.dta not found)
+file effy2015_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(9,154 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2015_data_stata.all.dta not found)
+file effy2015_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_effy2015)
+(9,464 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2015_data_stata.ugr.dta not found)
+file effy2015_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_effy2015)
+(14,334 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2015_data_stata.gra.dta not found)
+file effy2015_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_effy2015)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           310
+        from master                       310  
+        from using                          0  
+
+    matched                             7,012  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         5,180
+        from master                     5,180  
+        from using                          0  
+
+    matched                             2,142  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2015_wide_data_stata.dta not found)
+file effy2015_wide_data_stata.dta saved
+
+
+
+
+
+    inflating: effy2016_data_stata.csv
+successfully unzipped EFFY2016_Data_Stata.zip to current directory
+    inflating: effy2016.do
+successfully unzipped EFFY2016_Stata.zip to current directory
+(63 vars, 15,726 obs)
+QUIET RUN OF effy2016.do
+(saving in Stata 13 format)
+(note: file effy2016_data_stata.dta not found)
+file effy2016_data_stata.dta saved
+
+
+
+
+
+          Keeping only effylev == 1 to prepare the ALL version of this file
+(8,775 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2016_data_stata.all.dta not found)
+file effy2016_data_stata.all.dta saved
+          Keeping only effylev == 2 to prepare the UGR version of this file
+(dct_s2015_is)
+(9,086 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2016_data_stata.ugr.dta not found)
+file effy2016_data_stata.ugr.dta saved
+          Keeping only effylev == 3 to prepare the GRA version of this file
+(dct_s2015_is)
+(13,591 observations deleted)
+(saving in Stata 13 format)
+(note: file effy2016_data_stata.gra.dta not found)
+file effy2016_data_stata.gra.dta saved
+
+
+
+
+
+          Rebuilding the WIDE version of this file
+(dct_s2015_is)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                           311
+        from master                       311  
+        from using                          0  
+
+    matched                             6,640  
+    -----------------------------------------
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                         4,816
+        from master                     4,816  
+        from using                          0  
+
+    matched                             2,135  
+    -----------------------------------------
+(saving in Stata 13 format)
+(note: file effy2016_wide_data_stata.dta not found)
+file effy2016_wide_data_stata.dta saved
+
+
+
+
+
+
+. 
+.         // Build the multi-year panel data set.
+. use effy2016_wide_data_stata.dta, clear                                 // Open most recent file
+(dct_s2015_is)
+
+. forvalues fname = 2015(-1)2002 {                                                // as the base. Then,
+  2.         append using effy`fname'_wide_data_stata.dta, force // assemble the panel set.
+  3. }
+(note: variable efybkaawall was int, now long to accommodate using data's values)
+(note: variable efybkaawugr was int, now long to accommodate using data's values)
+(note: variable efybkaawgra was int, now long to accommodate using data's values)
+(note: variable fyrace03all was int, now long to accommodate using data's values)
+(note: variable fyrace04all was int, now long to accommodate using data's values)
+(note: variable fyrace11all was int, now long to accommodate using data's values)
+(note: variable fyrace12all was int, now long to accommodate using data's values)
+(note: variable fyrace18all was int, now long to accommodate using data's values)
+(note: variable dveybkmall was int, now long to accommodate using data's values)
+(note: variable fyrace03ugr was int, now long to accommodate using data's values)
+(note: variable fyrace04ugr was int, now long to accommodate using data's values)
+(note: variable fyrace11ugr was int, now long to accommodate using data's values)
+(note: variable fyrace12ugr was int, now long to accommodate using data's values)
+(note: variable fyrace18ugr was int, now long to accommodate using data's values)
+(note: variable dveybkmugr was int, now long to accommodate using data's values)
+(note: variable fyrace03gra was int, now long to accommodate using data's values)
+(note: variable fyrace04gra was int, now long to accommodate using data's values)
+(note: variable fyrace11gra was int, now long to accommodate using data's values)
+(note: variable fyrace12gra was int, now long to accommodate using data's values)
+(note: variable fyrace18gra was int, now long to accommodate using data's values)
+(note: variable dveybkmgra was int, now long to accommodate using data's values)
+
+. 
+. // Move up file directory level, compress, add notes.
+. // Save resulting panel data set.
+. cd ..
+C:\GITS\StataIPEDSAll
+
+. compress
+  variable efytotlmgra was long now int
+  variable efybkaatgra was long now int
+  variable efybkaawgra was long now int
+  variable efyhisptgra was long now int
+  variable efyhispwgra was long now int
+  variable efywhittgra was long now int
+  variable efywhitmgra was long now int
+  variable efywhitwgra was long now int
+  variable efyunkntgra was long now int
+  variable efyunknmgra was long now int
+  variable efyunknwgra was long now int
+  variable fyrace03gra was long now int
+  variable fyrace04gra was long now int
+  variable fyrace10gra was long now int
+  variable fyrace11gra was long now int
+  variable fyrace12gra was long now int
+  variable fyrace18gra was long now int
+  variable fyrace21gra was long now int
+  variable dveybktgra was long now int
+  variable dveybkmgra was long now int
+  variable dveybkwgra was long now int
+  variable dveyhstgra was long now int
+  variable dveyhswgra was long now int
+  variable dveywhmgra was long now int
+  variable dveywhwgra was long now int
+  (5,265,450 bytes saved)
+
+. label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+
+. notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+
+. notes _dta: "Panel built on `c(current_date)'"
+
+. saveold "$dtagbl", replace version(13)
+(saving in Stata 13 format)
+(note: file C:\GITS\StataIPEDSAll\LogFileName1.dta not found)
+file C:\GITS\StataIPEDSAll\LogFileName1.dta saved
+
+. 
+. qui { 
+#####################################################################
+
+      Saved C:\GITS\StataIPEDSAll\LogFileName1.dta
+
+######################################################################
+
+. log close
+      name:  <unnamed>
+       log:  C:\GITS\StataIPEDSAll\LogFileName1.log
+  log type:  text
+ closed on:  10 Jan 2018, 20:14:36
+------------------------------------------------------------------------------------------------------------------------------------------------------------------

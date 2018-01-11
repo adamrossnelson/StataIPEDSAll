@@ -6,6 +6,7 @@ cls
 // data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Jan/2018: 	Naiya Patel 	 - Edited/cleaned up code using rename function.
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Oct/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Oct/2017:	Adam Ross Nelson - GitHub ReBuild.
@@ -63,25 +64,15 @@ forvalues yindex = 2002 / 2016 {
 
 		// Make adjustments for changes in variable names.
 	if `yindex' < 2008 {
-		gen efynralm = fyrace01     // Nonresident alien men
-		gen efynralw = fyrace02     // Nonresident alien women
-		gen efyunknm = fyrace13     // Race/ethnicity unknown men
-		gen efyunknw = fyrace14     // Race/ethnicity unknown women
-		gen efytotlm = fyrace15     // Grand total men
-		gen efytotlw = fyrace16     // Grand total women
-		gen efynralt = fyrace17     // Nonresident alien total
-		gen efyunknt = fyrace23     // Race/ethnicity unknown total
-		gen efytotlt = fyrace24     // Grand total
-	
-		drop fyrace01
-		drop fyrace02
-		drop fyrace13
-		drop fyrace14
-		drop fyrace15
-		drop fyrace16
-		drop fyrace17
-		drop fyrace23
-		drop fyrace24
+		rename fyrace01 efynralm 	// Nonresident alien men 
+		rename fyrace02 efynralw	// Nonresident alien women
+		rename fyrace13 efyunknm	// Race/ethnicity unknown men
+		rename fyrace14 efyunknw	// Race/ethnicity unknown women
+		rename fyrace15 efytotlm	// Grand total men
+		rename fyrace16 efytotlw	// Grand total women 
+		rename fyrace17	efynralt	// Nonresident alien total
+		rename fyrace23	efyunknt	// Race/ethnicity unknown total
+		rename fyrace24 efytotlt	// Grand total
 	}	
 
 	// Save a copy of the effy file with all three levels for later reference.
@@ -91,8 +82,8 @@ forvalues yindex = 2002 / 2016 {
 /*######################################################################
 				This block of code reshapes the data. reshape might 
 				be a better approach. Advantage of not using reshape
-				is opportunity to modify data lables for better i
-				dentification of variables with -desc-, -codebook-.
+				is opportunity to modify data lables for better 
+				identification of variables with -desc-, -codebook-.
 #######################################################################*/
 
 		// Proceed to prepare the ALL Students Level set of effy variables.	
