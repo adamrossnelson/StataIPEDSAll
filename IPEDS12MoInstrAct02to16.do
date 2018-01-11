@@ -6,6 +6,7 @@ cls
 // data from the 12-MONTH INSTRUCTIONAL ACTIVITY survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Jan/2018:	 Naiya Patel - Updated to include 2016 datafiles. 
 // Oct/2017:     Naiya Patel - Merge with master branch.
 // Oct/2017:     Naiya Patel - Original author, initial build.
 
@@ -34,7 +35,7 @@ forvalues fname= 2002/2016 {
 	// Copy and unzip data and do files.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
 	unzipfile EFIA`fname'_Data_Stata.zip, replace
-	if `fname' > 2006 & `fname' < 2015 {
+	if `fname' > 2006 & `fname' < 2016 {
 		import delimited EFIA`fname'_rv_data_stata.csv, clear 
 	}
 	else { 
