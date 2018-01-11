@@ -6,6 +6,7 @@ cls
 // data from the INSTITUTIONAL CHRACTERISTICS survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Jan/2018: 	Naiya Patel 	 - Updated to include most recent datafiles. 
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
