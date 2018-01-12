@@ -118,3 +118,4 @@ Contextual note: The universe of higher education data is vast and complicated. 
 Date      | Developer             | Description
 ----------|-----------------------|----------------------
 03Jan2018 | Adam Ross Nelson      | Added test & dev log.
+11Jan2018 | Naiya Patel 	  | Tested "Run from Online" command lines.
