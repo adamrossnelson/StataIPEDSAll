@@ -218,6 +218,77 @@ forvalues yindex = 2002 / 2016 {
 		gen ratedgrnralw6yr = (grnralw17 + grnralw18 + grnralw19) / grnralw12
 		gen ratedgrnralt6yr = (grnralt17 + grnralt18 + grnralt19) / grnralt12
 		gen ratedgrnralm6yr = (grnralm17 + grnralm18 + grnralm19) / grnralm12 
+		
+		label variable 	ratedgrtotlt4yr "4yr Grad Total Rate" 
+        label variable 	ratedgrtotlw4yr "4yr Women Grad Total Rate" 
+        label variable 	ratedgrtotlm4yr "4yr Men Grad Total Rate" 
+        label variable 	ratedgraiant4yr "4yr Total Amer. Ind. Or AK Native Rate" 
+        label variable 	ratedgraianw4yr "4yr Women Amer. Ind. Or AK Native Rate" 
+        label variable 	ratedgraianm4yr "4yr Men Amer. Ind. Or AK Native Rate" 
+        label variable 	ratedgrasiat4yr "4yr Total Asian rate" 
+        label variable 	ratedgrasiaw4yr "4yr Women Asian rate" 
+        label variable 	ratedgrasiam4yr "4yr Men Asian rate" 
+        label variable 	ratedgrbkaat4yr "4yr Total Black or African American rate" 
+        label variable 	ratedgrbkaaw4yr "4yr Women Black or African American rate" 
+        label variable 	ratedgrbkaam4yr "4yr Men Black or African American rate" 
+        label variable 	ratedgrhispt4yr "4yr Total Hispanic rate" 
+        label variable 	ratedgrhispw4yr "4yr Women Hispanic rate" 
+        label variable 	ratedgrhispm4yr "4yr Men Hispanic rate" 
+        label variable 	ratedgrwhitt4yr "4yr Total White rate" 
+        label variable 	ratedgrwhitw4yr "4yr Women White rate" 
+        label variable 	ratedgrwhitm4yr "4yr Men White rate" 
+        label variable 	ratedgrunknt4yr "4yr Total Race/ethnicity Unknown rate" 
+        label variable 	ratedgrunknw4yr "4yr Women Race/ethnicity Unknown rate" 
+        label variable 	ratedgrunknm4yr "4yr Men Race/ethnicty Unknown rate" 
+        label variable 	ratedgrnralt4yr "4yr Total Nonresident Alien rate" 
+	
+        label variable 	ratedgrtotlt5yr "5yr Grad Total Rate" 
+        label variable 	ratedgrtotlw5yr "5yr Women Grad Total Rate" 
+        label variable 	ratedgrtotlm5yr "5yr Men Grad Total Rate" 
+        label variable 	ratedgraiant5yr "5yr Total Amer. Ind. Or AK Native Rate" 
+        label variable 	ratedgraianw5yr "5yr Women Amer. Ind. Or AK Native Rate" 
+        label variable 	ratedgraianm5yr "5yr Men Amer. Ind. Or AK Native Rate" 
+        label variable 	ratedgrasiat5yr "5yr Total Asian rate" 
+        label variable 	ratedgrasiaw5yr "5yr Women Asian rate" 
+        label variable 	ratedgrasiam5yr "5yr Men Asian rate" 
+        label variable 	ratedgrbkaat5yr "5yr Total Black or African American rate" 
+        label variable 	ratedgrbkaaw5yr "5yr Women Black or African American rate" 
+        label variable 	ratedgrbkaam5yr "5yr Men Black or African American rate" 
+        label variable 	ratedgrhispt5yr "5yr Total Hispanic rate" 
+        label variable 	ratedgrhispw5yr "5yr Women Hispanic rate" 
+        label variable 	ratedgrhispm5yr "5yr Men Hispanic rate" 
+        label variable 	ratedgrwhitt5yr "5yr Total White rate" 
+        label variable 	ratedgrwhitw5yr "5yr Women White rate" 
+        label variable 	ratedgrwhitm5yr "5yr Men White rate" 
+        label variable 	ratedgrunknt5yr "5yr Total Race/ethnicity Unknown rate" 
+        label variable 	ratedgrunknw5yr "5yr Women Race/ethnicity Unknown rate" 
+        label variable 	ratedgrunknm5yr "5yr Men Race/ethnicty Unknown rate" 
+        label variable 	ratedgrnralt5yr "5yr Total Nonresident Alien rate" 
+	
+        label variable	ratedgrtotlt6yr "6yr Grad Total Rate" 
+        label variable	ratedgrtotlw6yr "6yr Women Grad Total Rate" 
+        label variable	ratedgrtotlm6yr "6yr Men Grad Total Rate" 
+        label variable	ratedgraiant6yr "6yr Total Amer. Ind. Or AK Native Rate" 
+        label variable	ratedgraianw6yr "6yr Women Amer. Ind. Or AK Native Rate" 
+        label variable	ratedgraianm6yr "6yr Men Amer. Ind. Or AK Native Rate" 
+        label variable	ratedgrasiat6yr "6yr Total Asian rate" 
+        label variable	ratedgrasiaw6yr "6yr Women Asian rate" 
+        label variable	ratedgrasiam6yr "6yr Men Asian rate" 
+        label variable	ratedgrbkaat6yr "6yr Total Black or African American rate" 
+        label variable	ratedgrbkaaw6yr "6yr Women Black or African American rate" 
+        label variable	ratedgrbkaam6yr "6yr Men Black or African American rate" 
+        label variable	ratedgrhispt6yr "6yr Total Hispanic rate" 
+        label variable	ratedgrhispw6yr "6yr Women Hispanic rate" 
+        label variable	ratedgrhispm6yr "6yr Men Hispanic rate" 
+        
+		label variable	ratedgrwhitt6yr "6yr Total White rate" 
+        label variable	ratedgrwhitw6yr "6yr Women White rate" 
+        label variable	ratedgrwhitm6yr "6yr Men White rate" 
+        label variable	ratedgrunknt6yr "6yr Total Race/ethnicity Unknown rate" 
+        label variable	ratedgrunknw6yr "6yr Women Race/ethnicity Unknown rate" 
+        label variable	ratedgrunknm6yr "6yr Men Race/ethnicty Unknown rate" 
+        label variable	ratedgrnralt6yr "6yr Total Nonresident Alien rate" 
+
 	
 	gen int isYr = `yindex'			// Add the isYr index for later merge.
 	order isYr, after(unitid)		// Order isYr after unitid, easier browsing.
@@ -251,5 +322,8 @@ noi di ""
 noi di "######################################################################"
 }
 log close
+
+
+
 
 
