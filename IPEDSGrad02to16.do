@@ -224,8 +224,17 @@ forvalues yindex = 2002 / 2016 {
 	
 	saveold "gr`yindex'_data_stata.dta", version(13) replace	// Save cleaned data file.
 	di `sp'	`sp'												// Spacer for the output.
+}
+
+use GR2016_data_stata.dta, clear
+forvalues yindex = 2015(-1)2002 {
+	display "`yindex'"						// Output for log file.
+	append using "gr`yindex'_data_stata.dta", force
+	di `sp'									// Spacing for log file.
+}
+
 	
-	// Move up file directory level, compress, add notes.
+// Move up file directory level, compress, add notes.
 // Save resulting panel data set.
 cd ..
 compress
@@ -242,3 +251,5 @@ noi di ""
 noi di "######################################################################"
 }
 log close
+
+
