@@ -127,7 +127,7 @@ forvalues yindex = 2002 / 2016 {
 		grtotlt grtotlm grtotlw graiant graianm graianw grasiat grasiam /// Other variables were omitted because they were derived only for the
 		grasiaw grbkaat grbkaam grbkaaw grhispt grhispm grhispw grnhpit /// years 2008, 2009, and 2010. 
 		grnhpim grnhpiw grwhitt grwhitm grwhitw gr2mort gr2morm gr2morw ///
-		grunknt grunknm grunknw grnralt grnralm grnralw					/// 
+		grunknt grunknm grunknw grnralt grnralm grnralw					
 	}
 	
 	// Reshape
