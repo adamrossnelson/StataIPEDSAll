@@ -219,6 +219,7 @@ forvalues yindex = 2002 / 2016 {
 		gen ratedgrnralt6yr = (grnralt17 + grnralt18 + grnralt19) / grnralt12
 		gen ratedgrnralm6yr = (grnralm17 + grnralm18 + grnralm19) / grnralm12 
 		
+		
 		label variable 	ratedgrtotlt4yr "4yr Grad Total Rate" 
         label variable 	ratedgrtotlw4yr "4yr Women Grad Total Rate" 
         label variable 	ratedgrtotlm4yr "4yr Men Grad Total Rate" 
@@ -241,6 +242,8 @@ forvalues yindex = 2002 / 2016 {
         label variable 	ratedgrunknw4yr "4yr Women Race/ethnicity Unknown rate" 
         label variable 	ratedgrunknm4yr "4yr Men Race/ethnicty Unknown rate" 
         label variable 	ratedgrnralt4yr "4yr Total Nonresident Alien rate" 
+		label variable  ratedgrnralw4yr "4yr Women Nonresident Alien rate" 
+		label variable  ratedgrnralm4yr "4yr Men Nonresident Alien rate"
 	
         label variable 	ratedgrtotlt5yr "5yr Grad Total Rate" 
         label variable 	ratedgrtotlw5yr "5yr Women Grad Total Rate" 
@@ -264,6 +267,8 @@ forvalues yindex = 2002 / 2016 {
         label variable 	ratedgrunknw5yr "5yr Women Race/ethnicity Unknown rate" 
         label variable 	ratedgrunknm5yr "5yr Men Race/ethnicty Unknown rate" 
         label variable 	ratedgrnralt5yr "5yr Total Nonresident Alien rate" 
+		label variable  ratedgrnralw5yr "5yr Women Nonresident Alien rate" 
+		label variable  ratedgrnralm5yr "5yr Men Nonresident Alien rate"
 	
         label variable	ratedgrtotlt6yr "6yr Grad Total Rate" 
         label variable	ratedgrtotlw6yr "6yr Women Grad Total Rate" 
@@ -280,14 +285,15 @@ forvalues yindex = 2002 / 2016 {
         label variable	ratedgrhispt6yr "6yr Total Hispanic rate" 
         label variable	ratedgrhispw6yr "6yr Women Hispanic rate" 
         label variable	ratedgrhispm6yr "6yr Men Hispanic rate" 
-        
 		label variable	ratedgrwhitt6yr "6yr Total White rate" 
         label variable	ratedgrwhitw6yr "6yr Women White rate" 
         label variable	ratedgrwhitm6yr "6yr Men White rate" 
         label variable	ratedgrunknt6yr "6yr Total Race/ethnicity Unknown rate" 
         label variable	ratedgrunknw6yr "6yr Women Race/ethnicity Unknown rate" 
         label variable	ratedgrunknm6yr "6yr Men Race/ethnicty Unknown rate" 
-        label variable	ratedgrnralt6yr "6yr Total Nonresident Alien rate" 
+        label variable	ratedgrnralt6yr "6yr Total Nonresident Alien rate"
+		label variable  ratedgrnralw6yr "6yr Women Nonresident Alien rate" 
+		label variable  ratedgrnralm6yr "6yr Men Nonresident Alien rate" 
 
 	
 	gen int isYr = `yindex'			// Add the isYr index for later merge.
