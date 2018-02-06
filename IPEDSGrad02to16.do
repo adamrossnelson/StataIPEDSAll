@@ -198,28 +198,28 @@ forvalues yindex = 2002 / 2016 {
         gen ratedgrtotlm6yr = (grtotlm17 + grtotlm18 + grtotlm19) / grtotlm12
         gen ratedgraianw6yr = (graianw17 + graianw18 + graianw19) / graianw12
         gen ratedgraiant6yr = (graiant17 + graiant18 + graiant19) / graiant12
-	gen ratedgraianm6yr = (graianm17 + graianm18 + graianm19) / graianm12
-	gen ratedgrasiaw6yr = (grasiaw17 + grasiaw18 + grasiaw19) / grasiaw12
-	gen ratedgrasiat6yr = (grasiat17 + grasiat18 + grasiat19) / grasiat12
-	gen ratedgrasiam6yr = (grasiam17 + grasiam18 + grasiam19) / grasiam12
-	gen ratedgrbkaaw6yr = (grbkaaw17 + grbkaaw18 + grbkaaw19) / grbkaaw12
-	gen ratedgrbkaat6yr = (grbkaat17 + grbkaat18 + grbkaat19) / grbkaat12
-	gen ratedgrbkaam6yr = (grbkaam17 + grbkaam18 + grbkaam19) / grbkaam12
-	gen ratedgrhispw6yr = (grhispw17 + grhispw18 + grhispw19) / grhispw12
-	gen ratedgrhispt6yr = (grhispt17 + grhispt18 + grhispt19) / grhispt12
-	gen ratedgrhispm6yr = (grhispm17 + grhispm18 + grhispm19) / grhispm12
-	gen ratedgrwhitw6yr = (grwhitw17 + grwhitw18 + grwhitw19) / grwhitw12
-	gen ratedgrwhitt6yr = (grwhitt17 + grwhitt18 + grwhitt19) / grwhitt12
-	gen ratedgrwhitm6yr = (grwhitm17 + grwhitm18 + grwhitm19) / grwhitm12
-	gen ratedgrunknw6yr = (grunknw17 + grunknw18 + grunknw19) / grunknw12
-	gen ratedgrunknt6yr = (grunknt17 + grunknt18 + grunknt19) / grunknt12
-	gen ratedgrunknm6yr = (grunknm17 + grunknm18 + grunknm19) / grunknm12
-	gen ratedgrnralw6yr = (grnralw17 + grnralw18 + grnralw19) / grnralw12
-	gen ratedgrnralt6yr = (grnralt17 + grnralt18 + grnralt19) / grnralt12
-	gen ratedgrnralm6yr = (grnralm17 + grnralm18 + grnralm19) / grnralm12 
+        gen ratedgraianm6yr = (graianm17 + graianm18 + graianm19) / graianm12
+        gen ratedgrasiaw6yr = (grasiaw17 + grasiaw18 + grasiaw19) / grasiaw12
+        gen ratedgrasiat6yr = (grasiat17 + grasiat18 + grasiat19) / grasiat12
+        gen ratedgrasiam6yr = (grasiam17 + grasiam18 + grasiam19) / grasiam12
+        gen ratedgrbkaaw6yr = (grbkaaw17 + grbkaaw18 + grbkaaw19) / grbkaaw12
+        gen ratedgrbkaat6yr = (grbkaat17 + grbkaat18 + grbkaat19) / grbkaat12
+        gen ratedgrbkaam6yr = (grbkaam17 + grbkaam18 + grbkaam19) / grbkaam12
+        gen ratedgrhispw6yr = (grhispw17 + grhispw18 + grhispw19) / grhispw12
+        gen ratedgrhispt6yr = (grhispt17 + grhispt18 + grhispt19) / grhispt12
+        gen ratedgrhispm6yr = (grhispm17 + grhispm18 + grhispm19) / grhispm12
+        gen ratedgrwhitw6yr = (grwhitw17 + grwhitw18 + grwhitw19) / grwhitw12
+        gen ratedgrwhitt6yr = (grwhitt17 + grwhitt18 + grwhitt19) / grwhitt12
+        gen ratedgrwhitm6yr = (grwhitm17 + grwhitm18 + grwhitm19) / grwhitm12
+        gen ratedgrunknw6yr = (grunknw17 + grunknw18 + grunknw19) / grunknw12
+        gen ratedgrunknt6yr = (grunknt17 + grunknt18 + grunknt19) / grunknt12
+        gen ratedgrunknm6yr = (grunknm17 + grunknm18 + grunknm19) / grunknm12
+        gen ratedgrnralw6yr = (grnralw17 + grnralw18 + grnralw19) / grnralw12
+        gen ratedgrnralt6yr = (grnralt17 + grnralt18 + grnralt19) / grnralt12
+        gen ratedgrnralm6yr = (grnralm17 + grnralm18 + grnralm19) / grnralm12 
 		
 		
-	label variable 	ratedgrtotlt4yr "4yr Grad Total Rate" 
+        label variable 	ratedgrtotlt4yr "4yr Grad Total Rate" 
         label variable 	ratedgrtotlw4yr "4yr Women Grad Total Rate" 
         label variable 	ratedgrtotlm4yr "4yr Men Grad Total Rate" 
         label variable 	ratedgraiant4yr "4yr Total Amer. Ind. Or AK Native Rate" 
@@ -241,8 +241,8 @@ forvalues yindex = 2002 / 2016 {
         label variable 	ratedgrunknw4yr "4yr Women Race/ethnicity Unknown rate" 
         label variable 	ratedgrunknm4yr "4yr Men Race/ethnicty Unknown rate" 
         label variable 	ratedgrnralt4yr "4yr Total Nonresident Alien rate" 
-	label variable  ratedgrnralw4yr "4yr Women Nonresident Alien rate" 
-	label variable  ratedgrnralm4yr "4yr Men Nonresident Alien rate"
+        label variable  ratedgrnralw4yr "4yr Women Nonresident Alien rate" 
+        label variable  ratedgrnralm4yr "4yr Men Nonresident Alien rate"
 	
         label variable 	ratedgrtotlt5yr "5yr Grad Total Rate" 
         label variable 	ratedgrtotlw5yr "5yr Women Grad Total Rate" 
@@ -266,8 +266,8 @@ forvalues yindex = 2002 / 2016 {
         label variable 	ratedgrunknw5yr "5yr Women Race/ethnicity Unknown rate" 
         label variable 	ratedgrunknm5yr "5yr Men Race/ethnicty Unknown rate" 
         label variable 	ratedgrnralt5yr "5yr Total Nonresident Alien rate" 
-	label variable  ratedgrnralw5yr "5yr Women Nonresident Alien rate" 
-	label variable  ratedgrnralm5yr "5yr Men Nonresident Alien rate"
+        label variable  ratedgrnralw5yr "5yr Women Nonresident Alien rate" 
+        label variable  ratedgrnralm5yr "5yr Men Nonresident Alien rate"
 	
         label variable	ratedgrtotlt6yr "6yr Grad Total Rate" 
         label variable	ratedgrtotlw6yr "6yr Women Grad Total Rate" 
@@ -284,29 +284,29 @@ forvalues yindex = 2002 / 2016 {
         label variable	ratedgrhispt6yr "6yr Total Hispanic rate" 
         label variable	ratedgrhispw6yr "6yr Women Hispanic rate" 
         label variable	ratedgrhispm6yr "6yr Men Hispanic rate" 
-	label variable	ratedgrwhitt6yr "6yr Total White rate" 
+        label variable	ratedgrwhitt6yr "6yr Total White rate" 
         label variable	ratedgrwhitw6yr "6yr Women White rate" 
         label variable	ratedgrwhitm6yr "6yr Men White rate" 
         label variable	ratedgrunknt6yr "6yr Total Race/ethnicity Unknown rate" 
         label variable	ratedgrunknw6yr "6yr Women Race/ethnicity Unknown rate" 
         label variable	ratedgrunknm6yr "6yr Men Race/ethnicty Unknown rate" 
         label variable	ratedgrnralt6yr "6yr Total Nonresident Alien rate"
-	label variable  ratedgrnralw6yr "6yr Women Nonresident Alien rate" 
-	label variable  ratedgrnralm6yr "6yr Men Nonresident Alien rate" 
-
+        label variable  ratedgrnralw6yr "6yr Women Nonresident Alien rate" 
+        label variable  ratedgrnralm6yr "6yr Men Nonresident Alien rate" 
+		
 	
-	gen int isYr = `yindex'	                                        // Add the isYr index for later merge.
-	order isYr, after(unitid)                                       // Order isYr after unitid, easier browsing.
+        gen int isYr = `yindex'	                                        // Add the isYr index for later merge.
+        order isYr, after(unitid)                                       // Order isYr after unitid, easier browsing.
 	
-	saveold "gr`yindex'_data_stata.dta", version(13) replace	// Save cleaned data file.
-	di `sp'	`sp'                                                    // Spacer for the output.
+        saveold "gr`yindex'_data_stata.dta", version(13) replace	// Save cleaned data file.
+        di `sp'	`sp'                                                    // Spacer for the output.
 }
 
 use GR2016_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
-	display "`yindex'"                                              // Output for log file.
-	append using "gr`yindex'_data_stata.dta", force
-	di `sp'	                                                        // Spacing for log file.
+    display "`yindex'"                                              // Output for log file.
+    append using "gr`yindex'_data_stata.dta", force
+    di `sp'	                                                        // Spacing for log file.
 }
 
 	
