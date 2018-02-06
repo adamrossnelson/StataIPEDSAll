@@ -6,6 +6,7 @@ cls
 // data from the INSTITUTIONAL CHRACTERISTICS survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Jan/2018: 	Naiya Patel 	 - Updated to include most recent datafiles. 
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
@@ -130,7 +131,7 @@ forvalues fname = 2002 / 2016 {
 // be most valid and reliable for the intended research or analytical purpose.
 di `sp'												// Spacer for the output.
 use ic2016_data_stata.dta, clear					// Open most recent file as the
-forvalues yindex = 2015(-1)2002 {					// base and then, assemble the
+forvalues yindex = 2016(-1)2002 {					// base (2016) and then, assemble
 	append using ic`yindex'_data_stata.dta, force	// panel data set.
 	di `sp'											// Spacer for the output.
 }

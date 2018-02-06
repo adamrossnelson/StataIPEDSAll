@@ -2,11 +2,13 @@
 
 These files will download, build, and save to the local computer data from the US DOE's Integrated Postsecondary Education Data Stystem. All files are intended to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended as reverse compatible, but not tested. **Notes about assumptions or limitations maintained in the do files.**
 
+For a related/similar repo built for R see [btskinner/downloadipeds](https://github.com/btskinner/downloadipeds).
+
 ## 1.1. IPEDS Update Cylces (Revised releases)
 
 Occassionaly IPEDS provides preliminary release data which is later replaced with revised data. [They publish information about their schedule](https://surveys.nces.ed.gov/ipeds/ViewContent.aspx?contentId=15). IPEDS conventions place "rv" in csv filenames to denote revised data. As I am able I update these do files to reference revised data. 
 
-If I'm behind on an update send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how. Updates logged in do file headers. An aggregated [Testing & Development Log](#4-testing--development-log) is available [below](#4-testing--development-log).
+If I'm behind on an update send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how. Updates logged in do file headers. An aggregated [Testing & Development Log](#4-testing-and-development-log) is available [below](#4-testing-and-development-log).
 
 ## 1.2. Table of Contents
 <!-- TOC -->
@@ -30,7 +32,7 @@ If I'm behind on an update send me a note. Or branch the project, revise on your
         - [2.4.2. Suggesting naming convention](#242-suggesting-naming-convention)
     - [2.5. IPEDSGradRt02to16.do](#25-ipedsgradrt02to16do)
 - [3. Contextual Note](#3-contextual-note)
-- [4. Testing & Development Log](#4-testing--development-log)
+- [4. Testing And Development Log](#4-testing-and-development-log)
 
 <!-- /TOC -->
 
@@ -113,4 +115,9 @@ Contextual note: The universe of higher education data is vast and complicated. 
 
 ![Higher Education Data Illustration](images/HEDataChart.jpg)
 
-# 4. Testing & Development Log
+# 4. Testing And Development Log
+
+Date      | Developer             | Description
+----------|-----------------------|----------------------
+03Jan2018 | Adam Ross Nelson      | Added test & dev log.
+11Jan2018 | Naiya Patel 	  | Tested "Run from Online" command lines.
