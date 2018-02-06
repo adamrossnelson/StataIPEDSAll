@@ -11,9 +11,9 @@ set linesize 200
 
 cd c:/statadata
 
-capture log close							// Close any stray open log files.
-log using "IPEDmost `curdate'.txt", replace // Open a log file.
-cd											// Confirm working directory location.
+capture log close                                                       // Close any stray open log files.
+log using "IPEDmost `curdate'.txt", replace                             // Open a log file.
+cd                                                                      // Confirm working directory location.
 	
 // This code is designed to download a set of IPEDS surveys from nces.edu.gov
 // Surveys included are the:
@@ -34,16 +34,15 @@ version 13                                    // Enforce version compatibility.
 di c(pwd)                                     // Confrim working directory.
 
 
-version 13								// Enforce version control for Version 13.
-set more off  							// (Simplies collabroation with legacy users.)
+version 13                                    // Enforce version control for Version 13.
+set more off                                  // (Simplies collabroation with legacy users.)
 
-local sp char(13) char(10) char(13) char(10) // Define spacer.
+local sp char(13) char(10) char(13) char(10)  // Define spacer.
 
-cd 										// Confirm working directory information.
-capture mkdir workspace					// Make a directory to store the zip files.
-//cd workspace							// Move into working directory location.
-
-										// Spacer for the output.
+cd                                            // Confirm working directory information.
+capture mkdir workspace	                      // Make a directory to store the zip files.
+//cd workspace                                // Move into working directory location.
+                                              // Spacer for the output.
 
 clear all
 
@@ -56,13 +55,13 @@ forvalues yindex = 2002 / 2016 {
     copy https://nces.ed.gov/ipeds/datacenter/data/GR`yindex'_Stata.zip .
     unzipfile GR`yindex'_Stata.zip
 	
-        // The NCES provided -do- files have some lines that need to be removed
-        // before we can call them from the master -do- file.
+                                              // The NCES provided -do- files have some lines that need to be removed
+                                              // before we can call them from the master -do- file.
     scalar fcontents = fileread("gr`yindex'.do")
     scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
     scalar fcontents = subinstr(fcontents, "save", "// save", .)
 
-        // Lines from the gr2002 files that need to be removed.
+    // Lines from the gr2002 files that need to be removed.
     scalar fcontents = subinstr(fcontents, "label define label_line", "// label define label_line", .)
     scalar fcontents = subinstr(fcontents, "label values line label_line", "// label values line label_line", .)
 	
@@ -78,45 +77,45 @@ forvalues yindex = 2002 / 2016 {
         import delimited gr`yindex'_data_stata.csv, clear
 	}
 	
-        // Run the NCES provided do files.
-    di "QUIET RUN OF gr`yindex'.do" // Provid user with information for log file.
-    qui do gr`yindex'.do			// Quietyly run NCES provided do files.
-    drop x*							// Remove imputation flags. Reduces file size.
+    // Run the NCES provided do files.
+    di "QUIET RUN OF gr`yindex'.do"           // Provid user with information for log file.
+    qui do gr`yindex'.do                      // Quietyly run NCES provided do files.
+    drop x*                                   // Remove imputation flags. Reduces file size.
 	
         // VARIABLE NAME conventions changed. Manage evolving name conventions.
         // 2002 through 2007 variable names changed to match 2008 & forward.
     if (`yindex' < 2008) {
-        rename grrace16 grtotlw     // Total women
-        rename grrace24 grtotlt     // Grand total
-        rename grrace15 grtotlm     // Total men
-        rename grrace06 graianw     // American Indian or Alaska Native women - new
-        rename grrace19 graiant     // American Indian or Alaska Native total - new
-        rename grrace05 graianm     // American Indian or Alaska Native men - new
-        rename grrace08 grasiaw     // Asian or Pacific Islander women - new
-        rename grrace20 grasiat     // Asian or Pacific Islander total - new
-        rename grrace07 grasiam     // Asian or Pacific Islander men - new
-        rename grrace04 grbkaaw     // Black or African American (Non-Hispanic) women - new
-        rename grrace18 grbkaat     // Black or African American (Non-Hispanic) total - new
-        rename grrace03 grbkaam     // Black or African American (Non-Hispanic) men - new
-        rename grrace10 grhispw     // Hispanic women - new
-        rename grrace21 grhispt     // Hispanic total - new
-        rename grrace09 grhispm     // Hispanic men - new
-        rename grrace12 grwhitw     // White Non-Hispanic women - new
-        rename grrace22 grwhitt     // White Non-Hispanic total - new
-        rename grrace11 grwhitm     // White Non-Hispanic men - new
-        rename grrace14 grunknw     // Race/ethnicity unknown women
-        rename grrace23 grunknt     // Race/ethnicity unknown total
-        rename grrace13 grunknm     // Race/ethnicity unknown men
-        rename grrace02 grnralw     // Nonresident alien women
-        rename grrace17 grnralt     // Nonresident alien total
-        rename grrace01 grnralm     // Nonresident alien men
+        rename grrace16 grtotlw               // Total women
+        rename grrace24 grtotlt               // Grand total
+        rename grrace15 grtotlm               // Total men
+        rename grrace06 graianw               // American Indian or Alaska Native women - new
+        rename grrace19 graiant               // American Indian or Alaska Native total - new
+        rename grrace05 graianm               // American Indian or Alaska Native men - new
+        rename grrace08 grasiaw               // Asian or Pacific Islander women - new
+        rename grrace20 grasiat               // Asian or Pacific Islander total - new
+        rename grrace07 grasiam               // Asian or Pacific Islander men - new
+        rename grrace04 grbkaaw               // Black or African American (Non-Hispanic) women - new
+        rename grrace18 grbkaat               // Black or African American (Non-Hispanic) total - new
+        rename grrace03 grbkaam               // Black or African American (Non-Hispanic) men - new
+        rename grrace10 grhispw               // Hispanic women - new
+        rename grrace21 grhispt               // Hispanic total - new
+        rename grrace09 grhispm               // Hispanic men - new
+        rename grrace12 grwhitw               // White Non-Hispanic women - new
+        rename grrace22 grwhitt               // White Non-Hispanic total - new
+        rename grrace11 grwhitm               // White Non-Hispanic men - new
+        rename grrace14 grunknw               // Race/ethnicity unknown women
+        rename grrace23 grunknt               // Race/ethnicity unknown total
+        rename grrace13 grunknm               // Race/ethnicity unknown men
+        rename grrace02 grnralw               // Nonresident alien women
+        rename grrace17 grnralt               // Nonresident alien total
+        rename grrace01 grnralm               // Nonresident alien men
         // Also generate missing variables that occur in years after 2007
-        gen gr2morw = .             // Two or more races women - new
-        gen gr2mort = .             // Two or more races total - new
-        gen gr2morm = .             // Two or more races men - new
-        gen grnhpiw = .             // Native Hawaiian or Other Pacific Islander women - new
-        gen grnhpit = .             // Native Hawaiian or Other Pacific Islander total - new
-        gen grnhpim = .             // Native Hawaiian or Other Pacific Islander men - new
+        gen gr2morw = .                       // Two or more races women - new
+        gen gr2mort = .                       // Two or more races total - new
+        gen gr2morm = .                       // Two or more races men - new
+        gen grnhpiw = .                       // Native Hawaiian or Other Pacific Islander women - new
+        gen grnhpit = .                       // Native Hawaiian or Other Pacific Islander total - new
+        gen grnhpim = .                       // Native Hawaiian or Other Pacific Islander men - new
 	}
 		
         // Survey years 2008, 2009, and 2010 contain unconventional
@@ -199,28 +198,28 @@ forvalues yindex = 2002 / 2016 {
         gen ratedgrtotlm6yr = (grtotlm17 + grtotlm18 + grtotlm19) / grtotlm12
         gen ratedgraianw6yr = (graianw17 + graianw18 + graianw19) / graianw12
         gen ratedgraiant6yr = (graiant17 + graiant18 + graiant19) / graiant12
-		gen ratedgraianm6yr = (graianm17 + graianm18 + graianm19) / graianm12
-		gen ratedgrasiaw6yr = (grasiaw17 + grasiaw18 + grasiaw19) / grasiaw12
-		gen ratedgrasiat6yr = (grasiat17 + grasiat18 + grasiat19) / grasiat12
-		gen ratedgrasiam6yr = (grasiam17 + grasiam18 + grasiam19) / grasiam12
-		gen ratedgrbkaaw6yr = (grbkaaw17 + grbkaaw18 + grbkaaw19) / grbkaaw12
-		gen ratedgrbkaat6yr = (grbkaat17 + grbkaat18 + grbkaat19) / grbkaat12
-		gen ratedgrbkaam6yr = (grbkaam17 + grbkaam18 + grbkaam19) / grbkaam12
-		gen ratedgrhispw6yr = (grhispw17 + grhispw18 + grhispw19) / grhispw12
-		gen ratedgrhispt6yr = (grhispt17 + grhispt18 + grhispt19) / grhispt12
-		gen ratedgrhispm6yr = (grhispm17 + grhispm18 + grhispm19) / grhispm12
-		gen ratedgrwhitw6yr = (grwhitw17 + grwhitw18 + grwhitw19) / grwhitw12
-		gen ratedgrwhitt6yr = (grwhitt17 + grwhitt18 + grwhitt19) / grwhitt12
-		gen ratedgrwhitm6yr = (grwhitm17 + grwhitm18 + grwhitm19) / grwhitm12
-		gen ratedgrunknw6yr = (grunknw17 + grunknw18 + grunknw19) / grunknw12
-		gen ratedgrunknt6yr = (grunknt17 + grunknt18 + grunknt19) / grunknt12
-		gen ratedgrunknm6yr = (grunknm17 + grunknm18 + grunknm19) / grunknm12
-		gen ratedgrnralw6yr = (grnralw17 + grnralw18 + grnralw19) / grnralw12
-		gen ratedgrnralt6yr = (grnralt17 + grnralt18 + grnralt19) / grnralt12
-		gen ratedgrnralm6yr = (grnralm17 + grnralm18 + grnralm19) / grnralm12 
+	gen ratedgraianm6yr = (graianm17 + graianm18 + graianm19) / graianm12
+	gen ratedgrasiaw6yr = (grasiaw17 + grasiaw18 + grasiaw19) / grasiaw12
+	gen ratedgrasiat6yr = (grasiat17 + grasiat18 + grasiat19) / grasiat12
+	gen ratedgrasiam6yr = (grasiam17 + grasiam18 + grasiam19) / grasiam12
+	gen ratedgrbkaaw6yr = (grbkaaw17 + grbkaaw18 + grbkaaw19) / grbkaaw12
+	gen ratedgrbkaat6yr = (grbkaat17 + grbkaat18 + grbkaat19) / grbkaat12
+	gen ratedgrbkaam6yr = (grbkaam17 + grbkaam18 + grbkaam19) / grbkaam12
+	gen ratedgrhispw6yr = (grhispw17 + grhispw18 + grhispw19) / grhispw12
+	gen ratedgrhispt6yr = (grhispt17 + grhispt18 + grhispt19) / grhispt12
+	gen ratedgrhispm6yr = (grhispm17 + grhispm18 + grhispm19) / grhispm12
+	gen ratedgrwhitw6yr = (grwhitw17 + grwhitw18 + grwhitw19) / grwhitw12
+	gen ratedgrwhitt6yr = (grwhitt17 + grwhitt18 + grwhitt19) / grwhitt12
+	gen ratedgrwhitm6yr = (grwhitm17 + grwhitm18 + grwhitm19) / grwhitm12
+	gen ratedgrunknw6yr = (grunknw17 + grunknw18 + grunknw19) / grunknw12
+	gen ratedgrunknt6yr = (grunknt17 + grunknt18 + grunknt19) / grunknt12
+	gen ratedgrunknm6yr = (grunknm17 + grunknm18 + grunknm19) / grunknm12
+	gen ratedgrnralw6yr = (grnralw17 + grnralw18 + grnralw19) / grnralw12
+	gen ratedgrnralt6yr = (grnralt17 + grnralt18 + grnralt19) / grnralt12
+	gen ratedgrnralm6yr = (grnralm17 + grnralm18 + grnralm19) / grnralm12 
 		
 		
-		label variable 	ratedgrtotlt4yr "4yr Grad Total Rate" 
+	label variable 	ratedgrtotlt4yr "4yr Grad Total Rate" 
         label variable 	ratedgrtotlw4yr "4yr Women Grad Total Rate" 
         label variable 	ratedgrtotlm4yr "4yr Men Grad Total Rate" 
         label variable 	ratedgraiant4yr "4yr Total Amer. Ind. Or AK Native Rate" 
@@ -242,8 +241,8 @@ forvalues yindex = 2002 / 2016 {
         label variable 	ratedgrunknw4yr "4yr Women Race/ethnicity Unknown rate" 
         label variable 	ratedgrunknm4yr "4yr Men Race/ethnicty Unknown rate" 
         label variable 	ratedgrnralt4yr "4yr Total Nonresident Alien rate" 
-		label variable  ratedgrnralw4yr "4yr Women Nonresident Alien rate" 
-		label variable  ratedgrnralm4yr "4yr Men Nonresident Alien rate"
+	label variable  ratedgrnralw4yr "4yr Women Nonresident Alien rate" 
+	label variable  ratedgrnralm4yr "4yr Men Nonresident Alien rate"
 	
         label variable 	ratedgrtotlt5yr "5yr Grad Total Rate" 
         label variable 	ratedgrtotlw5yr "5yr Women Grad Total Rate" 
@@ -267,8 +266,8 @@ forvalues yindex = 2002 / 2016 {
         label variable 	ratedgrunknw5yr "5yr Women Race/ethnicity Unknown rate" 
         label variable 	ratedgrunknm5yr "5yr Men Race/ethnicty Unknown rate" 
         label variable 	ratedgrnralt5yr "5yr Total Nonresident Alien rate" 
-		label variable  ratedgrnralw5yr "5yr Women Nonresident Alien rate" 
-		label variable  ratedgrnralm5yr "5yr Men Nonresident Alien rate"
+	label variable  ratedgrnralw5yr "5yr Women Nonresident Alien rate" 
+	label variable  ratedgrnralm5yr "5yr Men Nonresident Alien rate"
 	
         label variable	ratedgrtotlt6yr "6yr Grad Total Rate" 
         label variable	ratedgrtotlw6yr "6yr Women Grad Total Rate" 
@@ -285,29 +284,29 @@ forvalues yindex = 2002 / 2016 {
         label variable	ratedgrhispt6yr "6yr Total Hispanic rate" 
         label variable	ratedgrhispw6yr "6yr Women Hispanic rate" 
         label variable	ratedgrhispm6yr "6yr Men Hispanic rate" 
-		label variable	ratedgrwhitt6yr "6yr Total White rate" 
+	label variable	ratedgrwhitt6yr "6yr Total White rate" 
         label variable	ratedgrwhitw6yr "6yr Women White rate" 
         label variable	ratedgrwhitm6yr "6yr Men White rate" 
         label variable	ratedgrunknt6yr "6yr Total Race/ethnicity Unknown rate" 
         label variable	ratedgrunknw6yr "6yr Women Race/ethnicity Unknown rate" 
         label variable	ratedgrunknm6yr "6yr Men Race/ethnicty Unknown rate" 
         label variable	ratedgrnralt6yr "6yr Total Nonresident Alien rate"
-		label variable  ratedgrnralw6yr "6yr Women Nonresident Alien rate" 
-		label variable  ratedgrnralm6yr "6yr Men Nonresident Alien rate" 
+	label variable  ratedgrnralw6yr "6yr Women Nonresident Alien rate" 
+	label variable  ratedgrnralm6yr "6yr Men Nonresident Alien rate" 
 
 	
-	gen int isYr = `yindex'			// Add the isYr index for later merge.
-	order isYr, after(unitid)		// Order isYr after unitid, easier browsing.
+	gen int isYr = `yindex'	                                        // Add the isYr index for later merge.
+	order isYr, after(unitid)                                       // Order isYr after unitid, easier browsing.
 	
 	saveold "gr`yindex'_data_stata.dta", version(13) replace	// Save cleaned data file.
-	di `sp'	`sp'												// Spacer for the output.
+	di `sp'	`sp'                                                    // Spacer for the output.
 }
 
 use GR2016_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
-	display "`yindex'"						// Output for log file.
+	display "`yindex'"                                              // Output for log file.
 	append using "gr`yindex'_data_stata.dta", force
-	di `sp'									// Spacing for log file.
+	di `sp'	                                                        // Spacing for log file.
 }
 
 	
