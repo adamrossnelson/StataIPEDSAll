@@ -218,7 +218,10 @@ forvalues yindex = 2002 / 2016 {
 		gen ratedgrnralt6yr = (grnralt17 + grnralt18 + grnralt19) / grnralt12
 		gen ratedgrnralm6yr = (grnralm17 + grnralm18 + grnralm19) / grnralm12 
 		
+		// Generate variable labels for the calculated graduation rates for
+		// 4 year, 5 year, and 6 year graduation rates. 
 		
+		// Labels for 4 year calculated graduation rates 
 		label variable 	ratedgrtotlt4yr "4yr Grad Total Rate" 
 		label variable 	ratedgrtotlw4yr "4yr Women Grad Total Rate" 
 		label variable 	ratedgrtotlm4yr "4yr Men Grad Total Rate" 
@@ -243,7 +246,8 @@ forvalues yindex = 2002 / 2016 {
 		label variable 	ratedgrnralt4yr "4yr Total Nonresident Alien rate" 
 		label variable  ratedgrnralw4yr "4yr Women Nonresident Alien rate" 
 		label variable  ratedgrnralm4yr "4yr Men Nonresident Alien rate"
-	
+		
+		// Labels for 5 year calculated graduation rates
 		label variable 	ratedgrtotlt5yr "5yr Grad Total Rate" 
 		label variable 	ratedgrtotlw5yr "5yr Women Grad Total Rate" 
 		label variable 	ratedgrtotlm5yr "5yr Men Grad Total Rate" 
@@ -268,7 +272,8 @@ forvalues yindex = 2002 / 2016 {
 		label variable 	ratedgrnralt5yr "5yr Total Nonresident Alien rate" 
 		label variable  ratedgrnralw5yr "5yr Women Nonresident Alien rate" 
 		label variable  ratedgrnralm5yr "5yr Men Nonresident Alien rate"
-	
+		
+		// Labels for 6 year calculated graduation rates
 		label variable	ratedgrtotlt6yr "6yr Grad Total Rate" 
 		label variable	ratedgrtotlw6yr "6yr Women Grad Total Rate" 
 		label variable	ratedgrtotlm6yr "6yr Men Grad Total Rate" 
@@ -294,6 +299,110 @@ forvalues yindex = 2002 / 2016 {
 		label variable  ratedgrnralw6yr "6yr Women Nonresident Alien rate" 
 		label variable  ratedgrnralm6yr "6yr Men Nonresident Alien rate" 
 		
+		// The following labels are graduation rates for each cohort
+		label variable grtotlw12 "Women Grad Total Cohort"
+		label variable grtotlt12 "Grad Total Cohort"
+		label variable grtotlm12 "Men Grad Total Cohort"
+		label variable graianw12 "Women Amer. Ind. Or AK Native Cohort"
+		label variable graiant12 "Total Amer. Ind. Or AK Native Cohort"
+		label variable graianm12 "Men Amer. Ind. Or AK Native Cohort"
+		label variable grasiaw12 "Women Asian Cohort"
+		label variable grasiat12 "Total Asian Cohort"
+		label variable grasiam12 "Men Asian Cohort"
+		label variable grbkaaw12 "Women Black or African American Cohort"
+		label variable grbkaat12 "Total Black or African American Cohort"
+		label variable grbkaam12 "Men Black or African American Cohort"
+		label variable grhispw12 "Women Hispanic Cohort"
+		label variable grhispt12 "Total Hispanic Cohort"
+		label variable grhispm12 "Men Hispanic Cohort"
+		label variable grwhitw12 "Women White Cohort"
+		label variable grwhitt12 "Total White Cohort"
+		label variable grwhitm12 "Men White Cohort"
+		label variable grunknw12 "Women Race/ethnicity Unknown Cohort"
+		label variable grunknt12 "Total Race/ethnicity Unknown Cohort"
+		label variable grunknm12 "Men Race/ethnicty Unknown Cohort"
+		label variable grnralw12 "Women Nonresident Alien Cohort"
+		label variable grnralt12 "Total Nonresident Alien Cohort"
+		label variable grnralm12 "Men Nonresident Alien Cohort"
+		
+		// Labels for 4 year graduation rate variables
+		label variable grtotlw17 "4yr Women Grad Total Count"
+		label variable grtotlt17 "4yr Grad Total Count"
+		label variable grtotlm17 "4yr Men Grad Total Count"
+		label variable graianw17 "4yr Women Amer. Ind. Or AK Native Count"
+		label variable graiant17 "4yr Total Amer. Ind. Or AK Native Count"
+		label variable graianm17 "4yr Men Amer. Ind. Or AK Native Count"
+		label variable grasiaw17 "4yr Women Asian Count"
+		label variable grasiat17 "4yr Total Asian Count"
+		label variable grasiam17 "4yr Men Asian Count"
+		label variable grbkaaw17 "4yr Women Black or African American Count"
+		label variable grbkaat17 "4yr Total Black or African American Count"
+		label variable grbkaam17 "4yr Men Black or African American Count"
+		label variable grhispw17 "4yr Women Hispanic Count"
+		label variable grhispt17 "4yr Total Hispanic Count"
+		label variable grhispm17 "4yr Men Hispanic Count"
+		label variable grwhitw17 "4yr Women White Count"
+		label variable grwhitt17 "4yr Total White Count"
+		label variable grwhitm17 "4yr Men White Count"
+		label variable grunknw17 "4yr Women Race/ethnicity Unknown Count"
+		label variable grunknt17 "4yr Total Race/ethnicity Unknown Count"
+		label variable grunknm17 "4yr Men Race/ethnicty Unknown Count"
+		label variable grnralw17 "4yr Women Nonresident Alien Count"
+		label variable grnralt17 "4yr Total Nonresident Alien Count"
+		label variable grnralm17 "4yr Men Nonresident Alien Count"
+		
+		// Labels for 5 year graduation rate variables
+		label variable grtotlw18 "5yr Women Grad Total Count"
+		label variable grtotlt18 "5yr Grad Total Count"
+		label variable grtotlm18 "5yr Men Grad Total Count"
+		label variable graianw18 "5yr Women Amer. Ind. Or AK Native Count"
+		label variable graiant18 "5yr Total Amer. Ind. Or AK Native Count"
+		label variable graianm18 "5yr Men Amer. Ind. Or AK Native Count"
+		label variable grasiaw18 "5yr Women Asian Count"
+		label variable grasiat18 "5yr Total Asian Count"
+		label variable grasiam18 "5yr Men Asian Count"
+		label variable grbkaaw18 "5yr Women Black or African American Count"
+		label variable grbkaat18 "5yr Total Black or African American Count"
+		label variable grbkaam18 "5yr Men Black or African American Count"
+		label variable grhispw18 "5yr Women Hispanic Count"
+		label variable grhispt18 "5yr Total Hispanic Count"
+		label variable grhispm18 "5yr Men Hispanic Count"
+		label variable grwhitw18 "5yr Women White Count"
+		label variable grwhitt18 "5yr Total White Count"
+		label variable grwhitm18 "5yr Men White Count"
+		label variable grunknw18 "5yr Women Race/ethnicity Unknown Count"
+		label variable grunknt18 "5yr Total Race/ethnicity Unknown Count"
+		label variable grunknm18 "5yr Men Race/ethnicty Unknown Count"
+		label variable grnralw18 "5yr Women Nonresident Alien Count"
+		label variable grnralt18 "5yr Total Nonresident Alien Count"
+		label variable grnralm18 "5yr Men Nonresident Alien Count"
+		
+		// Labels for 6 year graduation rate variables
+		label variable grtotlw19 "6yr Women Grad Total Count"
+		label variable grtotlt19 "6yr Grad Total Count"
+		label variable grtotlm19 "6yr Men Grad Total Count"
+		label variable graianw19 "6yr Women Amer. Ind. Or AK Native Count"
+		label variable graiant19 "6yr Total Amer. Ind. Or AK Native Count"
+		label variable graianm19 "6yr Men Amer. Ind. Or AK Native Count"
+		label variable grasiaw19 "6yr Women Asian Count"
+		label variable grasiat19 "6yr Total Asian Count"
+		label variable grasiam19 "6yr Men Asian Count"
+		label variable grbkaaw19 "6yr Women Black or African American Count"
+		label variable grbkaat19 "6yr Total Black or African American Count"
+		label variable grbkaam19 "6yr Men Black or African American Count"
+		label variable grhispw19 "6yr Women Hispanic Count"
+		label variable grhispt19 "6yr Total Hispanic Count"
+		label variable grhispm19 "6yr Men Hispanic Count"
+		label variable grwhitw19 "6yr Women White Count"
+		label variable grwhitt19 "6yr Total White Count"
+		label variable grwhitm19 "6yr Men White Count"
+		label variable grunknw19 "6yr Women Race/ethnicity Unknown Count"
+		label variable grunknt19 "6yr Total Race/ethnicity Unknown Count"
+		label variable grunknm19 "6yr Men Race/ethnicty Unknown Count"
+		label variable grnralw19 "6yr Women Nonresident Alien Count"
+		label variable grnralt19 "6yr Total Nonresident Alien Count"
+		label variable grnralm19 "6yr Men Nonresident Alien Count"
+		
 	
 		gen int isYr = `yindex'	                                        // Add the isYr index for later merge.
 		order isYr, after(unitid)                                       // Order isYr after unitid, easier browsing.
@@ -304,9 +413,9 @@ forvalues yindex = 2002 / 2016 {
 
 use GR2016_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
-	display "`yindex'"                                              // Output for log file.
+	display "`yindex'"                                                  // Output for log file.
 	append using "gr`yindex'_data_stata.dta", force
-	di `sp'	                                                        // Spacing for log file.
+	di `sp'	                                                            // Spacing for log file.
 }
 
 	
