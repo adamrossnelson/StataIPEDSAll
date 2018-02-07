@@ -8,22 +8,37 @@ set linesize 200
 // Change to the working directory of context.
 // local workingdirectory "C:\statadata\IPEDmost"
 
+// Use this code to download, build, and save to the local computer
+// data from the GRADUATION RATES survey at the US DOE's
+// Integrated Postsecondary Education Data Stystem (IPEDS).
+// This code is designed to download a set of IPEDS surveys from nces.edu.gov
+// Surveys included are the:
+//       GRYYYY series - Graduation rates.
+//           (Note that graduation rates rely on data from a series of years.
+//            The dictionary files for each year provide more specific
+//            information. Given the unique nature of graduation rate data
+//            this routine provides a series of files instead of one combined
+//            panal data file.
+//           (Prepares folder called: "graduate rates 02 to 15" */
+
+// Jan/2018:	Naiya Patel - Initial Build.
+
+/*#############################################################################
+
+      Maintained/more information at:
+	  https://github.com/adamrossnelson/StataIPEDSAll
+  
+##############################################################################*/
+// Utilizes preckage version of sshnd (interactive file picker)/
+// Stable 1.0 version of sshnd documentation available at:
+// https://github.com/adamrossnelson/sshnd/tree/1.0
+
 
 cd c:/statadata
 
 capture log close                                                       // Close any stray open log files.
 log using "IPEDmost `curdate'.txt", replace                             // Open a log file.
 cd                                                                      // Confirm working directory location.
-	
-// This code is designed to download a set of IPEDS surveys from nces.edu.gov
-// Surveys included are the:
-//       GRYYYY series - Graduation rates.
-//           (  Note that graduation rates rely on data from a series of years.
-//              The dictionary files for each year provide more specific
-//              information. Given the unique nature of graduation rate data
-//              this routine provides a series of files instead of one combined
-//              panal data file.
-//           (  Prepares folder called: "graduate rates 02 to 15" */
 
 do https://raw.githubusercontent.com/adamrossnelson/sshnd/master/sshnd.do
 
