@@ -394,9 +394,9 @@ forvalues yindex = 2002 / 2016 {
 
 use GR2016_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
-	display "`yindex'"                                                  // Output for log file.
+	display "`yindex'"                                              // Output for log file.
 	append using "gr`yindex'_data_stata.dta", force
-	di `sp'	                                                            // Spacing for log file.
+	di `sp'	                                                        // Spacing for log file.
 }
 
 order rated*, after(isYr)        // Move the rated variables first in varlist.
