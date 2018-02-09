@@ -399,10 +399,10 @@ forvalues yindex = 2015(-1)2002 {
 	di `sp'	                                                            // Spacing for log file.
 }
 
+order rated*, after(isYr)        // Move the rated variables first in varlist.
+cd ..                            // Move up file directory level, compress, add notes. 
+compress                         // Save resulting panel data set.
 
-// Move up file directory level, compress, add notes. Save resulting panel data set.
-cd ..
-compress
 label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
 notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
 notes _dta: "Panel built on `c(current_date)'"
