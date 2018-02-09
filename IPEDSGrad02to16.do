@@ -3,23 +3,9 @@ clear all
 local curdate = c(current_date)
 set linesize 200
 
-/*
-// Set some script general parameters. Customize for specific environment.
-// Change to the working directory of context.
-// local workingdirectory "C:\statadata\IPEDmost"
-
 // Use this code to download, build, and save to the local computer
 // data from the GRADUATION RATES survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem (IPEDS).
-// This code is designed to download a set of IPEDS surveys from nces.edu.gov
-// Surveys included are the:
-//       GRYYYY series - Graduation rates.
-//           (Note that graduation rates rely on data from a series of years.
-//            The dictionary files for each year provide more specific
-//            information. Given the unique nature of graduation rate data
-//            this routine provides a series of files instead of one combined
-//            panal data file.
-//           (Prepares folder called: "graduate rates 02 to 15" */
 
 // Feb/2018:    Adam Ross Nelson - Staged for pull request
 // Jan/2018:	Naiya Patel      - Initial Build.
@@ -29,15 +15,10 @@ set linesize 200
 	  https://github.com/adamrossnelson/StataIPEDSAll
   
 ##############################################################################*/
+
 // Utilizes preckage version of sshnd (interactive file picker)/
 // Stable 1.0 version of sshnd documentation available at:
 // https://github.com/adamrossnelson/sshnd/tree/1.0
-
-cd c:/statadata
-
-capture log close                                       // Close any stray open log files.
-log using "IPEDmost `curdate'.txt", replace             // Open a log file.
-cd                                                      // Confirm working directory location.
 
 do https://raw.githubusercontent.com/adamrossnelson/sshnd/master/sshnd.do
 
@@ -46,22 +27,10 @@ log using "$loggbl", append                   // Append sshnd established log fi
 local sp char(13) char(10) char(13) char(10)  // Define spacer.
 version 13                                    // Enforce version compatibility.
 di c(pwd)                                     // Confrim working directory.
-
-
 version 13                                    // Enforce version control for Version 13.
-set more off                                  // (Simplies collabroation with legacy users.)
 
-local sp char(13) char(10) char(13) char(10)  // Define spacer.
-
-cd                                            // Confirm working directory information.
-capture mkdir workspace	                      // Make a directory to store the zip files.
-//cd workspace                                // Move into working directory location.
-                                              // Spacer for the output.
-
-clear all
-
-//cd workspace
-
+// Loop is designed to downlaod zip files and NCES provided Stata do files.
+// Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
 forvalues yindex = 2002 / 2016 {
 	copy https://nces.ed.gov/ipeds/datacenter/data/GR`yindex'_Data_Stata.zip .
 	unzipfile GR`yindex'_Data_Stata.zip
