@@ -11,7 +11,6 @@ cls
 // Oct/2017:     Naiya Patel - Original author, initial build.
 
 /*#############################################################################
-
       File maintained at
 	  https://github.com/adamrossnelson/StataIPEDSAll
   
@@ -32,52 +31,52 @@ di c(pwd)                                     // Confrim working directory.
 // Stata do files need cleaning (remove stray char (13) + char(10) + char(34)).
 
 forvalues fname= 2002/2016 {
-	// Copy and unzip data and do files.
-	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
-	unzipfile EFIA`fname'_Data_Stata.zip, replace
-	if `fname' > 2006 & `fname' < 2016 {
-		import delimited EFIA`fname'_rv_data_stata.csv, clear 
+    // Copy and unzip data and do files.
+    copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
+    unzipfile EFIA`fname'_Data_Stata.zip, replace
+    if `fname' > 2006 & `fname' < 2016 {
+         import delimited EFIA`fname'_rv_data_stata.csv, clear 
 	}
-	else { 
-		import delimited EFIA`fname'_data_stata.csv, clear 
+    else { 
+         import delimited EFIA`fname'_data_stata.csv, clear 
 	}
-	//Add isYr index and order the new variable. 
-	gen int isYr = `fname'
-	order isYr, after (unitid) 
-	// Need to download do file from IPEDS data 
-	copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Stata.zip .
-	unzipfile EFIA`fname'_Stata.zip, replace 
-	// Using scalar command
-	// Remove "insheet" command designed to import data. 
-	// Remove "save" command designed to save data. 
+    //Add isYr index and order the new variable. 
+    gen int isYr = `fname'
+    order isYr, after (unitid) 
+    // Need to download do file from IPEDS data 
+    copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Stata.zip .
+    unzipfile EFIA`fname'_Stata.zip, replace 
+    // Using scalar command
+    // Remove "insheet" command designed to import data. 
+    // Remove "save" command designed to save data. 
 	
-	scalar fcontents = fileread("efia`fname'.do")
-	scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
-	scalar fcontents = subinstr(fcontents, "save", "// save", .)
+    scalar fcontents = fileread("efia`fname'.do")
+    scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
+    scalar fcontents = subinstr(fcontents, "save", "// save", .)
 	
-	// Save edited do file.
-	scalar byteswritten = filewrite("efia`fname'.do", fcontents, 1)
-	di "QUIET RUN OF efia`fname'.do"    //Provides the user information for log file. 
-	qui do efia`fname'					//Quietly run do files
-	di `sp'		
+    // Save edited do file.
+    scalar byteswritten = filewrite("efia`fname'.do", fcontents, 1)
+    di "QUIET RUN OF efia`fname'.do"    //Provides the user information for log file. 
+    qui do efia`fname'					//Quietly run do files
+    di `sp'		
 	
-	compress
-	saveold efia`fname'_data_stata.dta, replace version (13)
-	di `sp'
-	clear
+    compress
+    saveold efia`fname'_data_stata.dta, replace version (13)
+    di `sp'
+    clear
 }
 
-	//Loop dta files to assemble panel data set. 
+    //Loop dta files to assemble panel data set. 
 	
-	use efia2016_data_stata.dta, clear 
-	forvalues yindex = 2015(-1)2002 {
-		display "`yindex'"
-		append using "efia`yindex'_data_stata.dta", force 
-		di `sp'
+    use efia2016_data_stata.dta, clear 
+    forvalues yindex = 2015(-1)2002 {
+        display "`yindex'"
+        append using "efia`yindex'_data_stata.dta", force 
+        di `sp'
 }
 
-// Move up file directory level, compress, add notes.
-// Save resulting panel data set.
+    // Move up file directory level, compress, add notes.
+    // Save resulting panel data set.
 	
 cd ..
 drop x*
@@ -96,3 +95,4 @@ noi di ""
 noi di "######################################################################"
 }
 log close
+
