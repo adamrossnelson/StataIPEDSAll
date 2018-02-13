@@ -8,7 +8,6 @@ cls
 //***Add note: we will only worry about A and B for now, C will be for future 
 //***development. 
 
-
 // Feb/2018:     Naiya Patel - Original author, initial build.
 
 /*#############################################################################
@@ -35,83 +34,107 @@ di c(pwd)                                     // Confrim working directory.
 //Stat do files need cleaning (removal of stray char(13) + char(10) + char(34)).
 
 forvalues yindex = 2002 / 2016 {
-         //Copy, unzip, and import data files. 
+	//Copy, unzip, and import data files. 
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'A_Data_Stata.zip .
 	unzipfile EF`yindex'A_Data_Stata.zip
 	import delimited EF`yindex'A_Data_Stata.csv
-	     //Add isYr index and order new variable. 
+	//Add isYr index and order new variable. 
 	gen int isYr = `yindex'
 	order isYr, after (unitid)
-	     //Download the NCES provided do file for A series 
+	
+	//Download the NCES provided do file for A series 
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'A_Stata.zip .
 	unzipfile EF`yindex'A_Stata.zip, replace
-	     //Read do file into scalar for modification. 
-		 //Remove default "insheet" command designed to import data. 
-		 //Remove defualt "save" command designed to save data.
-		 
-    scalar fcontents = fileread("EF`yindex'A.do")
-    scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
-    scalar fcontents = subinstr(fcontents, "save", "// save", .)
-	     //Remove unexpected carriage returns and line feeds. 
-    scalar sstring = char(13) + char(10) + char(34)
+	
+	//Read do file into scalar for modification. 
+	scalar fcontents = fileread("EF`yindex'A.do")
+	
+	//Remove default "insheet" command designed to import data. 
+	//Remove defualt "save" command designed to save data.
+	scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
+	scalar fcontents = subinstr(fcontents, "save", "// save", .)
+
+	//Remove unexpected carriage returns and line feeds. 
+	scalar sstring = char(13) + char(10) + char(34)
 	scalar fcontents = subinstr(fcontents, sstring, char(34), .)
-         //Save and name the revised and working do file. 
-    scalar byteswritten = filewrite("EF`yindex'a.do", fcontents, 1)
+	
+	//Save, rename, and run the revised and working do file. 
+	scalar byteswritten = filewrite("EF`yindex'a.do", fcontents, 1)
 	di "QUIET RUN OF EF`yindex'a.do"       //Provides user with informaiton for log file
 	qui do EF`yindex'a                     //Quietly run NCES provided do files. 
 	di `sp'                                //Spacing to assist reading output. 
-	
-	     //Compress and save the resulting do file. 
+
+	//Compress and save the resulting do file. 
 	compress
 	saveold EF`yindex'A_data_stata.dta, replace version (13)
 	di `sp'                                //Spacing to assist reading output.
 	clear 
-	}
+}
 	
+<<<<<<< HEAD
 	/*
 	// Start of B series coding 
 
 	forvalues yindex = 2002 / 2016 {
          //Copy, unzip, and import data files. 
+=======
+	
+// Start of B series coding 
+forvalues yindex = 2002 / 2016 {
+	//Copy, unzip, and import data files. 
+>>>>>>> 0e97b0383f19f273392f2b10a13273f582ab6235
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'B_Data_Stata.zip .
 	unzipfile EF`yindex'B_Data_Stata.zip
 	import delimited EF`yindex'B_Data_Stata.csv
-	     //Add isYr index and order new variable. 
+
+	//Add isYr index and order new variable. 
 	gen int isYr = `yindex'
 	order isYr, after (unitid)
-	     //Read do file into scalar for modification. 
-		 //Remove default "insheet" command designed to import data. 
-		 //Remove defualt "save" command designed to save data. 
-		 
-    copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'B_Stata.zip .
+
+	//Download the NCES provided do file for B series 
+	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'B_Stata.zip .
 	unzipfile EF`yindex'B_Stata.zip, replace 
+
+	//Read do file into scalar for modification. 
 	scalar fcontents = fileread("EF`yindex'B.do")
+	
+	//Remove default "insheet" command designed to import data. 
+	//Remove defualt "save" command designed to save data. 
 	scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
 	scalar fcontents = subinstr(fcontents, "save", "// save", .)
 	
+	//Remove unexpected carriage returns and line feeds. 
 	scalar sstring = char(13) + char(10) + char(34)
 	scalar fcontents = subinstr(fcontents, sstring, char(34), .)
 	
-	//Save edited do file 
-	scalar byteswritten = filewrite ("EF`yindex'b.do, fcontents, 1)
+	//Save, rename, and run the revised and working do file. 
+	scalar byteswritten = filewrite("EF`yindex'b.do, fcontents, 1)
 	di "QUIET RUN OF EF`yindex'b.do" 
 	qui do EF`yindex'b
 	di `sp'
-	
+
 	compress 
 	saveold EF`yindex'B_data_stata.dta, replace version (13)
 	di `sp'
 	clear
-	}
+}
 
+<<<<<<< HEAD
 	*/
 	use ef2016a_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
 	display "`yindex'"						// Output for log file.
+=======
+	
+use ef2016a_data_stata.dta, clear
+	forvalues yindex = 2015(-1)2002 {
+	display "`yindex'"                                       // Output for log file.
+>>>>>>> 0e97b0383f19f273392f2b10a13273f582ab6235
 	append using "ef`yindex'a_data_stata.dta", force
-	di `sp'									// Spacing for log file.
+	di `sp'                                                  // Spacing for log file.
 }
 
+<<<<<<< HEAD
 keep unitid efalevel line section lstudy
 
 eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
@@ -136,6 +159,8 @@ efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
 efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
 efrace15 efrace16 efrace17 efrace23 efrace24
 
+=======
+>>>>>>> 0e97b0383f19f273392f2b10a13273f582ab6235
 cd ..
 drop x*
 compress
