@@ -68,7 +68,7 @@ forvalues yindex = 2002 / 2016 {
 	clear 
 	}
 	
-	
+	/*
 	// Start of B series coding 
 
 	forvalues yindex = 2002 / 2016 {
@@ -104,7 +104,7 @@ forvalues yindex = 2002 / 2016 {
 	clear
 	}
 
-	
+	*/
 	use ef2016a_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
 	display "`yindex'"						// Output for log file.
@@ -112,6 +112,29 @@ forvalues yindex = 2015(-1)2002 {
 	di `sp'									// Spacing for log file.
 }
 
+keep unitid efalevel line section lstudy
+
+eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
+efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
+dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
+dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
+efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
+efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
+efrace15 efrace16 efrace17 efrace23 efrace24  ///
+
+// Reshape: potential reshape code 
+
+keep unitid efalevel eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
+efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
+dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
+dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
+efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
+efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
+efrace15 efrace16 efrace17 efrace23 efrace24
 
 cd ..
 drop x*
