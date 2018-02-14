@@ -29,7 +29,6 @@ local sp char(13) char(10) char(13) char(10)  // Define spacer.
 version 13                                    // Enforce version compatibility.
 di c(pwd)                                     // Confrim working directory.
 
-
 //Look is designed to download zip files and NCES provided Stata do files. 
 //Stat do files need cleaning (removal of stray char(13) + char(10) + char(34)).
 forvalues yindex = 2002 / 2016 {
@@ -55,76 +54,88 @@ forvalues yindex = 2002 / 2016 {
 	 // File name convetions not consistent through the years.
     // 2007, 2008, 2010-2015 provide _rv_ editions of the data.
     //
-    if `yindex' > 2006 & `yindex' < 2009 & `yindex' > 2009 & `yindex' < 2016 {
+    if (`yindex' > 2006 & `yindex' < 2009) | (`yindex' > 2009 & `yindex' < 2016) {
         import delimited ef`yindex'a_rv_data_stata.csv, clear
 	}
     else {
         import delimited ef`yindex'a_data_stata.csv, clear
 	}
 
-	/*
 	//Reshape
 	//Question: where should reshape go in code?
 	//			which variables should be kept?
 	//			how to keep efalevel Adam requested?
+	//	********variables are not consistent throughout the years, will have to rename. 
 	keep unitid efalevel line section lstudy ///
-eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
-efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
-//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst /// do we need imputation variables?
-//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
-efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
-efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
-efrace15 efrace16 efrace17 efrace23 efrace24  ///
- 
+	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
+	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+	efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
+	//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst /// do we need imputation variables?
+	//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
+	efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
+	efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
+	efrace15 efrace16 efrace17 efrace23 efrace24  ///
 
-keep if efalevel == 1, 2, 11, 12, 21, 22, 32, 41, 42, 52
-keep unitid efalevel eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
-efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
-//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
-//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
-efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
-efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
-efrace15 efrace16 efrace17 efrace23 efrace24  
+	keep if efalevel == 1, 2, 11, 12, 21, 22, 32, 41, 42, 52
+	keep unitid efalevel eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
+	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+	efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
+	//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
+	//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
+	efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
+	efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
+	efrace15 efrace16 efrace17 efrace23 efrace24  
 
-reshape wide 
-eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
-efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
-//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
-//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
-efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
-efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
-efrace15 efrace16 efrace17 efrace23 efrace24, i(unitid) j(efalevel) */
+	reshape wide 
+	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
+	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+	efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
+	//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
+	//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
+	efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
+	efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
+	efrace15 efrace16 efrace17 efrace23 efrace24, i(unitid) j(efalevel) 
 	
 	di "QUIET RUN OF EF`yindex'a.do"       //Provides user with informaiton for log file
 	qui do EF`yindex'a                     //Quietly run NCES provided do files. 
 	di `sp'                                //Spacing to assist reading output.
 	
-											//Add isYr index and order new variable. 
+	//Add isYr index and order new variable. 
 	gen int isYr = `yindex'
 	order isYr, after (unitid)
 	
-	saveold "ef`yindex'a_data_stata.dta", version(13) replace	    // Save cleaned data file.
-		di `sp'	`sp'                                                    // Spacer for the output.
+	saveold "ef`yindex'a_data_stata.dta", version(13) replace   // Save cleaned data file.
+		di `sp'	`sp'                                            // Spacer for the output.
 }
 
+use ef2016a_data_stata.dta, clear
+forvalues yindex = 2015(-1)2002 {
+	display "`yindex'"                                          // Output for log file.
+	append using "ef`yindex'a_data_stata.dta", force
+	di `sp'                                                     // Spacing for log file.
+}  
+cd ..
+compress
+
+label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+notes _dta: "Panel built on `c(current_date)'"
+saveold "$dtagbl", replace version(13)
+
+
 //Beginning of B Series
-
-
-	
+cd $wkdgbl                                            // Change back to working directory.
 forvalues yindex = 2002 / 2016 {
 	//Copy, unzip, and import data files.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'B_Data_Stata.zip .
 	unzipfile EF`yindex'B_Data_Stata.zip
 	import delimited EF`yindex'B_Data_Stata.csv
 	//Add isYr index and order new variable. 
-	gen int isYr = `yindex'
-	order isYr, after (unitid)
+	//gen int isYr = `yindex'
+	//order isYr, after (unitid)
 
 	//Download the NCES provided do file for B series 
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'B_Stata.zip .
@@ -149,10 +160,10 @@ forvalues yindex = 2002 / 2016 {
     // 2007-2015 provide _rv_ editions of the data.
     //
     if `yindex' > 2006 & `yindex' < 2016 {
-        import delimited ef`yindex'a_rv_data_stata.csv, clear
+        import delimited ef`yindex'b_rv_data_stata.csv, clear
 	}
     else {
-        import delimited ef`yindex'a_data_stata.csv, clear
+        import delimited ef`yindex'b_data_stata.csv, clear
 	}
 	
 	
@@ -167,13 +178,6 @@ forvalues yindex = 2002 / 2016 {
 }
 	
 
-
-use ef2016a_data_stata.dta, clear
-forvalues yindex = 2015(-1)2002 {
-	display "`yindex'"                                                  // Output for log file.
-	append using "ef`yindex'a_data_stata.dta", force
-	di `sp'	                                                            // Spacing for log file.
-}
 
 
 use ef2016b_data_stata.dta, clear 
