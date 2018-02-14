@@ -31,8 +31,8 @@ If I'm behind on an update send me a note. Or branch the project, revise on your
         - [2.4.1. Run from online](#241-run-from-online)
         - [2.4.2. Suggested naming convention](#242-suggested-naming-convention)
     - [2.5. IPEDSGradRt02to16.do](#25-ipedsgradrt02to16do)
-    - [Run from online](#run-from-online)
-        - [Suggested naming convention](#suggested-naming-convention)
+        - [2.5.1. Run from online](#251-run-from-online)
+        - [2.5.2. Suggested naming convention](#252-suggested-naming-convention)
 - [3. Contextual Note](#3-contextual-note)
 - [4. Testing And Development Log](#4-testing-and-development-log)
 
@@ -111,14 +111,14 @@ When prompted for a log file name suggested name is `IPEDS12MoInstAct02to16.log`
 
 Produces a panel data set that includes IPEDS graduation rates. This series contains the graduation rate status for the cohort of full-time, first-time degree/certificate-seeking undergraduates in both four year and two year institutions. **This routine builds data for four-year institutions only, however.**
 
-## Run from online
+### 2.5.1. Run from online
 
 May be run with the following at the Stata command line.
 
 ```
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSGradRt02to16.do
 ```
-### Suggested naming convention
+### 2.5.2. Suggested naming convention
 
 When prompted for a log file name suggested name is `IPEDSGradRt02to16.log` which will also produce `IPEDSGradRt02to16.dta` at the location you specify. (Update year reference as needed).
 
