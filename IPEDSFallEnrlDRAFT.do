@@ -178,8 +178,6 @@ forvalues yindex = 2002 / 2016 {
 }
 	
 
-
-
 use ef2016b_data_stata.dta, clear 
 forvalues yindex = 2015(-1)2002 {
 	display "`yindex'"                                                  // Output for log file.
