@@ -37,16 +37,16 @@ forvalues yindex = 2002 / 2016 {
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFFY`yindex'_Stata.zip .
 	unzipfile EFFY`yindex'_Stata.zip, replace
 
-		// The NCES provided -do- files hae some lines that need to be removed
-		// before we can call them from the master -do- file.
+	// The NCES provided -do- files hae some lines that need to be removed
+	// before we can call them from the master -do- file.
 	scalar fcontents = fileread("effy`yindex'.do")
 	scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
 	scalar fcontents = subinstr(fcontents, "save", "// save", .)
 
 	scalar byteswritten = filewrite("effy`yindex'.do", fcontents, 1)
 	
-		// Naming conventions changed. Manage evolving name conventions.
-		// 2002 to 2006 & 2015 no revised survey data file.
+	// Naming conventions changed. Manage evolving name conventions.
+	// 2002 to 2006 & 2015 no revised survey data file.
 	if `yindex' < 2007 | `yindex' > 2014 {
 		import delimited effy`yindex'_data_stata.csv, clear
 	}
@@ -54,15 +54,15 @@ forvalues yindex = 2002 / 2016 {
 		import delimited effy`yindex'_rv_data_stata.csv, clear
 	}
 	
-		// Run the NCES provided do files.
+	// Run the NCES provided do files.
 	di "QUIET RUN OF effy`yindex'.do" // Provide ser information for log file.
 	qui do effy`yindex'.do			  // Quiety run NCES provided do files.
 	
-		// Drop the imputation fields and lstudy which is effylev redundant.
+	// Drop the imputation fields and lstudy which is effylev redundant.
 	drop x*							// Remove imputation flags, reduce filesize.
 	drop lstudy						// lstudy not consistent. Remove to simplify.
 
-		// Make adjustments for changes in variable names.
+	// Make adjustments for changes in variable names.
 	if `yindex' < 2008 {
 		rename fyrace01 efynralm 	// Nonresident alien men 
 		rename fyrace02 efynralw	// Nonresident alien women
@@ -86,24 +86,24 @@ forvalues yindex = 2002 / 2016 {
 				identification of variables with -desc-, -codebook-.
 #######################################################################*/
 
-		// Proceed to prepare the ALL Students Level set of effy variables.	
+	// Proceed to prepare the ALL Students Level set of effy variables.	
 	di "          Keeping only effylev == 1 to prepare the ALL version of this file"
 	keep if effylev == 1
 	rename * *all
 	rename unitidall unitid
 	drop effylev*
 	
-		// Foreach loop adds "ALL" previx to all of the variable lables.
-		// Which will make identifying the level in wide format more intuitive.
+	// Foreach loop adds "ALL" previx to all of the variable lables.
+	// Which will make identifying the level in wide format more intuitive.
 	foreach varname of varlist _all {
 		local templab : var label `varname'
 		label variable `varname' "ALL `templab'" 
 	}
-		// Restores the unitid variable lable to default.
+	// Restores the unitid variable lable to default.
 	label variable unitid "Unique identification number of the institution"
 	saveold "effy`yindex'_data_stata.all.dta", version(13) replace
 	
-		// Proceed to prepare the Undergraduate Level set of effy variables.	
+	// Proceed to prepare the Undergraduate Level set of effy variables.	
 	di "          Keeping only effylev == 2 to prepare the UGR version of this file"
 	use effy`yindex'_data_stata.dta, clear
 	keep if effylev == 2
@@ -111,17 +111,17 @@ forvalues yindex = 2002 / 2016 {
 	rename unitidugr unitid
 	drop effylev*
 	
-		// Foreach loop adds "UGR" previx to all of the variable lables.
-		// Which will make identifying the level in wide format more intuitive.
+	// Foreach loop adds "UGR" previx to all of the variable lables.
+	// Which will make identifying the level in wide format more intuitive.
 	foreach varname of varlist _all {
 		local templab : var label `varname'
 		label variable `varname' "UGR `templab'" 
 	}
-		// Restores the unitid variable lable to default.
+	// Restores the unitid variable lable to default.
 	label variable unitid "Unique identification number of the institution"	
 	saveold "effy`yindex'_data_stata.ugr.dta", version(13) replace
 	
-		// Proceed to prepare the Graduate Level set of effy variables.
+	// Proceed to prepare the Graduate Level set of effy variables.
 	di "          Keeping only effylev == 3 to prepare the GRA version of this file"
 	use effy`yindex'_data_stata.dta, clear
 	keep if effylev == 4
@@ -129,13 +129,13 @@ forvalues yindex = 2002 / 2016 {
 	rename unitidgra unitid
 	drop effylev*
 	
-		// Foreach loop adds "GRA" previx to all of the variable lables.
-		// Which will make identifying the level in wide format more intuitive.
+	// Foreach loop adds "GRA" previx to all of the variable lables.
+	// Which will make identifying the level in wide format more intuitive.
 	foreach varname of varlist _all {
 		local templab : var label `varname'
 		label variable `varname' "GRA `templab'" 
 	}
-		// Restores the unitid variable lable to default.
+	// Restores the unitid variable lable to default.
 	label variable unitid "Unique identification number of the institution"	
 	saveold "effy`yindex'_data_stata.gra.dta", version(13) replace
 	
@@ -145,7 +145,7 @@ forvalues yindex = 2002 / 2016 {
 				Note: End of code block used to reshape.
 #######################################################################*/	
 	
-		// Rebuild the effy data in wide format.
+	// Rebuild the effy data in wide format.
 	di "          Rebuilding the WIDE version of this file"	
 
 	use effy`yindex'_data_stata.all.dta, clear
@@ -158,7 +158,7 @@ forvalues yindex = 2002 / 2016 {
 	di `sp'
 }
 
-	// Build the multi-year panel data set.
+// Build the multi-year panel data set.
 use effy2016_wide_data_stata.dta, clear					// Open most recent file
 forvalues fname = 2015(-1)2002 {						// as the base. Then,
 	append using effy`fname'_wide_data_stata.dta, force // assemble the panel set.

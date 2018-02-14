@@ -11,7 +11,6 @@ cls
 // Oct/2017:     Naiya Patel - Original author, initial build.
 
 /*#############################################################################
-
       File maintained at
 	  https://github.com/adamrossnelson/StataIPEDSAll
   
@@ -36,11 +35,11 @@ forvalues fname= 2002/2016 {
     copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
     unzipfile EFIA`fname'_Data_Stata.zip, replace
     if `fname' > 2006 & `fname' < 2016 {
-         import delimited EFIA`fname'_rv_data_stata.csv, clear 
-	}
+        import delimited EFIA`fname'_rv_data_stata.csv, clear 
+    }
     else { 
-         import delimited EFIA`fname'_data_stata.csv, clear 
-	}
+        import delimited EFIA`fname'_data_stata.csv, clear 
+    }
     //Add isYr index and order the new variable. 
     gen int isYr = `fname'
     order isYr, after (unitid) 
@@ -50,38 +49,33 @@ forvalues fname= 2002/2016 {
     // Using scalar command
     // Remove "insheet" command designed to import data. 
     // Remove "save" command designed to save data. 
-	
+
     scalar fcontents = fileread("efia`fname'.do")
     scalar fcontents = subinstr(fcontents, "insheet", "// insheet", 1)
     scalar fcontents = subinstr(fcontents, "save", "// save", .)
-	
+
     // Save edited do file.
     scalar byteswritten = filewrite("efia`fname'.do", fcontents, 1)
     di "QUIET RUN OF efia`fname'.do"    //Provides the user information for log file. 
     qui do efia`fname'					//Quietly run do files
     di `sp'		
-	
     compress
     saveold efia`fname'_data_stata.dta, replace version (13)
     di `sp'
     clear
 }
 
-    //Loop dta files to assemble panel data set. 
-	
-    use efia2016_data_stata.dta, clear 
-    forvalues yindex = 2015(-1)2002 {
-        display "`yindex'"
-        append using "efia`yindex'_data_stata.dta", force 
-        di `sp'
+//Loop dta files to assemble panel data set. 
+use efia2016_data_stata.dta, clear 
+forvalues yindex = 2015(-1)2002 {
+    display "`yindex'"
+    append using "efia`yindex'_data_stata.dta", force 
+    di `sp'
 }
 
-    // Move up file directory level, compress, add notes.
-    // Save resulting panel data set.
-	
-cd ..
-drop x*
-compress
+drop x*                              // Remove imputation variables.
+cd ..                                // Move up file directory level, compress, add notes.
+compress                             // Save resulting panel data set.
 
 label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
 notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
@@ -96,3 +90,4 @@ noi di ""
 noi di "######################################################################"
 }
 log close
+
