@@ -130,6 +130,7 @@ foreach icount of numlist 1/`r(r)' {
 	replace f1sysnam2 = f1sysnam2[_n+1] if unitid == unitid[_n+1]
 	replace f1syscod2 = f1syscod2[_n+1] if unitid == unitid[_n+1]
 }
+label variable locale3 "Latest non-missing value of -locale.-"
 label values locale3 label_locale		
 order locale*, after(tribal)
 label variable f1systyp2 "Multi-institution or multi-campus organization"
