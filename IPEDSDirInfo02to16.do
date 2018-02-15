@@ -95,17 +95,23 @@ forvalues yindex = 2015(-1)2002 {
 		
 // In 2005 urbanicity index changed. Three options.
 // First, match pre-2005 index to the the 2005 index.
-	/* -- To be implemented -- */
-	/* -- Needs consensus on appropriate cross-walk */
+gen locale1 = locale
+replace locale1 = 11 if locale1 == 1  // Large city               > City: Large
+replace locale1 = 12 if locale1 == 2  // Mid-size city            > City: Midsize
+replace locale1 = 21 if locale1 == 3  // Urb frnge of lrg cty     > Suburb: Large
+replace locale1 = 22 if locale1 == 4  // Urb frnge of mid-sze cty > Suburb: Midsize
+replace locale1 = 31 if locale1 == 5  // Large town               > Town: Fringe
+replace locale1 = 32 if locale1 == 6  // Small town               > Town: Distant
+replace locale1 = 33 if locale1 == 7  // Rural                    > Town: Remote
+label variable locale2 "Crosswalked 2004, 2003, 2002 alues of locale. See do file."
 
 // Second copy the 2005 index back to 2004, 2003, and 2004
 qui tab isYr
 sort unitid isYr
 gen locale2 = locale
-forvalues icount = 2004(-1)2002 {
-	replace locale2 = locale2[_n+1] if unitid == unitid[_n+1] & isYr == `icount'
-}
+replace locale2 = locale2[_n+1] if unitid == unitid[_n+1] & isYr < 2005 & isYr > 2001
 label values locale2 label_locale
+label variable locale2 "Copy 2005 value of -locale- to 2004, 2003, & 2002"
 
 // Third, utilize latest non-missing value for all years.
 // Also, utilize this loop to copy f1systyp f1sysnam f1syscod which were
