@@ -51,6 +51,7 @@ forvalues yindex = 2002 / 2016 {
     scalar fcontents = subinstr(fcontents, "label define label_line", "// label define label_line", .)
     scalar fcontents = subinstr(fcontents, "label values line label_line", "// label values line label_line", .)
 	scalar byteswritten = filewrite("EF`yindex'a.do", fcontents, 1)
+
 	 // File name convetions not consistent through the years.
     // 2007, 2008, 2010-2015 provide _rv_ editions of the data.
     //
@@ -60,55 +61,68 @@ forvalues yindex = 2002 / 2016 {
     else {
         import delimited ef`yindex'a_data_stata.csv, clear
 	}
-
-	//Reshape
-	//Question: where should reshape go in code?
-	//			which variables should be kept?
-	//			how to keep efalevel Adam requested?
-	//	********variables are not consistent throughout the years, will have to rename. 
-	keep unitid efalevel line section lstudy ///
-	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
-	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-	efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
-	//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst /// do we need imputation variables?
-	//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
-	efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
-	efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
-	efrace15 efrace16 efrace17 efrace23 efrace24  ///
-
-	keep if efalevel == 1, 2, 11, 12, 21, 22, 32, 41, 42, 52
-	keep unitid efalevel eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
-	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-	efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
-	//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
-	//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
-	efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
-	efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
-	efrace15 efrace16 efrace17 efrace23 efrace24  
-
-	reshape wide 
-	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
-	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-	efunknt efunknm efunknw efnralt efnralm efnralw dvefait dvefaim ///
-	//dvefaiw dvefapt dvefapm dvefapw dvefbkt dvefbkm dvefbkw dvefhst ///
-	//dvefhsm dvefhsw dvefwht dvefwhm dvefwhw efrace19 efrace05 efrace06 ///
-	efrace20 efrace07 efrace08 efrace18 efrace03 efrace04 efrace21 efrace09 ///
-	efrace10 efrace22 efrace11 efrace12 efrace01 efrace02 efrace13 efrace14 ///
-	efrace15 efrace16 efrace17 efrace23 efrace24, i(unitid) j(efalevel) 
 	
 	di "QUIET RUN OF EF`yindex'a.do"       //Provides user with informaiton for log file
-	qui do EF`yindex'a                     //Quietly run NCES provided do files. 
+	qui do EF`yindex'a.do                  //Quietly run NCES provided do files. 
 	di `sp'                                //Spacing to assist reading output.
+
+	if (`yindex' < 2008) {
+		rename	efrace24 eftotlt           //Grand total
+		rename  efrace15 eftotlm           //Grand total men
+		rename	efrace16 eftotlw           //Grand toatl women
+		rename	efrace19 efaiant           //American Indian or Alaska Native total
+		rename	efrace05 efaianm           //American Indian or Alaska Native total men
+		rename	efrace06 efaianw           //American Indian or Alaska Native total women
+		rename	efrace20 efasiat           //Asian total
+		rename	efrace07 efasiam           //Asian total men
+		rename	efrace08 efasiaw           //Asian total women
+		rename	efrace18 efbkaat           //Black or African American total
+		rename	efrace03 efbkaam           //Black or African American total men
+		rename	efrace04 efbkaaw           //Black or African American toatl women
+		rename	efrace21 efhispt           //Hispanic total 
+		rename	efrace09 efhispm           //Hispanic total men 
+		rename	efrace10 efhispw           //Hispanic total women
+		rename	efrace22 efwhitt           //White total
+		rename	efrace11 efwhitm           //White total men
+		rename	efrace12 efwhitw           //White total women
+		rename	efrace23 efunknt           //Race/ethnicity unknown total
+		rename	efrace13 efunknm           //Race/ethnicity unknonw total men
+		rename	efrace14 efunknw           //Race/ethnicity unknown total women
+		rename	efrace17 efnralt           //Nonresident alien total
+		rename	efrace01 efnralm           //Nonresident alien total men
+		rename	efrace02 efnralw           //Nonresident alien total women
+		gen ef2mort = .                    // Two or more races total
+		gen ef2morm = .                    // Two or more races men
+		gen ef2morw = .                    // Two or more races women
+		gen efnhpit = .                    // Native Hawaiian or Other Pacific Islander total
+		gen efnhpim = .                    // Native Hawaiian or Other Pacific Islander men
+		gen efnhpiw = .                    // Native Hawaiian or Other Pacific Islander women
+
+}
+
+/*	//Reshape
 	
+	keep unitid efalevel line section lstudy ///
+	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit efnhpit efnhpim efnhpiw ///
+	efnhpim efnhpit ef2mort ef2morm ef2morw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+
+
+	reshape long 
+	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
+	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+	efunknt efunknm efunknw efnralt efnralm efnralw, i(line) j(efalevel) 
+	
+ */
+	
+
 	//Add isYr index and order new variable. 
 	gen int isYr = `yindex'
 	order isYr, after (unitid)
 	
 	saveold "ef`yindex'a_data_stata.dta", version(13) replace   // Save cleaned data file.
-		di `sp'	`sp'                                            // Spacer for the output.
+		di `sp'	                                            // Spacer for the output.
 }
 
 use ef2016a_data_stata.dta, clear
@@ -171,6 +185,8 @@ forvalues yindex = 2002 / 2016 {
 	qui do EF`yindex'b
 	di `sp'
 
+	
+	
 	compress 
 	saveold EF`yindex'B_data_stata.dta, replace version (13)
 	di `sp'
