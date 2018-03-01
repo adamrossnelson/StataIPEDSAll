@@ -101,44 +101,26 @@ forvalues yindex = 2002 / 2016 {
 		gen efnhpiw = .               // Native Hawaiian or Other Pacific Islander women
 	}
 
+	// Establish local for varlist.
+	local thevars efnralm efnralw efbkaam efbkaaw efaianm efaianw ///
+	efasiam efasiaw efhispm efhispw efwhitm efwhitw efunknm efunknw ///
+	eftotlm eftotlw efnralt efbkaat efaiant efasiat efhispt efwhitt ///
+	efunknt eftotlt ef2mort ef2morm ef2morw efnhpit efnhpim efnhpiw
+
 	// Loop to save variable label names for reapplication after reshape.
-	foreach varname unitid efalevel ///
-	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit efnhpit efnhpim efnhpiw ///
-	efnhpim efnhpit ef2mort ef2morm ef2morw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-	efunknt efunknm efunknw efnralt efnralm efnralw {
-		local l`varname' " variable label `varname' 
+	foreach varname in "`thevars'" {
+		local l`varname': variable label `varname' 
 	}
 
 	// Reshape
+	keep unitid efalevel `thevars'
+	keep if inlist(efalevel,1, 2, 11, 12, 21, 22, 32, 41, 42, 52)
 
-	keep unitid efalevel ///
-	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit efnhpit efnhpim efnhpiw ///
-	efnhpim efnhpit ef2mort ef2morm ef2morw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-	efunknt efunknm efunknw efnralt efnralm efnralw
-
-	keep if efalevel == 1 | efalevel == 2 | efalevel == 11 | efalevel == 12 | ///
-	efalevel == 21 | efalevel == 22 | efalevel == 32 | efalevel == 41 | ///
-	efalevel == 42 | efalevel == 52                                     
-
-	// keep if efalevel == 1, 2, 11, 12, 21, 22, 32, 41, 42, 52
-
-	reshape wide ///
-	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
-	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-	efunknt efunknm efunknw efnralt efnralm efnralw, i(unitid) j(efalevel) 
-
-	di "lefnralw'"
+	reshape wide `thevars', i(unitid) j(efalevel) 
 
 	// Reapply variable label names following reshape.
 	foreach lev in 1 2 11 12 21 22 32 41 42 52 {
-		foreach varname in unitid efalevel ///
-		eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
-		efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit efnhpit efnhpim efnhpiw ///
-		efnhpim efnhpit ef2mort ef2morm ef2morw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-		efunknt efunknm efunknw efnralt efnralm efnralw {
+		foreach varname in `thevars' {
 			label varialbe `varname'`lev' "`lev' `l`varname''"
 		}
 	}
