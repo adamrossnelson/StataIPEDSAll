@@ -35,7 +35,7 @@ di c(pwd)                                     // Confrim working directory.
 forvalues yindex = 2002 / 2016 {
 	//Copy, unzip, and import data files. 
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'A_Data_Stata.zip .
-	unzipfile EF`yindex'A_Data_Stata.zip
+	unzipfile EF`yindex'A_Data_Stata.zip, replace
 	
 	//Download the NCES provided do file for A series 
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'A_Stata.zip .
@@ -69,6 +69,7 @@ forvalues yindex = 2002 / 2016 {
 	
 	di "QUIET RUN OF EF`yindex'a.do"          //Provides user with informaiton for log file
 	qui do EF`yindex'a.do                     //Quietly run NCES provided do files. 
+	drop x*                                   //Remove imputation variables. 
 	di `sp'                                   //Spacing to assist reading output.
 
 	if (`yindex' < 2008) {
@@ -105,21 +106,57 @@ forvalues yindex = 2002 / 2016 {
 
 }
 
-/*	//Reshape
-	
-	keep unitid efalevel line section lstudy ///
+
+// Before reshape, must save variable names 
+// 
+// Reshape will remove variable names, therefore, must save variable labels 
+// before 
+
+
+foreach varname unitid efalevel ///
 	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
 	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit efnhpit efnhpim efnhpiw ///
 	efnhpim efnhpit ef2mort ef2morm ef2morw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+	efunknt efunknm efunknw efnralt efnralm efnralw 
+	{
+	local l`varname' " variable label `varname' 
+	
+}
 
+	
 
-	reshape long 
+	//Reshape
+
+	keep unitid efalevel ///
+	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit efnhpit efnhpim efnhpiw ///
+	efnhpim efnhpit ef2mort ef2morm ef2morw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+	efunknt efunknm efunknw efnralt efnralm efnralw
+
+	keep if efalevel == 1 | efalevel == 2 | efalevel == 11 | efalevel == 12 |   ///
+		    efalevel == 21 | efalevel == 22 | efalevel == 32 | efalevel == 41 | ///
+		    efalevel == 42 | efalevel == 52                                     
+	
+	//keep if efalevel == 1, 2, 11, 12, 21, 22, 32, 41, 42, 52
+	
+	reshape wide ///
 	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
 	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit ///
 	efnhpim efnhpiw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
-	efunknt efunknm efunknw efnralt efnralm efnralw, i(line) j(efalevel) 
+	efunknt efunknm efunknw efnralt efnralm efnralw, i(unitid) j(efalevel) 
 	
- */
+	
+ di "lefnralw'"
+	
+	foreach lev in 1 2 11 12 21 22 32 41 42 52{
+		foreach varname in unitid efalevel ///
+	eftotlt eftotlm eftotlw efaiant efaianm efaianw efasiat efasiam ///
+	efasiaw efbkaat efbkaam efbkaaw efhispt efhispm efhispw efnhpit efnhpit efnhpim efnhpiw ///
+	efnhpim efnhpit ef2mort ef2morm ef2morw efwhitt efwhitm efwhitw ef2mort ef2morm ef2morw ///
+	efunknt efunknm efunknw efnralt efnralm efnralw {
+		label varialbe `varname'`lev' "`lev' `l`varname''"  */
+		}
+	}
 	
 
 	//Add isYr index and order new variable. 
@@ -152,7 +189,7 @@ forvalues yindex = 2002 / 2016 {
 	//Copy, unzip, and import data files.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'B_Data_Stata.zip .
 	unzipfile EF`yindex'B_Data_Stata.zip
-	import delimited EF`yindex'B_Data_Stata.csv
+	import delimited EF`yindex'B_Data_Stata.csv, clear
 	//Add isYr index and order new variable. 
 	//gen int isYr = `yindex'
 	//order isYr, after (unitid)
