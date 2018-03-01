@@ -121,7 +121,7 @@ forvalues yindex = 2002 / 2016 {
 	// Reapply variable label names following reshape.
 	foreach lev in 1 2 11 12 21 22 32 41 42 52 {
 		foreach varname in `thevars' {
-			label varialbe `varname'`lev' "`lev' `l`varname''"
+			// label variable `varname'`lev' "`lev' `l`varname''"
 		}
 	}
 
