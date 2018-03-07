@@ -69,36 +69,36 @@ forvalues yindex = 2002 / 2016 {
 	di `sp'                               //Spacing to assist reading output.
 
 	if (`yindex' < 2008) {
-		rename	efrace24 eftotlt      // Grand total
-		rename  efrace15 eftotlm      // Grand total men
-		rename	efrace16 eftotlw      // Grand toatl women
-		rename	efrace19 efaiant      // American Indian or Alaska Native total
-		rename	efrace05 efaianm      // American Indian or Alaska Native total men
-		rename	efrace06 efaianw      // American Indian or Alaska Native total women
-		rename	efrace20 efasiat      // Asian total
-		rename	efrace07 efasiam      // Asian total men
-		rename	efrace08 efasiaw      // Asian total women
-		rename	efrace18 efbkaat      // Black or African American total
-		rename	efrace03 efbkaam      // Black or African American total men
-		rename	efrace04 efbkaaw      // Black or African American toatl women
-		rename	efrace21 efhispt      // Hispanic total 
-		rename	efrace09 efhispm      // Hispanic total men 
-		rename	efrace10 efhispw      // Hispanic total women
-		rename	efrace22 efwhitt      // White total
-		rename	efrace11 efwhitm      // White total men
-		rename	efrace12 efwhitw      // White total women
-		rename	efrace23 efunknt      // Race/ethnicity unknown total
-		rename	efrace13 efunknm      // Race/ethnicity unknonw total men
-		rename	efrace14 efunknw      // Race/ethnicity unknown total women
-		rename	efrace17 efnralt      // Nonresident alien total
-		rename	efrace01 efnralm      // Nonresident alien total men
-		rename	efrace02 efnralw      // Nonresident alien total women
-		gen ef2mort = .               // Two or more races total
-		gen ef2morm = .               // Two or more races men
-		gen ef2morw = .               // Two or more races women
-		gen efnhpit = .               // Native Hawaiian or Other Pacific Islander total
-		gen efnhpim = .               // Native Hawaiian or Other Pacific Islander men
-		gen efnhpiw = .               // Native Hawaiian or Other Pacific Islander women
+		rename	efrace24 eftotlt          // Grand total
+		rename  efrace15 eftotlm          // Grand total men
+		rename	efrace16 eftotlw          // Grand toatl women
+		rename	efrace19 efaiant          // American Indian or Alaska Native total
+		rename	efrace05 efaianm          // American Indian or Alaska Native total men
+		rename	efrace06 efaianw          // American Indian or Alaska Native total women
+		rename	efrace20 efasiat          // Asian total
+		rename	efrace07 efasiam          // Asian total men
+		rename	efrace08 efasiaw          // Asian total women
+		rename	efrace18 efbkaat          // Black or African American total
+		rename	efrace03 efbkaam          // Black or African American total men
+		rename	efrace04 efbkaaw          // Black or African American toatl women
+		rename	efrace21 efhispt          // Hispanic total 
+		rename	efrace09 efhispm          // Hispanic total men 
+		rename	efrace10 efhispw          // Hispanic total women
+		rename	efrace22 efwhitt          // White total
+		rename	efrace11 efwhitm          // White total men
+		rename	efrace12 efwhitw          // White total women
+		rename	efrace23 efunknt          // Race/ethnicity unknown total
+		rename	efrace13 efunknm          // Race/ethnicity unknonw total men
+		rename	efrace14 efunknw          // Race/ethnicity unknown total women
+		rename	efrace17 efnralt          // Nonresident alien total
+		rename	efrace01 efnralm          // Nonresident alien total men
+		rename	efrace02 efnralw          // Nonresident alien total women
+		gen ef2mort = .                   // Two or more races total
+		gen ef2morm = .                   // Two or more races men
+		gen ef2morw = .                   // Two or more races women
+		gen efnhpit = .                   // Native Hawaiian or Other Pacific Islander total
+		gen efnhpim = .                   // Native Hawaiian or Other Pacific Islander men
+		gen efnhpiw = .                   // Native Hawaiian or Other Pacific Islander women
 	}
 
 	// Establish local for varlist.
@@ -108,20 +108,20 @@ forvalues yindex = 2002 / 2016 {
 	efunknt eftotlt ef2mort ef2morm ef2morw efnhpit efnhpim efnhpiw
 
 	// Loop to save variable label names for reapplication after reshape.
-	foreach varname in "`thevars'" {
+	foreach varname in `thevars' {
 		local l`varname': variable label `varname' 
 	}
 
 	// Reshape
 	keep unitid efalevel `thevars'
-	keep if inlist(efalevel,1, 2, 11, 12, 21, 22, 32, 41, 42, 52)
+	keep if inlist(efalevel, 1, 2, 12, 21, 22, 32, 41, 42, 52)
 
 	reshape wide `thevars', i(unitid) j(efalevel) 
 
 	// Reapply variable label names following reshape.
-	foreach lev in 1 2 11 12 21 22 32 41 42 52 {
+	foreach lev in 1 2 12 21 22 32 41 42 52 {
 		foreach varname in `thevars' {
-			// label variable `varname'`lev' "`lev' `l`varname''"
+			label variable `varname'`lev' "`lev' `l`varname''"
 		}
 	}
 
@@ -149,8 +149,8 @@ saveold "$dtagbl", replace version(13)
 
 
 //Beginning of B Series
-clear all                                               // Reset the workspace
-cd "$wkdgbl"                                            // Change back to working directory.
+clear all                                              		    // Reset the workspace
+cd "$wkdgbl"                                                    // Change back to working directory.
 
 forvalues yindex = 2002 / 2016 {
 	//Copy, unzip, and import data files.
