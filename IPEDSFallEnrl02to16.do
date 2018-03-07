@@ -126,13 +126,19 @@ forvalues yindex = 2002 / 2016 {
 	foreach l of local levels {
 		local f`l' : label `lbe' `l'
 		local ms_`l' = "`f`l''" 
+		local ms_`l' = subinstr("`ms_`l''","student","stdt",.)
+		local ms_`l' = subinstr("`ms_`l''","Undergraduate","Ugrd",.)
+		local ms_`l' = subinstr("`ms_`l''","Graduate","Grad",.)
+		local ms_`l' = subinstr("`ms_`l''","total","Tot",.)
+		local ms_`l' = subinstr("`ms_`l''","Full-time","Fltime",.)
+		local ms_`l' = subinstr("`ms_`l''","Part-time","Pttime",.)
 	}
 	
 	// Reshape
 	reshape wide `thevars', i(unitid) j(efalevel) 
 
 	// Reapply variable label names following reshape.
-	foreach lev in 1 2 12 21 22 32 41 42 52 {
+	foreach lev of local levels {
 		foreach varname in `thevars' {
 			label variable `varname'`lev' "`ms_`lev'' `l`varname''"
 		}
