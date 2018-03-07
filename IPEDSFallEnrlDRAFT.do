@@ -3,10 +3,11 @@ clear all
 cls 
 
 // Use this code to download, build, and save to the local computer data 
-// from the FALL ENROLLMENT survey (A & B Serioes) at the US DOE's Integrated
+// from the FALL ENROLLMENT survey (A Series) at the US DOE's Integrated
 // Postsecondary Education Data Stystem.
 
-// Feb/2018:     Naiya Patel - Original author, initial build.
+// Mar/2018:  Naiya Patel - Completed A Series/B Series forthcoming.  
+// Feb/2018:  Naiya Patel - Original author, initial build.
 
 /*#############################################################################
 
@@ -15,9 +16,7 @@ https://github.com/adamrossnelson/StataIPEDSAll
 
 ##############################################################################*/
 
-// Utilizes preckage version of sshnd (interactive file picker)/
-// Stable 1.0 version of sshnd documentation available at:
-// https://github.com/adamrossnelson/sshnd/tree/1.0
+// Utilizes preckage version of sshnd (interactive file picker)
 do https://raw.githubusercontent.com/adamrossnelson/sshnd/master/sshnd.do
 
 capture log close                             // Close stray log files.
@@ -63,10 +62,10 @@ forvalues yindex = 2002 / 2016 {
 		import delimited ef`yindex'a_data_stata.csv, clear
 	}
 
-	di "QUIET RUN OF EF`yindex'a.do"      //Provides user with informaiton for log file
-	qui do EF`yindex'a.do                 //Quietly run NCES provided do files. 
-	drop x*                               //Remove imputation variables. 
-	di `sp'                               //Spacing to assist reading output.
+	di "QUIET RUN OF EF`yindex'a.do"      // Provides user with informaiton for log file
+	qui do EF`yindex'a.do                 // Quietly run NCES provided do files. 
+	drop x*                               // Remove imputation variables. 
+	di `sp'                               // Spacing to assist reading output.
 
 	if (`yindex' < 2008) {
 		rename	efrace24 eftotlt          // Grand total
@@ -99,6 +98,12 @@ forvalues yindex = 2002 / 2016 {
 		gen efnhpit = .                   // Native Hawaiian or Other Pacific Islander total
 		gen efnhpim = .                   // Native Hawaiian or Other Pacific Islander men
 		gen efnhpiw = .                   // Native Hawaiian or Other Pacific Islander women
+		label variable ef2mort "Two or more races total"
+		label variable ef2morm "Two or more races men"
+		label variable ef2morw "Two or more races women"
+		label variable efnhpit "Native Hawaiian or Other Pacific Islander total"
+		label variable efnhpim "Native Hawaiian or Other Pacific Islander men"
+		label variable efnhpiw "Native Hawaiian or Other Pacific Islander women"
 	}
 
 	// Establish local for varlist.
@@ -109,19 +114,33 @@ forvalues yindex = 2002 / 2016 {
 
 	// Loop to save variable label names for reapplication after reshape.
 	foreach varname in `thevars' {
-		local l`varname': variable label `varname' 
+		local l`varname' : variable label `varname' 
 	}
-
-	// Reshape
+	
+	// Simplify dataset
 	keep unitid efalevel `thevars'
 	keep if inlist(efalevel, 1, 2, 12, 21, 22, 32, 41, 42, 52)
-
+	
+	levelsof efalevel, local(levels)
+	local lbe : value label efalevel
+	foreach l of local levels {
+		local f`l' : label `lbe' `l'
+		local ms_`l' = "`f`l''" 
+		local ms_`l' = subinstr("`ms_`l''","student","stdt",.)
+		local ms_`l' = subinstr("`ms_`l''","Undergraduate","Ugrd",.)
+		local ms_`l' = subinstr("`ms_`l''","Graduate","Grad",.)
+		local ms_`l' = subinstr("`ms_`l''","total","Tot",.)
+		local ms_`l' = subinstr("`ms_`l''","Full-time","Fltime",.)
+		local ms_`l' = subinstr("`ms_`l''","Part-time","Pttime",.)
+	}
+	
+	// Reshape
 	reshape wide `thevars', i(unitid) j(efalevel) 
 
 	// Reapply variable label names following reshape.
-	foreach lev in 1 2 12 21 22 32 41 42 52 {
+	foreach lev of local levels {
 		foreach varname in `thevars' {
-			label variable `varname'`lev' "`lev' `l`varname''"
+			label variable `varname'`lev' "`ms_`lev'' `l`varname''"
 		}
 	}
 
@@ -137,7 +156,7 @@ forvalues yindex = 2015(-1)2002 {
 	display "`yindex'"                                          // Output for log file.
 	append using "ef`yindex'a_data_stata.dta", force
 	di `sp'                                                     // Spacing for log file.
-}  
+} 
 cd ..
 compress
 
