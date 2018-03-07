@@ -59,7 +59,6 @@ forvalues fname= 2002/2016 {
     di "QUIET RUN OF efia`fname'.do"    //Provides the user information for log file. 
     qui do efia`fname'					//Quietly run do files
     di `sp'		
-
     compress
     saveold efia`fname'_data_stata.dta, replace version (13)
     di `sp'

@@ -15,7 +15,6 @@ set linesize 200
 	  https://github.com/adamrossnelson/StataIPEDSAll
   
 ##############################################################################*/
-
 // Utilizes preckage version of sshnd (interactive file picker)/
 // Stable 1.0 version of sshnd documentation available at:
 // https://github.com/adamrossnelson/sshnd/tree/1.0
