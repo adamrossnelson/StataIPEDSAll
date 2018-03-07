@@ -36,7 +36,7 @@ forvalues fname = 2002 / 2016 {
 	// Copy, unzip, and import data.
 	copy https://nces.ed.gov/ipeds/datacenter/data/HD`fname'_Data_Stata.zip .
 	unzipfile HD`fname'_Data_Stata.zip, replace
-	import delimited hd`fname'_data_stata.csv
+	import delimited hd`fname'_data_stata.csv, clear
 	// Add isYr index for later panel merge. Order new variable.
 	gen int isYr = `fname'
 	order isYr, after(unitid)
