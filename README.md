@@ -33,6 +33,9 @@ If I'm behind on an update send me a note. Or branch the project, revise on your
     - [2.5. IPEDSGradRt02to16.do](#25-ipedsgradrt02to16do)
         - [2.5.1. Run from online](#251-run-from-online)
         - [2.5.2. Suggested naming convention](#252-suggested-naming-convention)
+    - [2.6. IPEDSFallEnrl02to16.do](#26-ipedsfallenrl02to16do)
+        - [2.6.1. Run from online](#261-run-from-online)
+        - [2.6.2. Suggested naming convention](#262-suggested-naming-convention)        
 - [3. Contextual Note](#3-contextual-note)
 - [4. Testing And Development Log](#4-testing-and-development-log)
 
@@ -121,6 +124,21 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSGr
 ### 2.5.2. Suggested naming convention
 
 When prompted for a log file name suggested name is `IPEDSGradRt02to16.log` which will also produce `IPEDSGradRt02to16.dta` at the location you specify. (Update year reference as needed).
+
+## 2.6. IPEDSFallEnrl02to16.do
+
+Produces a panel data set that includes IPEDS fall enrollment rates. This series contains the fall enrollment rates status including race/ethnicity, gender, attendance status, and level of students from 2002 to 2016. 
+
+### 2.6.1. Run from online
+
+May be run with the following at the Stata command line.
+
+```
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSFallEnrl02to16.do
+```
+### 2.6.2. Suggested naming convention
+
+When prompted for a log file name suggested name is `IPEDSFallEnrl02to16.log` which will also produce `IPEDSFallEnrl02to16.dta` at the location you specify. (Update year reference as needed).
 
 # 3. Contextual Note
 
