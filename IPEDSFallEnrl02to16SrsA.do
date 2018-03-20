@@ -6,7 +6,7 @@ cls
 // from the FALL ENROLLMENT survey (A Series) at the US DOE's Integrated
 // Postsecondary Education Data Stystem.
 
-// Mar/2018:  Naiya Patel - Completed A Series/B Series forthcoming.  
+// Mar/2018:  Naiya Patel - Completed A Series.  
 // Feb/2018:  Naiya Patel - Original author, initial build.
 
 /*#############################################################################
@@ -62,10 +62,10 @@ forvalues yindex = 2002 / 2016 {
 		import delimited ef`yindex'a_data_stata.csv, clear
 	}
 
-	di "QUIET RUN OF EF`yindex'a.do"      // Provides user with informaiton for log file
-	qui do EF`yindex'a.do                 // Quietly run NCES provided do files. 
-	drop x*                               // Remove imputation variables. 
-	di `sp'                               // Spacing to assist reading output.
+	di "QUIET RUN OF EF`yindex'a.do"          // Provides user with informaiton for log file
+	qui do EF`yindex'a.do                     // Quietly run NCES provided do files. 
+	drop x*                                   // Remove imputation variables. 
+	di `sp'                                   // Spacing to assist reading output.
 
 	if (`yindex' < 2008) {
 		rename	efrace24 eftotlt          // Grand total
@@ -122,7 +122,9 @@ forvalues yindex = 2002 / 2016 {
 	keep if inlist(efalevel, 1, 2, 12, 21, 22, 32, 41, 42, 52)
 	
 	levelsof efalevel, local(levels)
+	// Get the value lable name associated with var efalevel
 	local lbe : value label efalevel
+	// Get individual value labels from valuelabel associated with var efalevel
 	foreach l of local levels {
 		local ms_`l' : label `lbe' `l'
 		local ms_`l' = subinstr("`ms_`l''","student","stdt",.)
@@ -152,7 +154,7 @@ forvalues yindex = 2002 / 2016 {
 
 use ef2016a_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
-	display "`yindex'"                                          // Output for log file.
+	display "Appending data file from `yindex'"                 // Output for log file.
 	append using "ef`yindex'a_data_stata.dta", force
 	di `sp'                                                     // Spacing for log file.
 }  
