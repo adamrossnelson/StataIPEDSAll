@@ -53,30 +53,30 @@ forvalues fname = 2014/2016 {
 
 // Prepare the Admissions and Test Scores 2014 file.
 import delimited adm2014_rv_data_stata.csv, clear
-di "QUIET RUN OF adm2014.do"	// Provide uers with information for log file.
-qui do adm2014					// Quietly run NCES provided do file.
-gen isYr = 2014					// Add the isYr index for later merge.
-order isYr, after(unitid)		// Order isYr after unitid, easier browsing.
+di "QUIET RUN OF adm2014.do"                   // Provide uers with information for log file.
+qui do adm2014                                 // Quietly run NCES provided do file.
+gen isYr = 2014	                               // Add the isYr index for later merge.
+order isYr, after(unitid)                      // Order isYr after unitid, easier browsing.
 saveold adm2014_rv_data_stata.dta, version(13) replace
-di `sp'							// Spacer for the output.
+di `sp'	                                       // Spacer for the output.
 
 // Prepare the Admissions and Test Scores 2015 file.
 import delimited adm2015_data_stata.csv, clear
-di "QUIET RUN OF adm2015.do"	// Provide uers with information for log file.
-qui do adm2015					// Quietly run NCES provided do file.
-gen isYr = 2015 				// Add the isYr index for later merge.
-order isYr, after(unitid)		// Order isYr after unitid, easier browsing.
+di "QUIET RUN OF adm2015.do"                   // Provide uers with information for log file.
+qui do adm2015	                               // Quietly run NCES provided do file.
+gen isYr = 2015                                // Add the isYr index for later merge.
+order isYr, after(unitid)                      // Order isYr after unitid, easier browsing.
 saveold adm2015_data_stata.dta, version(13) replace
-di `sp'							// Spacer for the output.
+di `sp'                                        // Spacer for the output.
 
 // Prepare the Admissions and Test Scores 2016 file.
 import delimited adm2016_data_stata.csv, clear
-di "QUIET RUN OF adm2016.do"	// Provide uers with information for log file.
-qui do adm2016					// Quietly run NCES provided do file.
-gen isYr = 2016 				// Add the isYr index for later merge.
-order isYr, after(unitid)		// Order isYr after unitid, easier browsing.
+di "QUIET RUN OF adm2016.do"                    // Provide uers with information for log file.
+qui do adm2016                                  // Quietly run NCES provided do file.
+gen isYr = 2016                                 // Add the isYr index for later merge.
+order isYr, after(unitid)                       // Order isYr after unitid, easier browsing.
 saveold adm2016_data_stata.dta, version(13) replace
-di `sp'							// Spacer for the output.
+di `sp'                                         // Spacer for the output.
 
 
 // Loop designed to downlaod zip files and NCES provided Stata do files.
@@ -116,24 +116,24 @@ forvalues fname = 2002 / 2016 {
 	scalar fcontents = subinstr(fcontents, sstring, char(34), .)
 	// Save (and call) the revised and working do file.
 	scalar byteswritten = filewrite("ic`fname'.do", fcontents, 1)
-	di "QUIET RUN OF ic`fname'"	// Provide information for log file.
-	qui do ic`fname'			// Quietyly run NCES provided do file.
-	di `sp'						// Spacing to assist reading output.
+	di "QUIET RUN OF ic`fname'"                    // Provide information for log file.
+	qui do ic`fname'			       // Quietyly run NCES provided do file.
+	di `sp'	                                       // Spacing to assist reading output.
 
 	// Compress and save the resulting do file.
 	compress
 	saveold ic`fname'_data_stata.dta, version(13) replace
-	di `sp'							// Spacer for the output.
+	di `sp'                                        // Spacer for the output.
 }
 
 // Loop through dta files created above. Assemble panel data set. Starts with
 // most recent dta file. Procedure assumes most recent dta value lables will
 // be most valid and reliable for the intended research or analytical purpose.
-di `sp'												// Spacer for the output.
-use ic2016_data_stata.dta, clear					// Open most recent file as the
-forvalues yindex = 2015(-1)2002 {					// base (2016) and then, assemble
-	append using ic`yindex'_data_stata.dta, force	// panel data set.
-	di `sp'											// Spacer for the output.
+di `sp'	                                                // Spacer for the output.
+use ic2016_data_stata.dta, clear                        // Open most recent file as the
+forvalues yindex = 2015(-1)2002 {                       // base (2016) and then, assemble
+	append using ic`yindex'_data_stata.dta, force   // panel data set.
+	di `sp'                                         // Spacer for the output.
 }
 merge 1:1 unitid isYr using "adm2014_rv_data_stata.dta", ///
 nogenerate update force
