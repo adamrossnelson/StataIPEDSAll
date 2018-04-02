@@ -67,8 +67,9 @@ Contextual note: The universe of higher education data is vast and complicated. 
 Date      | Developer             | Description
 ----------|-----------------------|----------------------
 03Jan2018 | Adam Ross Nelson      | Added test & dev log.
-11Jan2018 | Naiya Patel           | Tested "Run from Online" command lines.
+11Jan2018 | Naiya Patel           | Tested "Run from Online" command lines - Success
 09Feb2018 | Adam Ross Nelson      | Added `IPEDSGradRt02to16.do`
 25Feb2018 | Adam Ross Nelson      | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/1).
 20Mar2018 | Adam Ross Nelson      | Splified ReadMe.md usage section.
 20Mar2018 | Niya Patel            | Added `FallEnrl02to16SrsA.do` & `FallEnrl02to16SrsA.do`
+02Apr2018 | Adam Ross Nelson      | Tested "Run from Online" command lines - Success
