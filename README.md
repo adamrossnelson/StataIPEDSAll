@@ -4,6 +4,12 @@ These files will download, build, and save to the local computer data from the U
 
 For a related/similar repo built for R see [btskinner/downloadipeds](https://github.com/btskinner/downloadipeds).
 
+
+Professor Molly Ott provides a YouTube overview of IPEDS: <br>
+[![Image of IPEDS Video](http://img.youtube.com/vi/dCagXsBf9Vs/0.jpg)](https://www.youtube.com/watch?v=dCagXsBf9Vs)<br>
+At 6min 30 seconds Professor Ott also explains the Clery Campus Safety Data.<br>
+At 7min 10 seconds Professor Ott provides introduction to the Equity in Athletics Data Analysis (EADA) Tool.<br>
+
 ## 1.1. Table of Contents
 <!-- TOC -->
 
