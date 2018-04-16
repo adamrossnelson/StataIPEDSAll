@@ -4,6 +4,8 @@ These files will download, build, and save to the local computer data from the U
 
 For a related/similar repo built for R see [btskinner/downloadipeds](https://github.com/btskinner/downloadipeds).
 
+**[Brief Demonstration Video Here.](https://mediaspace.wisc.edu/media/IPEDS+All+Demonstration/1_8a45e0b7)**
+
 
 Professor Molly Ott provides a YouTube overview of IPEDS: <br>
 [![Image of IPEDS Video](http://img.youtube.com/vi/dCagXsBf9Vs/0.jpg)](https://www.youtube.com/watch?v=dCagXsBf9Vs)<br>
