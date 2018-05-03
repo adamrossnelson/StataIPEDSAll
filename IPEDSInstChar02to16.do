@@ -88,10 +88,10 @@ forvalues fname = 2002 / 2016 {
 	// File name conventions not consistent through the years. 2002-2007 
 	// and 2009 no _rv_ file. 2008 and 2010-2013 _rv_ file available.	
 	if `fname' == 2008 | (`fname' > 2009 & `fname' < 2015) {
-		import delimited ic`fname'_rv_Data_Stata.csv, clear
+		import delimited ic`fname'_rv_data_stata.csv, clear
 	}
 	else {
-		import delimited ic`fname'_Data_Stata.csv, clear
+		import delimited ic`fname'_data_stata.csv, clear
 	}
 	// Add isYr for later panel merge. Order new variable.
 	
