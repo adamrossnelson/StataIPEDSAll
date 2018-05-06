@@ -53,7 +53,14 @@ forvalues yindex = 2002 / 2016 {
 	// Prior to 2007 IPEDS did not provide _rv_ editions of the data.
 	// As of July 1, 2017 IPEDS had not yet release _rv_ edition of 2015.
 	if `yindex' > 2006 & `yindex' < 2015 {
-		import delimited gr`yindex'_rv_data_stata.csv, clear
+		// NCES also changed the character case in file names year-to-year.
+		capture confirm file gr`yindex'_rv_data_stata.csv
+		if _rc == 0 {
+			import delimited gr`yindex'_rv_data_stata.csv, clear
+		}
+		else {
+			import delimited gr`yindex'_RV_data_stata.csv, clear
+		}
 	}
 	else {
         	import delimited gr`yindex'_data_stata.csv, clear
@@ -391,7 +398,7 @@ forvalues yindex = 2002 / 2016 {
 	di `sp'	`sp'                                                    // Spacer for the output.
 }
 
-use GR2016_data_stata.dta, clear
+use gr2016_data_stata.dta, clear
 forvalues yindex = 2015(-1)2002 {
 	display "`yindex'"                                              // Output for log file.
 	append using "gr`yindex'_data_stata.dta", force

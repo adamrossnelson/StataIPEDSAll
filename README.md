@@ -84,4 +84,4 @@ Date      | Developer             | Description
 20Mar2018 | Niya Patel            | Added `FallEnrl02to16SrsA.do` & `FallEnrl02to16SrsA.do`.
 02Apr2018 | Adam Ross Nelson      | Tested "Run from Online" command lines - Success.
 03May2018 | Adam Ross Nelson      | Test on Linux Ubuntu - Success.
-03May2018 | Adam Ross Nelson      | Closed [issue]().
+03May2018 | Adam Ross Nelson      | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/23).

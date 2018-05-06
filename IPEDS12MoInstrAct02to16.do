@@ -35,10 +35,10 @@ forvalues fname= 2002/2016 {
     copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
     unzipfile EFIA`fname'_Data_Stata.zip, replace
     if `fname' > 2006 & `fname' < 2016 {
-        import delimited EFIA`fname'_rv_data_stata.csv, clear 
+        import delimited efia`fname'_rv_data_stata.csv, clear 
     }
     else { 
-        import delimited EFIA`fname'_data_stata.csv, clear 
+        import delimited efia`fname'_data_stata.csv, clear 
     }
     //Add isYr index and order the new variable. 
     gen int isYr = `fname'

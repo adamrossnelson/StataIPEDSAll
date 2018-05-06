@@ -38,7 +38,7 @@ forvalues yindex = 2002 / 2016 {
 	unzipfile EF`yindex'B_Stata.zip, replace 
 
 	// Read do file into scalar for modification. 
-	scalar fcontents = fileread("EF`yindex'B.do")
+	scalar fcontents = fileread("ef`yindex'b.do")
 
 	// Remove default "insheet" command designed to import data. 
 	// Remove default "save" command designed to save data. 
