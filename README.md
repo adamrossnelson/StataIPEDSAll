@@ -85,3 +85,4 @@ Date      | Developer             | Description
 02Apr2018 | Adam Ross Nelson      | Tested "Run from Online" command lines - Success.
 03May2018 | Adam Ross Nelson      | Test on Linux Ubuntu - Success.
 03May2018 | Adam Ross Nelson      | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/23).
+17Jul2018 | Adam Ross Nelson      | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/24).

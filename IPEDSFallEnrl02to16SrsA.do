@@ -29,6 +29,8 @@ di c(pwd)                                     // Confrim working directory.
 // Stata do files need cleaning (removal of stray char(13) + char(10) + char(34)).
 forvalues yindex = 2002 / 2016 {
 	// Copy, unzip, and import data files. 
+	// Stata 13 introduced support for copy to work with https.
+	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'A_Data_Stata.zip .
 	unzipfile EF`yindex'A_Data_Stata.zip, replace
 

@@ -32,6 +32,8 @@ di c(pwd)                                     // Confrim working directory.
 
 forvalues fname= 2002/2016 {
     // Copy and unzip data and do files.
+    // Stata 13 introduced support for copy to work with https.
+	// Use command -update all- if Stata 13 and copy returns an error.
     copy https://nces.ed.gov/ipeds/datacenter/data/EFIA`fname'_Data_Stata.zip .
     unzipfile EFIA`fname'_Data_Stata.zip, replace
     if `fname' > 2006 & `fname' < 2016 {

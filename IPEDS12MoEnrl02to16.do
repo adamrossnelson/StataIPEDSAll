@@ -31,6 +31,8 @@ version 13                                    // Enforce version compatibility.
 di c(pwd)                                     // Confrim working directory.
 
 forvalues yindex = 2002 / 2016 {
+	// Stata 13 introduced support for copy to work with https.
+	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFFY`yindex'_Data_Stata.zip .
 	unzipfile EFFY`yindex'_Data_Stata.zip, replace
 	

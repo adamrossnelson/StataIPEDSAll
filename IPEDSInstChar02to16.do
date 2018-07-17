@@ -35,6 +35,8 @@ di c(pwd)                                       // Confrim working directory.
 // ADM series (Admissions and Test Scores) Introduced in 2014
 forvalues fname = 2014/2016 {
 	// Copy and unzip data and do files.
+	// Stata 13 introduced support for copy to work with https.
+	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/ADM`fname'_Data_Stata.zip .
 	unzipfile ADM`fname'_Data_Stata.zip, replace
 	copy https://nces.ed.gov/ipeds/datacenter/data/ADM`fname'_Stata.zip .

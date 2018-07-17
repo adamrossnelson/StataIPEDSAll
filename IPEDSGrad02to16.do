@@ -31,6 +31,8 @@ version 13                                    // Enforce version control for Ver
 // Loop is designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
 forvalues yindex = 2002 / 2016 {
+	// Stata 13 introduced support for copy to work with https.
+	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/GR`yindex'_Data_Stata.zip .
 	unzipfile GR`yindex'_Data_Stata.zip
 

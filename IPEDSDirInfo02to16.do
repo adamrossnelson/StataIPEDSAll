@@ -34,6 +34,8 @@ di c(pwd)                                     // Confrim working directory.
 // Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
 forvalues fname = 2002 / 2016 {
 	// Copy, unzip, and import data.
+	// Stata 13 introduced support for copy to work with https.
+	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/HD`fname'_Data_Stata.zip .
 	unzipfile HD`fname'_Data_Stata.zip, replace
 	import delimited hd`fname'_data_stata.csv, clear

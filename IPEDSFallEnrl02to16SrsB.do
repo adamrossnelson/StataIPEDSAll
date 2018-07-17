@@ -30,6 +30,8 @@ cd "$wkdgbl"                                  // Change back to working director
 
 forvalues yindex = 2002 / 2016 {
 	// Copy, unzip, and import data files.
+	// Stata 13 introduced support for copy to work with https.
+	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EF`yindex'B_Data_Stata.zip .
 	unzipfile EF`yindex'B_Data_Stata.zip, replace
 
