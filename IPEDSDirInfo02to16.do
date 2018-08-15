@@ -6,11 +6,12 @@ cls
 // data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Feb/2017:    Adam Ross Nelson - Created locale1 urbanicity crosswalk.
-// Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
-// Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
-// Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
-// Apr/2017:	Adam Ross Nelson - Initial Build.
+// Aug/2017:  Adam Ross Nelson - Updated for 2017 data release.
+// Feb/2017:  Adam Ross Nelson - Created locale1 urbanicity crosswalk.
+// Oct/2017:  Adam Ross Nelson - Updated to include 2016 datafiles.
+// Sep/2017:  Adam Ross Nelson - Updated to use sshnd file picker.
+// Sep/2017:  Adam Ross Nelson - GitHub ReBuild.
+// Apr/2017:  Adam Ross Nelson - Initial Build.
 
 /*#############################################################################
 
@@ -32,7 +33,7 @@ di c(pwd)                                     // Confrim working directory.
 
 // Loop is designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
-forvalues fname = 2002 / 2016 {
+forvalues fname = 2002 / 2017 {
 	// Copy, unzip, and import data.
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
@@ -89,8 +90,8 @@ forvalues fname = 2002 / 2016 {
 // Loop through dta files created above. Assmble panel data set. Starts with 
 // most recent dta file. Procedure assumes most recent dta value labels will 
 // be most valid and reliable for the intended research or analytical purpose.
-use hd2016_data_stata.dta, clear
-forvalues yindex = 2015(-1)2002 {
+use hd2017_data_stata.dta, clear
+forvalues yindex = 2016(-1)2002 {
 	display "`yindex'"						// Output for log file.
 	append using "hd`yindex'_data_stata.dta", force
 	di `sp'									// Spacing for log file.
