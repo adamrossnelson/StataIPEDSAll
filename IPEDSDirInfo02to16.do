@@ -107,7 +107,7 @@ replace locale1 = 22 if locale1 == 4  // Urb frnge of mid-sze cty > Suburb: Mids
 replace locale1 = 31 if locale1 == 5  // Large town               > Town: Fringe
 replace locale1 = 32 if locale1 == 6  // Small town               > Town: Distant
 replace locale1 = 33 if locale1 == 7  // Rural                    > Town: Remote
-label variable locale1 "Crosswalked 2004, 2003, 2002 alues of locale. See do file."
+label variable locale1 "Crosswalked 2004, 2003, 2002 values of locale. See do file."
 
 // Second copy the 2005 index back to 2004, 2003, and 2004
 qui tab isYr
