@@ -6,8 +6,8 @@ cls
 // data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Aug/2017:  Adam Ross Nelson - Updated for 2017 data release.
-// Feb/2017:  Adam Ross Nelson - Created locale1 urbanicity crosswalk.
+// Aug/2018:  Adam Ross Nelson - Updated to include 2017 datafiles.
+// Feb/2018:  Adam Ross Nelson - Created locale1 urbanicity crosswalk.
 // Oct/2017:  Adam Ross Nelson - Updated to include 2016 datafiles.
 // Sep/2017:  Adam Ross Nelson - Updated to use sshnd file picker.
 // Sep/2017:  Adam Ross Nelson - GitHub ReBuild.
