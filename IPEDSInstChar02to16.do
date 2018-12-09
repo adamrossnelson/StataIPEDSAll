@@ -6,7 +6,8 @@ cls
 // data from the INSTITUTIONAL CHRACTERISTICS survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Jan/2018: 	Naiya Patel 	 - Updated to include most recent datafiles. 
+// Dec/2018:    Adam Ross Nelson - Updated to include 2017 datafiles.
+// Jan/2018: 	Naiya Patel 	 - Updated to include 2016 (rv) datafiles. 
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Sep/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
 // Sep/2017:	Adam Ross Nelson - GitHub ReBuild.
@@ -33,7 +34,7 @@ di c(pwd)                                       // Confrim working directory.
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
 // ADM series (Admissions and Test Scores) Introduced in 2014
-forvalues fname = 2014/2016 {
+forvalues fname = 2014/2017 {
 	// Copy and unzip data and do files.
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
@@ -52,6 +53,8 @@ forvalues fname = 2014/2016 {
 	scalar byteswritten = filewrite("adm`fname'.do", fcontents, 1)
 	di `sp'								// Spacing to assist reading output.
 }
+
+// TODO: Place these four years of adm20YY_rv_data_stata in for loop.
 
 // Prepare the Admissions and Test Scores 2014 file.
 import delimited adm2014_rv_data_stata.csv, clear
@@ -80,23 +83,32 @@ order isYr, after(unitid)                       // Order isYr after unitid, easi
 saveold adm2016_data_stata.dta, version(13) replace
 di `sp'                                         // Spacer for the output.
 
+// Prepare the Admissions and Test Scores 2017 file.
+import delimited adm2017_data_stata.csv, clear
+di "QUIET RUN OF adm2017.do"                    // Provide uers with information for log file.
+qui do adm2017                                  // Quietly run NCES provided do file.
+gen isYr = 2017                                 // Add the isYr index for later merge.
+order isYr, after(unitid)                       // Order isYr after unitid, easier browsing.
+saveold adm2017_data_stata.dta, version(13) replace
+di `sp'                                         // Spacer for the output.
+
 
 // Loop designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
-forvalues fname = 2002 / 2016 {
+forvalues fname = 2002 / 2017 {
 	// Copy, unzip, and import data.
 	copy https://nces.ed.gov/ipeds/datacenter/data/IC`fname'_Data_Stata.zip .
 	unzipfile IC`fname'_Data_Stata.zip, replace
 	// File name conventions not consistent through the years. 2002-2007 
-	// and 2009 no _rv_ file. 2008 and 2010-2013 _rv_ file available.	
-	if `fname' == 2008 | (`fname' > 2009 & `fname' < 2015) {
+	// and 2009 no _rv_ file. 2008 and 2010-2016 _rv_ file available.	
+	if `fname' == 2008 | (`fname' > 2009 & `fname' < 2017) {
 		import delimited ic`fname'_rv_data_stata.csv, clear
 	}
 	else {
 		import delimited ic`fname'_data_stata.csv, clear
 	}
+
 	// Add isYr for later panel merge. Order new variable.
-	
 	gen int isYr = `fname'
 	order isYr, after(unitid)
 
@@ -131,9 +143,9 @@ forvalues fname = 2002 / 2016 {
 // Loop through dta files created above. Assemble panel data set. Starts with
 // most recent dta file. Procedure assumes most recent dta value lables will
 // be most valid and reliable for the intended research or analytical purpose.
-di `sp'	                                                // Spacer for the output.
-use ic2016_data_stata.dta, clear                        // Open most recent file as the
-forvalues yindex = 2015(-1)2002 {                       // base (2016) and then, assemble
+di `sp'	                                            // Spacer for the output.
+use ic2017_data_stata.dta, clear                    // Open most recent file as the
+forvalues yindex = 2016(-1)2002 {                   // base (2017) and then, assemble
 	append using ic`yindex'_data_stata.dta, force   // panel data set.
 	di `sp'                                         // Spacer for the output.
 }
@@ -143,14 +155,16 @@ merge 1:1 unitid isYr using "adm2015_data_stata.dta", ///
 nogenerate update force
 merge 1:1 unitid isYr using "adm2016_data_stata.dta", ///
 nogenerate update force
+merge 1:1 unitid isYr using "adm2017_data_stata.dta", ///
+nogenerate update force
 
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
 cd ..
 drop x*
 compress
-label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
-notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll/tree/master"
+label data "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll"
+notes _dta: "PanelBuildInfo: https://github.com/adamrossnelson/StataIPEDSAll"
 notes _dta: "Panel built on `c(current_date)'"
 notes _dta: "Note regarding history of IC and ADM survey files. ADM . . ."
 notes _dta: "series introduced in 2014 Some variables formerly found . . ."
@@ -158,15 +172,21 @@ notes _dta: "in the IC series moved to ADM series."
 saveold "$dtagbl", replace version(13)
 
 qui { 
-noi di "#####################################################################"
-noi di ""
-noi di "      Saved $dtagbl"
-noi di ""
-noi di "	  Note regarding history of IC and ADM survey files. ADM series"
-noi di "	  introduced in 2014. Some variables formerly found in the IC"
-noi di "	  series moved to ADM series. This routine builds ADM and IC"
-noi di "	  sets apart. Then merges the 2014, 2015, & 2016 ADM surveys."
-noi di ""
-noi di "######################################################################"
+noi di as result "#####################################################################"
+noi di as result ""
+noi di as result "      Saved $dtagbl"
+noi di as result ""
+noi di as result "	  Note regarding history of IC and ADM survey files. ADM series"
+noi di as result "	  introduced in 2014. Some variables formerly found in the IC"
+noi di as result "	  series moved to ADM series. This routine builds ADM and IC"
+noi di as result "	  sets apart. Then merges the 2014, 2015, & 2016 ADM surveys."
+noi di as result ""
+noi di as result "	  Also note description of ADM series from NCES dictionary..."
+noi di as result "	  These [ADM] data are applicable for institutions that do not"
+noi di as result "	  have an open admin... policy for entering first-time students."
+noi di as result ""
+noi di as result "######################################################################"
 }
 log close
+
+These data are applicable for institutions that do not have an open admissions policy for entering first-time students.
