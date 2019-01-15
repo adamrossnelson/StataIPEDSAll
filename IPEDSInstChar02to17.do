@@ -136,9 +136,6 @@ forvalues yindex = 2014/2017 {
 	nogenerate update force
 }
 
-adm2017_data_stata.dta", ///
-nogenerate update force */
-
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
 cd ..
