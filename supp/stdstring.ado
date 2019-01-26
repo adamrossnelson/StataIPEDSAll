@@ -29,10 +29,12 @@ program define stdstring
      version 15
      
      // Syntax requres one argument, must be text type variable.
-     syntax varlist(min=1 max=1 string) [if] [in] [, GEN(string)]
+     syntax varlist(min=2 max=2) [if] [in] [, GEN(string)]
+
+     tokenize "`varlist'"
      
-     gen `GEN' = `varlist'
+     gen `gen' = `2'
      
-     bysort unitid : replace `gen' = `gen'[_N]
+     bysort `1' : replace `gen' = `gen'[_N]
 
 end
