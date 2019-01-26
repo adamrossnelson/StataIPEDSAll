@@ -19,6 +19,7 @@ At 7min 10 seconds Professor Ott provides introduction to the Equity in Athletic
     - [1.1. Table of Contents](#11-table-of-contents)
     - [1.2. IPEDS Update Cylces (Revised releases)](#12-ipeds-update-cylces-revised-releases)
     - [1.3. Additional Background](#13-additional-background)
+    - [1.4. Supplemental Items](#14-supplemental-items)
 - [2. Usage](#2-usage)
 - [3. Run From Online](#3-run-from-online)
 - [4. Contextual Note](#4-contextual-note)
@@ -35,6 +36,15 @@ If I'm behind on an update send me a note. Or branch the project, revise on your
 ## 1.3. Additional Background
 
 IPEDS provides an [origins report](https://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=NPEC2012833) which documents the history of survey survey items.
+
+## 1.4. Supplemental Items
+
+Located at [adamrossnelson/StataIPEDSAll/tree/master/supp](https://github.com/adamrossnelson/StataIPEDSAll/tree/master/supp) are useful supplemental routines that will enable quicker analysis of IPEDS data.
+
+* `abbrev.ado` Quickly abbreviates college & university names. For example, "echnology"  -> "Tech." or "Academy"     -> "Acad."
+* `stdstring.ado` Quickly standardizes a string variable to be the same across all units through a panel.
+* `standardgroups.do` Quickly writes group indicators. (e.g. inB10, etc.)
+* `drill_down_picker_builder.do` Makes spreadsheet that can populate a drill-down-pick list from IPEDS institutions.
 
 # 2. Usage
 
@@ -72,17 +82,19 @@ Contextual note: The universe of higher education data is vast and complicated. 
 
 # 5. Testing And Development Log
 
-Date      | Developer             | Description
-----------|-----------------------|----------------------
-01Apr2017 | Adam Ross Nelson      | Initial build.
-01Sep2017 | Adam Ross Nelson      | GitHub rebuild.
-03Jan2018 | Adam Ross Nelson      | Added test & dev log.
-11Jan2018 | Naiya Patel           | Tested "Run from Online" command lines - Success.
-09Feb2018 | Adam Ross Nelson      | Added `IPEDSGradRt02to16.do`.
-25Feb2018 | Adam Ross Nelson      | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/1).
-20Mar2018 | Adam Ross Nelson      | Splified ReadMe.md usage section.
-20Mar2018 | Niya Patel            | Added `FallEnrl02to16SrsA.do` & `FallEnrl02to16SrsA.do`.
-02Apr2018 | Adam Ross Nelson      | Tested "Run from Online" command lines - Success.
-03May2018 | Adam Ross Nelson      | Test on Linux Ubuntu - Success.
-03May2018 | Adam Ross Nelson      | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/23).
-17Jul2018 | Adam Ross Nelson      | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/24).
+Date      | Developer          | Description
+----------|--------------------|----------------------
+01Apr2017 | Adam Ross Nelson   | Initial build.
+01Sep2017 | Adam Ross Nelson   | GitHub rebuild.
+03Jan2018 | Adam Ross Nelson   | Added test & dev log.
+11Jan2018 | Naiya Patel        | Tested "Run from Online" command lines - Success.
+09Feb2018 | Adam Ross Nelson   | Added `IPEDSGradRt02to16.do`.
+25Feb2018 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/1).
+20Mar2018 | Adam Ross Nelson   | Splified ReadMe.md usage section.
+20Mar2018 | Niya Patel         | Added `FallEnrl02to16SrsA.do` & `FallEnrl02to16SrsA.do`.
+02Apr2018 | Adam Ross Nelson   | Tested "Run from Online" command lines - Success.
+03May2018 | Adam Ross Nelson   | Test on Linux Ubuntu - Success.
+03May2018 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/23).
+17Jul2018 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/24).
+15Jan2019 | Adam Ross Nelson   | Updated to include 2017 data files.
+26Jan2019 | Adam Ross Nelson   | Added to Supp sub dir and related doc.
