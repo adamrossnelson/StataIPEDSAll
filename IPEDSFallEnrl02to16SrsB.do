@@ -82,6 +82,10 @@ forvalues yindex = 2002 / 2016 {
 	local thevars fttotm fttotw pttotm pttotw ftgtot ///
 	ptgtot totlmn totlwm grndtl 
 	
+	// Keeping variables before and after reshape and/or collapse. See also:
+	// https://www.stata.com/support/faqs/data-management/apply-labels-after-reshape/
+	// https://www.stata.com/support/faqs/data-management/try-all-values-with-foreach/
+	
 	// Loop to save variable label names for reapplication after reshape
 	foreach varname in `thevars' {
 		local l`varname' : variable label `varname'
