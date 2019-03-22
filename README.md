@@ -83,12 +83,19 @@ Contextual note: The universe of higher education data is vast and complicated. 
 **Other similar data sources:**
 
 [College-Insight from Institute for College Access & Success www.college-insigt.org](http://college-insight.org/)
+
 [College Scorecard data - My Github Repo](https://github.com/adamrossnelson/colscore)
+
 [College Scorecard data - College Scorecard Website](https://collegescorecard.ed.gov/data/)
+
 [Integrated Postsecondary Education Data System - My Github Repo](https://github.com/adamrossnelson/StataIPEDSAll)
+
 [Integrated Postsecondary Education Data System - IPEDS Website](https://nces.ed.gov/ipeds/use-the-data)
+
 [Common Data Set - Wesbite](http://www.commondataset.org/)
+
 [Common Data Set - Discussion List Archives](http://collegeboard.lyris.net/read/?forum=cds)
+
 
 # 5. Testing And Development Log
 
