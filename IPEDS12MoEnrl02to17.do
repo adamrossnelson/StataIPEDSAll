@@ -49,8 +49,9 @@ forvalues yindex = 2002 / 2017 {
 	scalar byteswritten = filewrite("effy`yindex'.do", fcontents, 1)
 	
 	// Naming conventions changed. Manage evolving name conventions.
-	// 2002 to 2006 & 2015 no revised survey data file.
-	if `yindex' < 2007 | `yindex' > 2014 {
+	// 2002 to 2006 there are no revised survey data files.
+	// Most recent year often does not have revised survey file.
+	if inlist(`yindex', 2002, 2003, 2004, 2005, 2006, 2017) {
 		import delimited effy`yindex'_data_stata.csv, clear
 	}
 	else {
