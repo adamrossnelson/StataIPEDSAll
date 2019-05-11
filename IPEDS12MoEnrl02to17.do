@@ -6,6 +6,7 @@ cls
 // data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// May/2019     Adam Ross Nelson - Updated to include 2017 datafiles.
 // Jan/2018: 	Naiya Patel 	 - Edited/cleaned up code using rename function.
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Oct/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
@@ -30,7 +31,7 @@ local sp char(13) char(10) char(13) char(10)  // Define spacer.
 version 13                                    // Enforce version compatibility.
 di c(pwd)                                     // Confrim working directory.
 
-forvalues yindex = 2002 / 2016 {
+forvalues yindex = 2002 / 2017 {
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFFY`yindex'_Data_Stata.zip .
@@ -82,8 +83,8 @@ forvalues yindex = 2002 / 2016 {
 	di `sp'							  // Spacer for the output.
 	
 /*######################################################################
-				This block of code reshapes the data. reshape might 
-				be a better approach. Advantage of not using reshape
+				This block of code reshapes the data. reshape (command) 
+				might be a better approach. Advantage of not using reshape
 				is opportunity to modify data lables for better 
 				identification of variables with -desc-, -codebook-.
 #######################################################################*/
@@ -161,8 +162,8 @@ forvalues yindex = 2002 / 2016 {
 }
 
 // Build the multi-year panel data set.
-use effy2016_wide_data_stata.dta, clear					// Open most recent file
-forvalues fname = 2015(-1)2002 {						// as the base. Then,
+use effy2017_wide_data_stata.dta, clear					// Open most recent file
+forvalues fname = 2016(-1)2002 {						// as the base. Then,
 	append using effy`fname'_wide_data_stata.dta, force // assemble the panel set.
 }
 
