@@ -52,7 +52,7 @@ Do File Name & Description | Suggested Nameing Convention Where `YY` is the last
 ---------------------------|-----------------------------
 `IPEDSDirInfo02to17.do` <br> Produces a panel data set that includes IPEDS directory information survey files. | `IPEDSDirInfo02to17.log` <br> `IPEDSDirInfo02to17.dta`
 `IPEDSInstChar02to17.do` <br> Produces a panel data set that includes IPEDS institutional characteristics survey files. This series contains test score, admission, and other similar data points that were previously found in the institutional chracteristics survey files. IPEDS introduced seperate survey file for "Admissions and Test Scores" in 2014. | `IPEDSInstChar02to17.log` <br> `IPEDSInstChar02to17.dta`
-`IPEDS12MoEnrl02to16.do` <br> Produces a panel data set that includes IPEDS 12 month enrollment survey files. This series contains 12-month unduplicated headcount. IPEDS frequently modified variable naming conventions in this series. Details related variable naming conventions identified in do file. | `IPEDS12MoEnrl02to16.log` <br> `IPEDS12MoEnrl02to16.dta`
+`IPEDS12MoEnrl02to17.do` <br> Produces a panel data set that includes IPEDS 12 month enrollment survey files. This series contains 12-month unduplicated headcount. IPEDS frequently modified variable naming conventions in this series. Details related variable naming conventions identified in do file. | `IPEDS12MoEnrl02to17.log` <br> `IPEDS12MoEnrl02to17.dta`
 `IPEDS12MoInstrAct02to16.do` <br> Produces a panel data set that includes IPEDS 12 month instructional activity survey files. This series contains data on instructional activity measured in total credit and/or contact hours delivered by institutions during a 12-month period. The credit hour and contact hour activity data are used to derive 12-month full-time equivalent enrollments for both undergraduate and graduate levels. | `IPEDS12MoInstrAct02to16.log` <br> `IPEDS12MoInstrAct02to16.dta`
 `IPEDSGradRt02to16.do` <br> Produces a panel data set that includes IPEDS graduation rates. This series contains the graduation rate status for the cohort of full-time, first-time degree/certificate-seeking undergraduates in both four year and two year institutions. **This routine builds data for four-year institutions only, however.** | `IPEDSGrad02to16.log` <br> `IPEDSGrad02to16.dta`
 `IPEDSFallEnrl02to16SrsA.do` <br> Produces a panel data set that includes IPEDS fall enrollment rates. This series contains the fall enrollment rates status including race/ethnicity, gender, attendance status, and level of student. | `IPEDSFallEnrl02to16SrsA.log` <br> `IPEDSFallEnrl02to16SrsA.dta`
@@ -68,7 +68,7 @@ Recommend using the naming convetions from the above table when prompted for a l
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoEnrl02to16.do
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoInstrAct02to16.do
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoInstrAct02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSGrad02to16.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSFallEnrl02to16SrsA.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSFallEnrl02to16SrsB.do
