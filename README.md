@@ -115,4 +115,4 @@ Date      | Developer          | Description
 17Jul2018 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/24).
 15Jan2019 | Adam Ross Nelson   | Updated to include 2017 data files.
 26Jan2019 | Adam Ross Nelson   | Added to Supp sub dir and related doc.
-17Aug2019 | Adam Ross NElson   | Solved: 
+17Aug2019 | Adam Ross NElson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/31) 
