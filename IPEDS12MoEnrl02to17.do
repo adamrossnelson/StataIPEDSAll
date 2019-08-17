@@ -168,6 +168,13 @@ forvalues fname = 2016(-1)2002 {						// as the base. Then,
 	append using effy`fname'_wide_data_stata.dta, force // assemble the panel set.
 }
 
+// Correct duplicate value labels (which will work with Stata). But causes
+// error when using data in other settings (e.g. Python Pandas).
+// Documentation: https://stackoverflow.com/a/46038793/9572143
+qui labelbook, length(12)
+qui return list, all
+qui numlabel `r(nuniq)', add
+
 // Move up file directory level, compress, add notes.
 // Save resulting panel data set.
 cd ..
