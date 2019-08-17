@@ -67,7 +67,7 @@ Recommend using the naming convetions from the above table when prompted for a l
 ``` Stata
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to17.do
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoEnrl02to16.do
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoEnrl02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoInstrAct02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSGrad02to16.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSFallEnrl02to16SrsA.do
@@ -115,3 +115,4 @@ Date      | Developer          | Description
 17Jul2018 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/24).
 15Jan2019 | Adam Ross Nelson   | Updated to include 2017 data files.
 26Jan2019 | Adam Ross Nelson   | Added to Supp sub dir and related doc.
+17Aug2019 | Adam Ross NElson   | Solved: 
