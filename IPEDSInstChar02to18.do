@@ -6,7 +6,8 @@ cls
 // data from the INSTITUTIONAL CHRACTERISTICS survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// Oct/2019:    Adam Ross Nelson - Updated to includ 2018 datafiles.
+// Oct/2019:    Adam Ross Nelson - Updated to include 2018 IC datafiles.
+//                                 The 2018 ADM files not yet published.
 // Jan/2019:    Adam Ross Nelson - Refactored, reduced line count.
 // Dec/2018:    Adam Ross Nelson - Updated to include 2017 datafiles.
 // Jan/2018: 	Naiya Patel 	 - Updated to include 2016 (rv) datafiles. 
@@ -36,7 +37,7 @@ di c(pwd)                                       // Confrim working directory.
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
 // ADM series (Admissions and Test Scores) Introduced in 2014
-forvalues fname = 2014/2018 {
+forvalues fname = 2014/2017 {
 	// Copy and unzip data and do files.
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
@@ -57,8 +58,8 @@ forvalues fname = 2014/2018 {
 }
 
 // TODO: Merge the below and the above for loops into a single loop.
-forvalues fname = 2014/2018 {
-	if `fname' > 2007 & `fname' < 2018 {
+forvalues fname = 2014/2017 {
+	if `fname' > 2007 & `fname' < 2017 {
 		import delimited adm`fname'_rv_data_stata.csv, clear
 	}
 	else {
@@ -76,7 +77,7 @@ forvalues fname = 2014/2018 {
 
 // Loop designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
-forvalues fname = 2002 / 20187 {
+forvalues fname = 2002 / 2018 {
 	// Copy, unzip, and import data.
 	copy https://nces.ed.gov/ipeds/datacenter/data/IC`fname'_Data_Stata.zip .
 	unzipfile IC`fname'_Data_Stata.zip, replace
@@ -130,7 +131,7 @@ forvalues yindex = 2017(-1)2002 {                   // base (2018) and then, ass
 	append using ic`yindex'_data_stata.dta, force   // panel data set.
 	di `sp'                                         // Spacer for the output.
 }
-forvalues yindex = 2014/2018 {
+forvalues yindex = 2014/2017 {
 	merge 1:1 unitid isYr using "adm`yindex'_data_stata.dta", ///
 	nogenerate update force
 }
