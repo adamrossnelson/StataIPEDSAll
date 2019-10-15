@@ -44,13 +44,13 @@ Located at [adamrossnelson/StataIPEDSAll/tree/master/supp](https://github.com/ad
 * `abbrev.ado` Quickly abbreviates college & university names. For example, "echnology"  -> "Tech." or "Academy"     -> "Acad."
 * `stdstring.ado` Quickly standardizes a string variable to be the same across all units through a panel.
 * `standardgroups.do` Quickly writes group indicators. (e.g. inB10, etc.)
-* `drill_down_picker_builder.do` Makes spreadsheet that can populate a drill-down-pick list from IPEDS institutions.
+* `drill_down_picker_builder.do` Makes spreadsheet that can populate a drill-down-pick list from IPEDS institutions. 
 
 # 2. Usage
 
 Do File Name & Description | Suggested Nameing Convention Where `YY` is the last year of the survey file
 ---------------------------|-----------------------------
-`IPEDSDirInfo02to17.do` <br> Produces a panel data set that includes IPEDS directory information survey files. | `IPEDSDirInfo02to17.log` <br> `IPEDSDirInfo02to17.dta`
+`IPEDSDirInfo02to18.do` <br> Produces a panel data set that includes IPEDS directory information survey files. | `IPEDSDirInfo02to18.log` <br> `IPEDSDirInfo02to18.dta`
 `IPEDSInstChar02to17.do` <br> Produces a panel data set that includes IPEDS institutional characteristics survey files. This series contains test score, admission, and other similar data points that were previously found in the institutional chracteristics survey files. IPEDS introduced seperate survey file for "Admissions and Test Scores" in 2014. | `IPEDSInstChar02to17.log` <br> `IPEDSInstChar02to17.dta`
 `IPEDS12MoEnrl02to17.do` <br> Produces a panel data set that includes IPEDS 12 month enrollment survey files. This series contains 12-month unduplicated headcount. IPEDS frequently modified variable naming conventions in this series. Details related variable naming conventions identified in do file. | `IPEDS12MoEnrl02to17.log` <br> `IPEDS12MoEnrl02to17.dta`
 `IPEDS12MoInstrAct02to16.do` <br> Produces a panel data set that includes IPEDS 12 month instructional activity survey files. This series contains data on instructional activity measured in total credit and/or contact hours delivered by institutions during a 12-month period. The credit hour and contact hour activity data are used to derive 12-month full-time equivalent enrollments for both undergraduate and graduate levels. | `IPEDS12MoInstrAct02to16.log` <br> `IPEDS12MoInstrAct02to16.dta`
@@ -65,7 +65,7 @@ These do files can be run from Stata's command line. Code provided below.
 Recommend using the naming convetions from the above table when prompted for a log file name and location. Note, the `YYtoYY` suffix on these do files will be removed upon close of [this issue - removal of vestigial suffix](https://github.com/adamrossnelson/StataIPEDSAll/issues/27).
 
 ``` Stata
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to17.do
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to18.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoEnrl02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoInstrAct02to17.do
@@ -115,4 +115,5 @@ Date      | Developer          | Description
 17Jul2018 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/24).
 15Jan2019 | Adam Ross Nelson   | Updated to include 2017 data files.
 26Jan2019 | Adam Ross Nelson   | Added to Supp sub dir and related doc.
-17Aug2019 | Adam Ross NElson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/31) 
+17Aug2019 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/31) 
+15Oct2019 | Adam Ross Nelson   | Began updates to include 2018 data.
