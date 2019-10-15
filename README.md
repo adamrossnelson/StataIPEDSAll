@@ -44,7 +44,8 @@ Located at [adamrossnelson/StataIPEDSAll/tree/master/supp](https://github.com/ad
 * `abbrev.ado` Quickly abbreviates college & university names. For example, "echnology"  -> "Tech." or "Academy"     -> "Acad."
 * `stdstring.ado` Quickly standardizes a string variable to be the same across all units through a panel.
 * `standardgroups.do` Quickly writes group indicators. (e.g. inB10, etc.)
-* `drill_down_picker_builder.do` Makes spreadsheet that can populate a drill-down-pick list from IPEDS institutions. 
+
+Formerly in Supplemental Items was `drill_down_picker_builder.do` which prepares a spreadsheet that can populate a drill-down-pick list from IPEDS institutions. This item has migrated to: [adamrossnelson/nces_inst_pick_list_builder](https://github.com/adamrossnelson/nces_inst_pick_list_builder).
 
 # 2. Usage
 
