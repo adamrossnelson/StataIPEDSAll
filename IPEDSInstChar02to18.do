@@ -6,6 +6,7 @@ cls
 // data from the INSTITUTIONAL CHRACTERISTICS survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Oct/2019:    Adam Ross Nelson - Updated to includ 2018 datafiles.
 // Jan/2019:    Adam Ross Nelson - Refactored, reduced line count.
 // Dec/2018:    Adam Ross Nelson - Updated to include 2017 datafiles.
 // Jan/2018: 	Naiya Patel 	 - Updated to include 2016 (rv) datafiles. 
@@ -35,7 +36,7 @@ di c(pwd)                                       // Confrim working directory.
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
 // ADM series (Admissions and Test Scores) Introduced in 2014
-forvalues fname = 2014/2017 {
+forvalues fname = 2014/2018 {
 	// Copy and unzip data and do files.
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
@@ -55,11 +56,9 @@ forvalues fname = 2014/2017 {
 	di `sp'								// Spacing to assist reading output.
 }
 
-// TODO: Place these four years of adm20YY_rv_data_stata in for loop.
-// DONE: Created for loop. Jan 2019. - arn (Remove comment in future commit)
-
-forvalues fname = 2014/2017 {
-	if `fname' > 2007 & `fname' < 2017 {
+// TODO: Merge the below and the above for loops into a single loop.
+forvalues fname = 2014/2018 {
+	if `fname' > 2007 & `fname' < 2018 {
 		import delimited adm`fname'_rv_data_stata.csv, clear
 	}
 	else {
@@ -77,13 +76,13 @@ forvalues fname = 2014/2017 {
 
 // Loop designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
-forvalues fname = 2002 / 2017 {
+forvalues fname = 2002 / 20187 {
 	// Copy, unzip, and import data.
 	copy https://nces.ed.gov/ipeds/datacenter/data/IC`fname'_Data_Stata.zip .
 	unzipfile IC`fname'_Data_Stata.zip, replace
 	// File name conventions not consistent through the years. 2002-2007 
 	// and 2009 no _rv_ file. 2008 and 2010-2016 _rv_ file available.	
-	if `fname' == 2008 | (`fname' > 2009 & `fname' < 2017) {
+	if `fname' == 2008 | (`fname' > 2009 & `fname' < 2018) {
 		import delimited ic`fname'_rv_data_stata.csv, clear
 	}
 	else {
@@ -126,12 +125,12 @@ forvalues fname = 2002 / 2017 {
 // most recent dta file. Procedure assumes most recent dta value lables will
 // be most valid and reliable for the intended research or analytical purpose.
 di `sp'	                                            // Spacer for the output.
-use ic2017_data_stata.dta, clear                    // Open most recent file as the
-forvalues yindex = 2016(-1)2002 {                   // base (2017) and then, assemble
+use ic2018_data_stata.dta, clear                    // Open most recent file as the
+forvalues yindex = 2017(-1)2002 {                   // base (2018) and then, assemble
 	append using ic`yindex'_data_stata.dta, force   // panel data set.
 	di `sp'                                         // Spacer for the output.
 }
-forvalues yindex = 2014/2017 {
+forvalues yindex = 2014/2018 {
 	merge 1:1 unitid isYr using "adm`yindex'_data_stata.dta", ///
 	nogenerate update force
 }
@@ -164,7 +163,7 @@ noi di as result ""
 noi di as result "	  Note regarding history of IC and ADM survey files. ADM series"
 noi di as result "	  introduced in 2014. Some variables formerly found in the IC"
 noi di as result "	  series moved to ADM series. This routine builds ADM and IC"
-noi di as result "	  sets apart. Then merges the 2014 through 2017 ADM surveys."
+noi di as result "	  sets apart. Then merges the 2014 through 2018 ADM surveys."
 noi di as result ""
 noi di as result "	  Also note description of ADM series from NCES dictionary..."
 noi di as result "	  These [ADM] data are applicable for institutions that do not"
