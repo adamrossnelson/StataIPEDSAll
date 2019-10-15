@@ -6,6 +6,7 @@ cls
 // data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Oct/2018:  Adam Ross Nelson - Updated to include 2018 datafiles.
 // Aug/2018:  Adam Ross Nelson - Updated to include 2017 datafiles.
 // Feb/2018:  Adam Ross Nelson - Created locale1 urbanicity crosswalk.
 // Oct/2017:  Adam Ross Nelson - Updated to include 2016 datafiles.
@@ -33,7 +34,7 @@ di c(pwd)                                     // Confrim working directory.
 
 // Loop is designed to downlaod zip files and NCES provided Stata do files.
 // Stata do files need cleaning (removal stray char(13) + char(10) + char(34)).
-forvalues fname = 2002 / 2017 {
+forvalues fname = 2002 / 2018 {
 	// Copy, unzip, and import data.
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
@@ -90,8 +91,8 @@ forvalues fname = 2002 / 2017 {
 // Loop through dta files created above. Assmble panel data set. Starts with 
 // most recent dta file. Procedure assumes most recent dta value labels will 
 // be most valid and reliable for the intended research or analytical purpose.
-use hd2017_data_stata.dta, clear
-forvalues yindex = 2016(-1)2002 {
+use hd2018_data_stata.dta, clear
+forvalues yindex = 2017(-1)2002 {
 	display "`yindex'"						// Output for log file.
 	append using "hd`yindex'_data_stata.dta", force
 	di `sp'									// Spacing for log file.
