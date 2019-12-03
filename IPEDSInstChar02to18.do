@@ -132,7 +132,7 @@ forvalues yindex = 2017(-1)2002 {                   // base (2018) and then, ass
 	append using ic`yindex'_data_stata.dta, force   // panel data set.
 	di `sp'                                         // Spacer for the output.
 }
-forvalues yindex = 2014/2017 {
+forvalues yindex = 2014/2018 {
 	merge 1:1 unitid isYr using "adm`yindex'_data_stata.dta", ///
 	nogenerate update force
 }
