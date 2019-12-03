@@ -38,7 +38,7 @@ di c(pwd)                                       // Confrim working directory.
 // Loop designed to download zip files and NCES provided Stata do files.
 // Stata do files need cleaning (remove stray char(13) + char(10) + char(34)).
 // ADM series (Admissions and Test Scores) Introduced in 2014
-forvalues fname = 2014/2017 {
+forvalues fname = 2014/2018 {
 	// Copy and unzip data and do files.
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
