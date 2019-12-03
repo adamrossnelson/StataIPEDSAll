@@ -67,7 +67,7 @@ Recommend using the naming convetions from the above table when prompted for a l
 
 ``` Stata
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to18.do
-do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to17.do
+do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSInstChar02to18.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoEnrl02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDS12MoInstrAct02to17.do
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSGrad02to16.do
