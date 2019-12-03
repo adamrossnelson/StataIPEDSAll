@@ -6,6 +6,7 @@ cls
 // data from the INSTITUTIONAL CHRACTERISTICS survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
+// Dec/2019:    Adam Ross Nelson - Updated to include 2018 ADM files.
 // Oct/2019:    Adam Ross Nelson - Updated to include 2018 IC datafiles.
 //                                 The 2018 ADM files not yet published.
 // Jan/2019:    Adam Ross Nelson - Refactored, reduced line count.
@@ -58,8 +59,8 @@ forvalues fname = 2014/2017 {
 }
 
 // TODO: Merge the below and the above for loops into a single loop.
-forvalues fname = 2014/2017 {
-	if `fname' > 2007 & `fname' < 2017 {
+forvalues fname = 2014/2018 {
+	if `fname' > 2007 & `fname' < 2018 {
 		import delimited adm`fname'_rv_data_stata.csv, clear
 	}
 	else {
