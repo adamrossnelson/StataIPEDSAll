@@ -4,7 +4,8 @@ cls
 
 // Use this code to download, build, and save to the local computer data 
 // from the FALL ENROLLMENT survey (B Series) at the US DOE's Integrated
-// Postsecondary Education Data Stystem.
+// Postsecondary Education Data Stystem. From IPEDS website: "Age category, 
+// gender, attendance status, and level of student."
 
 // Mar/2018:  Naiya Patel - Completed B Series.  
 // Feb/2018:  Naiya Patel - Original author, initial build.
