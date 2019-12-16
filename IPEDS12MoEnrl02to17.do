@@ -6,7 +6,8 @@ cls
 // data from the DIRECTORY INFORMATION survey at the US DOE's
 // Integrated Postsecondary Education Data Stystem.
 
-// May/2019     Adam Ross Nelson - Updated to include 2017 datafiles.
+// Dec 2019:    Adam Ross Nelson - Updated to include 2018 datafiles.
+// May/2019:    Adam Ross Nelson - Updated to include 2017 datafiles.
 // Jan/2018: 	Naiya Patel 	 - Edited/cleaned up code using rename function.
 // Oct/2017:	Adam Ross Nelson - Updated to include 2016 datafiles.
 // Oct/2017:	Adam Ross Nelson - Updated to use sshnd file picker.
@@ -31,7 +32,7 @@ local sp char(13) char(10) char(13) char(10)  // Define spacer.
 version 13                                    // Enforce version compatibility.
 di c(pwd)                                     // Confrim working directory.
 
-forvalues yindex = 2002 / 2017 {
+forvalues yindex = 2002 / 2018 {
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
 	copy https://nces.ed.gov/ipeds/datacenter/data/EFFY`yindex'_Data_Stata.zip .
@@ -51,7 +52,7 @@ forvalues yindex = 2002 / 2017 {
 	// Naming conventions changed. Manage evolving name conventions.
 	// 2002 to 2006 there are no revised survey data files.
 	// Most recent year often does not have revised survey file.
-	if inlist(`yindex', 2002, 2003, 2004, 2005, 2006, 2017) {
+	if inlist(`yindex', 2002, 2003, 2004, 2005, 2006, 2018) {
 		import delimited effy`yindex'_data_stata.csv, clear
 	}
 	else {
@@ -133,7 +134,7 @@ forvalues yindex = 2002 / 2017 {
 	rename unitidgra unitid
 	drop effylev*
 	
-	// Foreach loop adds "GRA" previx to all of the variable lables.
+	// Foreach loop adds "GRA" prefix to all of the variable lables.
 	// Which will make identifying the level in wide format more intuitive.
 	foreach varname of varlist _all {
 		local templab : var label `varname'
@@ -163,8 +164,8 @@ forvalues yindex = 2002 / 2017 {
 }
 
 // Build the multi-year panel data set.
-use effy2017_wide_data_stata.dta, clear					// Open most recent file
-forvalues fname = 2016(-1)2002 {						// as the base. Then,
+use effy2018_wide_data_stata.dta, clear					// Open most recent file
+forvalues fname = 2017(-1)2002 {					// as the base. Then,
 	append using effy`fname'_wide_data_stata.dta, force // assemble the panel set.
 }
 
