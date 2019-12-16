@@ -7,6 +7,7 @@ cls
 // Postsecondary Education Data Stystem. From IPEDS Website: "Race/ethnicity, 
 // gender, attendance status, and level of student."
 
+// Dec/2019:  Adam Ross Nelson - Updated for 2017 & 2018 data.
 // Mar/2018:  Naiya Patel - Completed A Series.  
 // Feb/2018:  Naiya Patel - Original author, initial build.
 
@@ -28,7 +29,7 @@ di c(pwd)                                     // Confrim working directory.
 
 // Loop designed to download zip files and NCES provided Stata do files. 
 // Stata do files need cleaning (removal of stray char(13) + char(10) + char(34)).
-forvalues yindex = 2002 / 2016 {
+forvalues yindex = 2002 / 2018 {
 	// Copy, unzip, and import data files. 
 	// Stata 13 introduced support for copy to work with https.
 	// Use command -update all- if Stata 13 and copy returns an error.
@@ -58,7 +59,7 @@ forvalues yindex = 2002 / 2016 {
 
 	// File name conventions not consistent through the years.
 	// 2007, 2008, 2010-2015 provide _rv_ editions of the data.
-	if (`yindex' > 2006 & `yindex' < 2009) | (`yindex' > 2009 & `yindex' < 2016) {
+	if inlist(`yindex',2007,2008,2010,2011,2012,2013,2014,2015,2016,2017) {
 		import delimited ef`yindex'a_rv_data_stata.csv, clear
 	}
 	else {
@@ -155,8 +156,8 @@ forvalues yindex = 2002 / 2016 {
 	di `sp'	                                                    // Spacer for the output.
 }
 
-use ef2016a_data_stata.dta, clear
-forvalues yindex = 2015(-1)2002 {
+use ef2018a_data_stata.dta, clear
+forvalues yindex = 2017(-1)2002 {
 	display "Appending data file from `yindex'"                 // Output for log file.
 	append using "ef`yindex'a_data_stata.dta", force
 	di `sp'                                                     // Spacing for log file.
