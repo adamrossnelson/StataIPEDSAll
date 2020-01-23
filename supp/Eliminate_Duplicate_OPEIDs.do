@@ -13,6 +13,9 @@
 //    garantee that the drops that serve one reserach or analytical purpose
 //    will generalize to also serve other research or analytical purposes.
 //
+//
+//    ALTERNATIVE: https://nscresearchcenter.org/workingwithourdata/) -- 
+//                 https://nscresearchcenter.org/wp-content/uploads/NSC_SCHOOL_CODE_TO_IPEDS_UNIT_ID_XWALK.xlsx)
 //-----------------------------------------------------------------------------
 
 set more off
