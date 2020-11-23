@@ -27,9 +27,9 @@ At 7min 10 seconds Professor Ott provides introduction to the Equity in Athletic
 
 <!-- /TOC -->
 
-## 1.2. IPEDS Update Cylces (Revised releases)
+## 1.2. IPEDS Update Cycles (Revised releases)
 
-Occassionaly IPEDS provides preliminary release data which is later replaced with revised data. [They publish information about their schedule](https://surveys.nces.ed.gov/ipeds/ViewContent.aspx?contentId=15). IPEDS conventions place "rv" in csv filenames to denote revised data. As I am able I update these do files to reference revised data. 
+Occasionally IPEDS provides preliminary release data, and then later provides revised data. [They publish information about their schedule](https://surveys.nces.ed.gov/ipeds/ViewContent.aspx?contentId=15). IPEDS conventions place "rv" in csv filenames to denote revised data. As I am able, I update these do files to reference revised data. 
 
 If I'm behind on an update send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how. Updates logged in do file headers. An aggregated [Testing & Development Log](#4-testing-and-development-log) is available [below](#4-testing-and-development-log).
 
