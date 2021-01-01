@@ -33,6 +33,8 @@ Occasionally IPEDS provides preliminary release data, and then later provides re
 
 If I'm behind on an update send me a note. Or branch the project, revise on your own, and submit a pull request. For beginners, contact me and I'll help you learn how. Updates logged in do file headers. An aggregated [Testing & Development Log](#4-testing-and-development-log) is available [below](#4-testing-and-development-log).
 
+[More from IPEDS Twitter about the survey cycle.](https://twitter.com/ipeds_nces/status/1345040607635451904?s=20)
+
 ## 1.3. Additional Background
 
 IPEDS provides an [origins report](https://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=NPEC2012833) which documents the history of survey survey items.
