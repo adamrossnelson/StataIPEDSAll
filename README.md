@@ -1,6 +1,6 @@
 # 1. Project StataIPEDSAll Introduction
 
-These files will download, build, and save to the local computer data from the US DOE's Integrated Postsecondary Education Data Stystem. All files are intended to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended as reverse compatible, but not tested. **Notes about assumptions or limitations maintained in the do files.**
+These files will download, build, and save to the local computer data from the US DOE's Integrated Postsecondary Education Data System. This project aims to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended as reverse compatible, but not tested. **Notes about assumptions or limitations maintained in the do files.**
 
 For a related/similar repo built for R see [btskinner/downloadipeds](https://github.com/btskinner/downloadipeds).
 
@@ -51,21 +51,20 @@ Formerly in Supplemental Items was `drill_down_picker_builder.do` which prepares
 
 # 2. Usage
 
-Do File Name & Description | Suggested Nameing Convention Where `YY` is the last year of the survey file
+Do File Name & Description | Suggested Naming Convention Where `YY` is the last year of the survey file
 ---------------------------|-----------------------------
 `IPEDSDirInfo02to18.do` <br> Produces a panel data set that includes IPEDS directory information survey files. | `IPEDSDirInfo02to18.log` <br> `IPEDSDirInfo02to18.dta`
-`IPEDSInstChar02to17.do` <br> Produces a panel data set that includes IPEDS institutional characteristics survey files. This series contains test score, admission, and other similar data points that were previously found in the institutional chracteristics survey files. IPEDS introduced seperate survey file for "Admissions and Test Scores" in 2014. | `IPEDSInstChar02to17.log` <br> `IPEDSInstChar02to17.dta`
-`IPEDS12MoEnrl02to18.do` <br> Produces a panel data set that includes IPEDS 12 month enrollment survey files. This series contains 12-month unduplicated headcount. IPEDS frequently modified variable naming conventions in this series. Details related variable naming conventions identified in do file. | `IPEDS12MoEnrl02to18.log` <br> `IPEDS12MoEnrl02to18.dta`
+`IPEDSInstChar02to17.do` <br> Produces a panel data set that includes IPEDS institutional characteristics survey files. This series contains test score, admission, and other similar data points previously found in the institutional characteristics survey files. IPEDS introduced separate survey file for "Admissions and Test Scores" in 2014. | `IPEDSInstChar02to17.log` <br> `IPEDSInstChar02to17.dta`
+`IPEDS12MoEnrl02to18.do` <br> Produces a panel data set that includes IPEDS 12 month enrollment survey files. This series contains 12-month unduplicated headcount. IPEDS frequently modified variable naming conventions in this series. Details related to variable naming conventions identified in do file. | `IPEDS12MoEnrl02to18.log` <br> `IPEDS12MoEnrl02to18.dta`
 `IPEDS12MoInstrAct02to16.do` <br> Produces a panel data set that includes IPEDS 12 month instructional activity survey files. This series contains data on instructional activity measured in total credit and/or contact hours delivered by institutions during a 12-month period. The credit hour and contact hour activity data are used to derive 12-month full-time equivalent enrollments for both undergraduate and graduate levels. | `IPEDS12MoInstrAct02to16.log` <br> `IPEDS12MoInstrAct02to16.dta`
 `IPEDSGradRt02to16.do` <br> Produces a panel data set that includes IPEDS graduation rates. This series contains the graduation rate status for the cohort of full-time, first-time degree/certificate-seeking undergraduates in both four year and two year institutions. **This routine builds data for four-year institutions only, however.** | `IPEDSGrad02to16.log` <br> `IPEDSGrad02to16.dta`
 `IPEDSFallEnrl02to16SrsA.do` <br> Produces a panel data set that includes IPEDS fall enrollment rates. This series contains the fall enrollment rates status including race/ethnicity, gender, attendance status, and level of student. | `IPEDSFallEnrl02to16SrsA.log` <br> `IPEDSFallEnrl02to16SrsA.dta`
 `IPEDSFallEnrl02to16SrsB.do` <br> Produces a panel data set that includes IPEDS fall enrollment rates. This series contains the fall enrollment rates status including age, gender, attendance status, and level of student. **This routine builds data undergraduate level of study only, however.** | `IPEDSFallEnrl02to16SrsB.log` <br> `IPEDSFallEnrl02to16SrsB.dta`
 
 # 3. Run From Online
+No installation required. Run these do files from the Stata’s command line. Code provided below.
 
-These do files can be run from Stata's command line. Code provided below.
-
-Recommend using the naming convetions from the above table when prompted for a log file name and location. Note, the `YYtoYY` suffix on these do files will be removed upon close of [this issue - removal of vestigial suffix](https://github.com/adamrossnelson/StataIPEDSAll/issues/27).
+Recommend using the naming conventions from the above table when prompted for a log file name and location. Note that close of [this issue - removal of vestigial suffix](https://github.com/adamrossnelson/StataIPEDSAll/issues/27) will elimiate the use of the `YYtoYY` suffix on these do files.
 
 ``` Stata
 do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSDirInfo02to18.do
@@ -79,7 +78,7 @@ do https://raw.githubusercontent.com/adamrossnelson/StataIPEDSAll/master/IPEDSFa
 
 # 4. Contextual Note
 
-Contextual note: The universe of higher education data is vast and complicated. This illustration from http://www.studentclearninghouse.org is a helpful illustration of the range and compexity.
+Contextual note: The universe of higher education data is vast and complicated. This illustration from http://www.studentclearninghouse.org is a helpful illustration of the range and complexity.
 
 ![Higher Education Data Illustration](images/HEDataChart.jpg)
 
