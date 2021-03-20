@@ -39,6 +39,8 @@ If I'm behind on an update send me a note. Or branch the project, revise on your
 
 IPEDS provides an [origins report](https://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=NPEC2012833) which documents the history of survey survey items.
 
+[Additional reading about the landscape of higher education data from IHEP.](https://ihep.org/wp-content/uploads/2016/05/uploads_docs_pubs_ihep_toward_convergence_0.pdf)
+
 ## 1.4. Supplemental Items
 
 Located at [adamrossnelson/StataIPEDSAll/tree/master/supp](https://github.com/adamrossnelson/StataIPEDSAll/tree/master/supp) are useful supplemental routines that will enable quicker analysis of IPEDS data.
