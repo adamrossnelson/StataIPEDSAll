@@ -7,10 +7,9 @@ For a related/similar repo built for R see [btskinner/downloadipeds](https://git
 **[Brief Demonstration Video Here.](https://mediaspace.wisc.edu/media/IPEDS+All+Demonstration/1_8a45e0b7)**
 
 
-Professor Molly Ott provides a YouTube overview of IPEDS: <br>
-[![Image of IPEDS Video](http://img.youtube.com/vi/dCagXsBf9Vs/0.jpg)](https://www.youtube.com/watch?v=dCagXsBf9Vs)<br>
-At 6min 30 seconds Professor Ott also explains the Clery Campus Safety Data.<br>
-At 7min 10 seconds Professor Ott provides introduction to the Equity in Athletics Data Analysis (EADA) Tool.<br>
+I provide a YouTube overview of IPEDS: <br>
+[![Image of IPEDS Video](http://img.youtube.com/vi/H15NM9mbbhk/0.jpg)](https://www.youtube.com/watch?v=H15NM9mbbhk)<br>
+
 
 ## 1.1. Table of Contents
 <!-- TOC -->
