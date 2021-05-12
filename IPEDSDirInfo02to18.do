@@ -97,7 +97,11 @@ forvalues yindex = 2017(-1)2002 {
 	append using "hd`yindex'_data_stata.dta", force
 	di `sp'									// Spacing for log file.
 }
-		
+
+// Cross-reference on how urbanicity has changed:
+// Manly, C. A., Wells, R. S., & Kommers, S. (2019). Who are rural students? How definitions 
+// of rurality affect research on college completion. Research in Higher Education, 1-16.
+
 // In 2005 urbanicity index changed. Three options.
 // First, match pre-2005 index to the the 2005 index.
 gen locale1 = locale
