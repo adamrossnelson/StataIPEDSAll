@@ -41,6 +41,8 @@ If I'm behind on an update send me a note. Or branch the project, revise on your
 
 IPEDS provides an [origins report](https://nces.ed.gov/pubsearch/pubsinfo.asp?pubid=NPEC2012833) which documents the history of survey survey items.
 
+A recent article (Miller & Shedd, 2019) provides a helpful overview of the history of these data. Miller, E. S., & Shedd, J. M. (2019). The history and evolution of IPEDS. New Directions for Institutional Research, 2019(181), 47–58. Retrieved from: https://doi.org/10.1002/ir.20297.
+
 [Additional reading about the landscape of higher education data from IHEP.](https://ihep.org/wp-content/uploads/2016/05/uploads_docs_pubs_ihep_toward_convergence_0.pdf)
 
 ## 1.4. Supplemental Items
@@ -123,3 +125,4 @@ Date      | Developer          | Description
 26Jan2019 | Adam Ross Nelson   | Added to Supp sub dir and related doc.
 17Aug2019 | Adam Ross Nelson   | Closed [issue](https://github.com/adamrossnelson/StataIPEDSAll/issues/31) 
 15Oct2019 | Adam Ross Nelson   | Began updates to include 2018 data.
+26May2022 | Adam Ross Nelson   | Added reference to Miller and Shedd, 2019.
