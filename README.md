@@ -2,7 +2,7 @@
 
 These files will download, build, and save to the local computer data from the US DOE's Integrated Postsecondary Education Data System. This project aims to be reverse compatible to Version 13. Use of version control. Also uses `saveold`. Intended as reverse compatible, but not tested. **Notes about assumptions or limitations maintained in the do files.**
 
-For a related/similar repo built for R see [btskinner/downloadipeds](https://github.com/btskinner/downloadipeds).
+For a related/similar repo built for R see [btskinner/downloadipeds](https://github.com/btskinner/downloadipeds). If you might be interested in an old fashioned spreadsheet consider [this very user friendly option from Jon Boeckenstedt](https://twitter.com/JonBoeckenstedt/status/1574998043031928832?s=20&t=uTHrcsvsjWwg0PWwNd_DRQ).
 
 **[Brief Demonstration Video Here.](https://mediaspace.wisc.edu/media/IPEDS+All+Demonstration/1_8a45e0b7)**
 
